@@ -1,4 +1,2 @@
-fastapi
-uvicorn
-python-dotenv
-zadarma-api-v1
+python-telegram-bot==20.3
+httpx==0.24.0
