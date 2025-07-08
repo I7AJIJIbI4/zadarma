@@ -1,49 +1,36 @@
-import time
-import hmac
-import hashlib
-import base64
-import requests
 import logging
+from config import ZADARMA_API_KEY, ZADARMA_API_SECRET, ZADARMA_SIP_ACCOUNT
+from user_api.zadarma.api import ZadarmaAPI
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("zadarma_api")
+zadarma = ZadarmaAPI(ZADARMA_API_KEY, ZADARMA_API_SECRET)
 
-def make_zadarma_call(from_number, to_number):
-    method = "v1/call/request/"
-    base_url = "https://api.zadarma.com/"
-    timestamp = int(time.time())
-    query_string = f"{method}{timestamp}"
-
-    # Підпис для авторизації
-    sign = hmac.new(
-        ZADARMA_API_SECRET.encode("utf-8"),
-        query_string.encode("utf-8"),
-        hashlib.sha1
-    ).hexdigest()
-
-    headers = {
-        "Authorization": f"Basic {base64.b64encode(f'{ZADARMA_API_KEY}:{sign}'.encode()).decode()}",
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json"
-    }
-
-    payload = {
-        "number_from": from_number,
-        "number_to": to_number,
-        "caller_id": from_number,
-        "record": 0,
-        "auto_answer": 1
-    }
-
-    url = base_url + method
+def make_zadarma_call(to_number):
     try:
-        response = requests.post(url, json=payload, headers=headers, timeout=10)
-        response.raise_for_status()
-        json_resp = response.json()
-        logger.info(f"Zadarma call response: {json_resp}")
-        return json_resp
+        params = {
+            'from': f'sip{ZADARMA_SIP_ACCOUNT}',  # ← тут виправлено
+            'to': to_number,
+            'voice_start': 'continue'
+        }
+        response = zadarma.call('/v1/request/callback/', params, request_type='GET')
+        logger.info(f"Виконано дзвінок Zadarma: {response}")
+        return response
     except Exception as e:
-        logger.error(f"Помилка при дзвінку Zadarma: {e}")
-        return {"error": str(e)}
+        logger.error(f"Помилка дзвінка: {e}")
+        return f"Помилка: {e}"
 
-# Задля роботи цього модуля треба імпортувати конфіги
-from config import ZADARMA_API_KEY, ZADARMA_API_SECRET
+def make_zadarma_call_handler(to_number):
+    def handler(bot, update):
+        bot.send_message(chat_id=update.effective_chat.id, text="Ініціюю дзвінок...")
+        result = make_zadarma_call(to_number)
+        bot.send_message(chat_id=update.effective_chat.id, text=f"Результат дзвінка:\n{result}")
+    return handler
+
+def get_my_sip_info():
+    try:
+        response = zadarma.call('/v1/sip/')
+        logger.info(f"Інформація про SIP-номери: {response}")
+        return response
+    except Exception as e:
+        logger.error(f"Помилка отримання інформації про номер: {e}")
+        return str(e)

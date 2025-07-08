@@ -1,0 +1,126 @@
+bot.py:47: TelegramDeprecationWarning: Old Handler API is deprecated - see https://git.io/fxJuV for details
+  updater = Updater(TELEGRAM_TOKEN)
+2025-07-08 14:19:14,831 - telegram.ext.dispatcher - ERROR - An error was raised while processing the update and an uncaught error was raised while handling the error with an error_handler
+Traceback (most recent call last):
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 340, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/handler.py", line 122, in handle_update
+    return self.callback(dispatcher.bot, update, **optional_args)
+  File "bot.py", line 23, in hvirtka
+    update.message.reply_text("Відчиняю хвіртку...")
+AttributeError: 'Bot' object has no attribute 'message'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 353, in process_update
+    self.dispatch_error(update, e)
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 524, in dispatch_error
+    callback(self.bot, update, error)
+TypeError: error() takes 2 positional arguments but 3 were given
+2025-07-08 14:19:14,832 - telegram.ext.dispatcher - ERROR - An error was raised while processing the update and an uncaught error was raised while handling the error with an error_handler
+Traceback (most recent call last):
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 340, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/handler.py", line 122, in handle_update
+    return self.callback(dispatcher.bot, update, **optional_args)
+  File "bot.py", line 23, in hvirtka
+    update.message.reply_text("Відчиняю хвіртку...")
+AttributeError: 'Bot' object has no attribute 'message'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 353, in process_update
+    self.dispatch_error(update, e)
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 524, in dispatch_error
+    callback(self.bot, update, error)
+TypeError: error() takes 2 positional arguments but 3 were given
+2025-07-08 14:23:01,952 - telegram.ext.updater - ERROR - Error while getting Updates: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2025-07-08 14:23:01,984 - telegram.ext.dispatcher - ERROR - An uncaught error was raised while handling the error
+Traceback (most recent call last):
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 326, in process_update
+    self.dispatch_error(None, update)
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 524, in dispatch_error
+    callback(self.bot, update, error)
+TypeError: error() takes 2 positional arguments but 3 were given
+2025-07-08 14:23:07,015 - telegram.ext.updater - ERROR - Error while getting Updates: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2025-07-08 14:23:07,017 - telegram.ext.dispatcher - ERROR - An uncaught error was raised while handling the error
+Traceback (most recent call last):
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 326, in process_update
+    self.dispatch_error(None, update)
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 524, in dispatch_error
+    callback(self.bot, update, error)
+TypeError: error() takes 2 positional arguments but 3 were given
+2025-07-08 14:23:13,075 - telegram.ext.updater - ERROR - Error while getting Updates: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2025-07-08 14:23:13,086 - telegram.ext.dispatcher - ERROR - An uncaught error was raised while handling the error
+Traceback (most recent call last):
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 326, in process_update
+    self.dispatch_error(None, update)
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 524, in dispatch_error
+    callback(self.bot, update, error)
+TypeError: error() takes 2 positional arguments but 3 were given
+2025-07-08 14:23:20,643 - telegram.ext.updater - ERROR - Error while getting Updates: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2025-07-08 14:23:20,652 - telegram.ext.dispatcher - ERROR - An uncaught error was raised while handling the error
+Traceback (most recent call last):
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 326, in process_update
+    self.dispatch_error(None, update)
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 524, in dispatch_error
+    callback(self.bot, update, error)
+TypeError: error() takes 2 positional arguments but 3 were given
+2025-07-08 14:23:27,459 - telegram.ext.updater - ERROR - Error while getting Updates: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2025-07-08 14:23:27,468 - telegram.ext.dispatcher - ERROR - An uncaught error was raised while handling the error
+Traceback (most recent call last):
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 326, in process_update
+    self.dispatch_error(None, update)
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 524, in dispatch_error
+    callback(self.bot, update, error)
+TypeError: error() takes 2 positional arguments but 3 were given
+2025-07-08 14:23:37,650 - telegram.ext.updater - ERROR - Error while getting Updates: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2025-07-08 14:23:37,684 - telegram.ext.dispatcher - ERROR - An uncaught error was raised while handling the error
+Traceback (most recent call last):
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 326, in process_update
+    self.dispatch_error(None, update)
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 524, in dispatch_error
+    callback(self.bot, update, error)
+TypeError: error() takes 2 positional arguments but 3 were given
+2025-07-08 14:23:52,908 - telegram.ext.updater - ERROR - Error while getting Updates: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2025-07-08 14:23:52,951 - telegram.ext.dispatcher - ERROR - An uncaught error was raised while handling the error
+Traceback (most recent call last):
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 326, in process_update
+    self.dispatch_error(None, update)
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 524, in dispatch_error
+    callback(self.bot, update, error)
+TypeError: error() takes 2 positional arguments but 3 were given
+2025-07-08 14:24:08,377 - telegram.ext.updater - ERROR - Error while getting Updates: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2025-07-08 14:24:08,418 - telegram.ext.dispatcher - ERROR - An uncaught error was raised while handling the error
+Traceback (most recent call last):
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 326, in process_update
+    self.dispatch_error(None, update)
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 524, in dispatch_error
+    callback(self.bot, update, error)
+TypeError: error() takes 2 positional arguments but 3 were given
+2025-07-08 14:24:29,548 - telegram.ext.updater - ERROR - Error while getting Updates: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2025-07-08 14:24:29,590 - telegram.ext.dispatcher - ERROR - An uncaught error was raised while handling the error
+Traceback (most recent call last):
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 326, in process_update
+    self.dispatch_error(None, update)
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 524, in dispatch_error
+    callback(self.bot, update, error)
+TypeError: error() takes 2 positional arguments but 3 were given
+2025-07-08 14:24:59,259 - telegram.ext.updater - ERROR - Error while getting Updates: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2025-07-08 14:24:59,259 - telegram.ext.dispatcher - ERROR - An uncaught error was raised while handling the error
+Traceback (most recent call last):
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 326, in process_update
+    self.dispatch_error(None, update)
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 524, in dispatch_error
+    callback(self.bot, update, error)
+TypeError: error() takes 2 positional arguments but 3 were given
+2025-07-08 14:25:41,764 - telegram.ext.updater - ERROR - Error while getting Updates: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2025-07-08 14:25:41,782 - telegram.ext.dispatcher - ERROR - An uncaught error was raised while handling the error
+Traceback (most recent call last):
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 326, in process_update
+    self.dispatch_error(None, update)
+  File "/home/gomoncli/.local/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 524, in dispatch_error
+    callback(self.bot, update, error)
+TypeError: error() takes 2 positional arguments but 3 were given
