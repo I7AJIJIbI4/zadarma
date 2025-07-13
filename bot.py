@@ -21,7 +21,7 @@ def scheme(bot, update):
     bot.send_message(chat_id=update.effective_chat.id, text=f"Ось схема: {img_link}")
 
 def call(bot, update):
-    bot.send_message(chat_id=update.effective_chat.id, text="Щоб зателефонувати, набери: 0996093860")
+    bot.send_message(chat_id=update.effective_chat.id, text="Щоб зателефонувати, наберіть: 0996093860")
 
 def number(bot, update):
     bot.send_message(chat_id=update.effective_chat.id, text="Отримую інформацію про віртуальний номер...\n")
