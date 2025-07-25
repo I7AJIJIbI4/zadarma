@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/ipavlovsky/Library/CloudStorage/GoogleDrive-samydoma@gmail.com/My Drive/zadarma/bot.py", line 8, in <module>
+    from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+ModuleNotFoundError: No module named 'telegram'

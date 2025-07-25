@@ -280,7 +280,7 @@ def map_command(bot, update):
     try:
         map_message = (
             "🗺️ **Розташування Dr. Gomon Cosmetology на мапі**\n\n"
-            f"📍 Посилання: https://maps.app.goo.gl/iqNLsScEutJhVKLi7?g_st=ic\n\n"
+            "📍 Посилання: https://maps.app.goo.gl/iqNLsScEutJhVKLi7\n\n"
             "🚗 Оберіть зручний маршрут"
         )
         
