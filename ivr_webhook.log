@@ -1,0 +1,621 @@
+[2025-07-18 16:03:23] Webhook received: {"event":"NOTIFY_INTERNAL","caller_id":"380933297777","internal":"103","call_start":"2025-07-18 16:03:23"}
+[2025-07-18 16:03:23] Event: NOTIFY_INTERNAL, Caller: 380933297777, PBX Call ID: 
+[2025-07-18 16:03:23] INTERNAL CALL: Caller 380933297777 to internal 103
+[2025-07-18 16:03:23] SPECIAL INTERNAL: SMS Відправка request from 380933297777
+[2025-07-18 16:03:23] SMS trigger activated by: 380933297777
+[2025-07-18 16:03:23] SMS to 380933297777: HTTP 401, Response: {"status":"error","message":"Not authorized"}
+[2025-07-18 16:03:23] SMS to 380730000000: HTTP 401, Response: {"status":"error","message":"Not authorized"}
+[2025-07-18 16:03:23] ❌ SMS trigger failed
+[2025-07-18 16:03:23] Webhook script completed
+[2025-07-18 16:06:23] Webhook received: {"event":"NOTIFY_INTERNAL","caller_id":"380933297777","internal":"103"}
+[2025-07-18 16:06:23] Event: NOTIFY_INTERNAL, Caller: 380933297777, Internal: 103
+[2025-07-18 16:06:23] SPECIAL INTERNAL: SMS Тригер від 380933297777 (internal: 103)
+[2025-07-18 16:06:23] SMS trigger activated by: 380933297777
+[2025-07-18 16:06:23] SMS message: УВАГА! SMS тригер з клініки Гомона. Час: 2025-07-18 16:06:23. Дзвінок від: 380933297777
+[2025-07-18 16:06:23] SMS recipients: 380933297777
+[2025-07-18 16:06:23] Sending SMS to: 380933297777
+[2025-07-18 16:06:23] SMS API: https://api.zadarma.com/v1/sms/send/
+[2025-07-18 16:06:23] SMS params: message=%D0%A3%D0%92%D0%90%D0%93%D0%90%21+SMS+%D1%82%D1%80%D0%B8%D0%B3%D0%B5%D1%80+%D0%B7+%D0%BA%D0%BB%D1%96%D0%BD%D1%96%D0%BA%D0%B8+%D0%93%D0%BE%D0%BC%D0%BE%D0%BD%D0%B0.+%D0%A7%D0%B0%D1%81%3A+2025-07-18+16%3A06%3A23.+%D0%94%D0%B7%D0%B2%D1%96%D0%BD%D0%BE%D0%BA+%D0%B2%D1%96%D0%B4%3A+380933297777&number=380933297777&sender=0733103110
+[2025-07-18 16:06:24] SMS to 380933297777: HTTP 401, Response: {"status":"error","message":"Not authorized"}
+[2025-07-18 16:06:24] SMS trigger completed: 0/1 successful
+[2025-07-18 16:06:24] ❌ SMS тригер помилка
+[2025-07-18 16:09:57] Webhook received: {"event":"NOTIFY_INTERNAL","caller_id":"380933297777","internal":"102","call_start":"2025-07-18 16:09:56"}
+[2025-07-18 16:09:57] Event: NOTIFY_INTERNAL, Caller: 380933297777, Internal: 102
+[2025-07-18 16:09:57] SPECIAL INTERNAL: Ворота від 380933297777 (internal: 102)
+[2025-07-18 16:09:57] Making callback to: 0930063585
+[2025-07-18 16:09:57] Callback response: HTTP 401, Body: {"status":"error","message":"Not authorized"}
+[2025-07-18 16:09:57] ❌ Ворота callback помилка
+[2025-07-18 16:09:57] Webhook received: {"event":"NOTIFY_INTERNAL","caller_id":"380933297777","internal":"101","call_start":"2025-07-18 16:09:57"}
+[2025-07-18 16:09:57] Event: NOTIFY_INTERNAL, Caller: 380933297777, Internal: 101
+[2025-07-18 16:09:57] SPECIAL INTERNAL: Хвіртка від 380933297777 (internal: 101)
+[2025-07-18 16:09:57] Making callback to: 0933297777
+[2025-07-18 16:09:57] Callback response: HTTP 401, Body: {"status":"error","message":"Not authorized"}
+[2025-07-18 16:09:57] ❌ Хвіртка callback помилка
+[2025-07-18 16:14:38] Webhook received: {"event":"NOTIFY_INTERNAL","caller_id":"380933297777","internal":"102"}
+[2025-07-18 16:14:38] Event: NOTIFY_INTERNAL, Caller: 380933297777, Internal: 102, PBX: 
+[2025-07-18 16:14:38] INTERNAL CALL: 380933297777 → internal 102
+[2025-07-18 16:14:38] SPECIAL INTERNAL: Ворота від 380933297777 (internal: 102)
+[2025-07-18 16:14:38] Making callback: 0733103110 → 0930063585
+[2025-07-18 16:14:38] Callback URL: https://api.zadarma.com/v1/request/callback/?format=json&from=0733103110&to=0930063585
+[2025-07-18 16:14:38] Callback auth: 322168f1b94be856f0de:NjY2OTU1ODJhZjc3YTllMmNhOGYzOWRjNWZjZWZhN2Y5NjY3YmJiMQ==
+[2025-07-18 16:14:39] Callback response: HTTP 200, Body: {"status":"success","from":"0733103110","to":"0930063585","time":1752855279}
+[2025-07-18 16:14:39] ✅ Callback успішний: 0733103110 → 0930063585
+[2025-07-18 16:14:39] ✅ Ворота callback успішний
+[2025-07-18 16:14:39] Webhook script completed
+[2025-07-18 16:14:39] Webhook received: {"event":"NOTIFY_INTERNAL","caller_id":"380933297777","internal":"101"}
+[2025-07-18 16:14:39] Event: NOTIFY_INTERNAL, Caller: 380933297777, Internal: 101, PBX: 
+[2025-07-18 16:14:39] INTERNAL CALL: 380933297777 → internal 101
+[2025-07-18 16:14:39] SPECIAL INTERNAL: Хвіртка від 380933297777 (internal: 101)
+[2025-07-18 16:14:39] Making callback: 0733103110 → 0933297777
+[2025-07-18 16:14:39] Callback URL: https://api.zadarma.com/v1/request/callback/?format=json&from=0733103110&to=0933297777
+[2025-07-18 16:14:39] Callback auth: 322168f1b94be856f0de:ODU2ZTU3OTllZGE4ZTZiYzFjYWU1MTlkMmI3OTYxNWRlOGY3ZDZlZg==
+[2025-07-18 16:14:39] Callback response: HTTP 200, Body: {"status":"success","from":"0733103110","to":"0933297777","time":1752855279}
+[2025-07-18 16:14:39] ✅ Callback успішний: 0733103110 → 0933297777
+[2025-07-18 16:14:39] ✅ Хвіртка callback успішний
+[2025-07-18 16:14:39] Webhook script completed
+[2025-07-18 16:14:39] Webhook received: {"event":"NOTIFY_INTERNAL","caller_id":"380933297777","internal":"103"}
+[2025-07-18 16:14:39] Event: NOTIFY_INTERNAL, Caller: 380933297777, Internal: 103, PBX: 
+[2025-07-18 16:14:39] INTERNAL CALL: 380933297777 → internal 103
+[2025-07-18 16:14:39] SPECIAL INTERNAL: Telegram Сповіщення від 380933297777 (internal: 103)
+[2025-07-18 16:14:39] Sending Telegram notification for: 380933297777
+[2025-07-18 16:14:39] Telegram response: HTTP 200
+[2025-07-18 16:14:39] ✅ Telegram сповіщення надіслано
+[2025-07-18 16:14:39] Webhook script completed
+[2025-07-18 16:14:41] Webhook received: {"event":"NOTIFY_START","call_start":"2025-07-18 19:14:41","pbx_call_id":"in_0496546b376c9a829fa5a1f5fc711f45efa75a35","caller_id":"+0933297777","called_did":"380733103110"}
+[2025-07-18 16:14:41] Event: NOTIFY_START, Caller: +0933297777, Internal: , PBX: in_0496546b376c9a829fa5a1f5fc711f45efa75a35
+[2025-07-18 16:14:41] CALL START: +0933297777 → голосове меню
+[2025-07-18 16:14:41] Webhook script completed
+[2025-07-18 16:14:42] Webhook received: {"event":"NOTIFY_START","call_start":"2025-07-18 19:14:42","pbx_call_id":"in_7b618797e2654085071c36bfd9d6a2abef798f75","caller_id":"+0930063585","called_did":"380733103110"}
+[2025-07-18 16:14:42] Event: NOTIFY_START, Caller: +0930063585, Internal: , PBX: in_7b618797e2654085071c36bfd9d6a2abef798f75
+[2025-07-18 16:14:42] CALL START: +0930063585 → голосове меню
+[2025-07-18 16:14:42] Webhook script completed
+[2025-07-18 16:14:52] Webhook received: {"event":"NOTIFY_END","call_start":"2025-07-18 19:14:42","pbx_call_id":"in_7b618797e2654085071c36bfd9d6a2abef798f75","caller_id":"+0930063585","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 16:14:52] Event: NOTIFY_END, Caller: +0930063585, Internal: , PBX: in_7b618797e2654085071c36bfd9d6a2abef798f75
+[2025-07-18 16:14:52] CALL END: +0930063585, Internal: , Duration: 0s, Status: cancel
+[2025-07-18 16:14:52] Webhook script completed
+[2025-07-18 16:14:57] Webhook received: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-18 19:14:41","pbx_call_id":"in_0496546b376c9a829fa5a1f5fc711f45efa75a35","caller_id":"+0933297777","called_did":"380733103110","internal":"104","calltype":"normal"}
+[2025-07-18 16:14:57] Event: NOTIFY_INTERNAL, Caller: +0933297777, Internal: 104, PBX: in_0496546b376c9a829fa5a1f5fc711f45efa75a35
+[2025-07-18 16:14:57] INTERNAL CALL: +0933297777 → internal 104
+[2025-07-18 16:14:57] Regular internal call to 104
+[2025-07-18 16:14:57] Webhook script completed
+[2025-07-18 16:15:06] Webhook received: {"event":"NOTIFY_END","call_start":"2025-07-18 19:14:41","pbx_call_id":"in_0496546b376c9a829fa5a1f5fc711f45efa75a35","caller_id":"+0933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 16:15:06] Event: NOTIFY_END, Caller: +0933297777, Internal: , PBX: in_0496546b376c9a829fa5a1f5fc711f45efa75a35
+[2025-07-18 16:15:06] CALL END: +0933297777, Internal: , Duration: 0s, Status: cancel
+[2025-07-18 16:15:06] Webhook script completed
+[2025-07-18 16:16:35] Webhook received: {"event":"NOTIFY_START","call_start":"2025-07-18 19:16:34","pbx_call_id":"in_c8df07e0db2d3277aaf9a9f775462efe66d1c5d8","caller_id":"+380933297777","called_did":"380733103110"}
+[2025-07-18 16:16:35] Event: NOTIFY_START, Caller: +380933297777, Internal: , PBX: in_c8df07e0db2d3277aaf9a9f775462efe66d1c5d8
+[2025-07-18 16:16:35] CALL START: +380933297777 → голосове меню
+[2025-07-18 16:16:35] Webhook script completed
+[2025-07-18 16:17:13] Webhook received: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-18 19:16:34","pbx_call_id":"in_c8df07e0db2d3277aaf9a9f775462efe66d1c5d8","caller_id":"+380933297777","called_did":"380733103110","internal":"101","calltype":"normal"}
+[2025-07-18 16:17:13] Event: NOTIFY_INTERNAL, Caller: +380933297777, Internal: 101, PBX: in_c8df07e0db2d3277aaf9a9f775462efe66d1c5d8
+[2025-07-18 16:17:13] INTERNAL CALL: +380933297777 → internal 101
+[2025-07-18 16:17:13] SPECIAL INTERNAL: Хвіртка від +380933297777 (internal: 101)
+[2025-07-18 16:17:13] Making callback: 0733103110 → 0933297777
+[2025-07-18 16:17:13] Callback URL: https://api.zadarma.com/v1/request/callback/?format=json&from=0733103110&to=0933297777
+[2025-07-18 16:17:13] Callback auth: 322168f1b94be856f0de:ODU2ZTU3OTllZGE4ZTZiYzFjYWU1MTlkMmI3OTYxNWRlOGY3ZDZlZg==
+[2025-07-18 16:17:13] Callback response: HTTP 200, Body: {"status":"success","from":"0733103110","to":"0933297777","time":1752855433}
+[2025-07-18 16:17:13] ✅ Callback успішний: 0733103110 → 0933297777
+[2025-07-18 16:17:13] ✅ Хвіртка callback успішний
+[2025-07-18 16:17:13] Webhook script completed
+[2025-07-18 16:17:13] Webhook received: {"event":"NOTIFY_END","call_start":"2025-07-18 19:16:34","pbx_call_id":"in_c8df07e0db2d3277aaf9a9f775462efe66d1c5d8","caller_id":"+380933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 16:17:13] Event: NOTIFY_END, Caller: +380933297777, Internal: , PBX: in_c8df07e0db2d3277aaf9a9f775462efe66d1c5d8
+[2025-07-18 16:17:13] CALL END: +380933297777, Internal: , Duration: 0s, Status: cancel
+[2025-07-18 16:17:13] Webhook script completed
+[2025-07-18 16:17:16] Webhook received: {"event":"NOTIFY_START","call_start":"2025-07-18 19:17:16","pbx_call_id":"in_14c65aebdc472529d0da8f4452c675fa38d08d2c","caller_id":"+0933297777","called_did":"380733103110"}
+[2025-07-18 16:17:16] Event: NOTIFY_START, Caller: +0933297777, Internal: , PBX: in_14c65aebdc472529d0da8f4452c675fa38d08d2c
+[2025-07-18 16:17:16] CALL START: +0933297777 → голосове меню
+[2025-07-18 16:17:16] Webhook script completed
+[2025-07-18 16:17:25] Webhook received: {"event":"NOTIFY_END","call_start":"2025-07-18 19:17:16","pbx_call_id":"in_14c65aebdc472529d0da8f4452c675fa38d08d2c","caller_id":"+0933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 16:17:25] Event: NOTIFY_END, Caller: +0933297777, Internal: , PBX: in_14c65aebdc472529d0da8f4452c675fa38d08d2c
+[2025-07-18 16:17:25] CALL END: +0933297777, Internal: , Duration: 0s, Status: cancel
+[2025-07-18 16:17:25] Webhook script completed
+[2025-07-18 16:56:45] Webhook received: {"event":"NOTIFY_START","call_start":"2025-07-18 19:56:45","pbx_call_id":"in_7fb0699bad74561e3efc35bb66bd889725f4cb6b","caller_id":"+380996093860","called_did":"380733103110"}
+[2025-07-18 16:56:45] Event: NOTIFY_START, Caller: +380996093860, Internal: , PBX: in_7fb0699bad74561e3efc35bb66bd889725f4cb6b
+[2025-07-18 16:56:45] CALL START: +380996093860 → голосове меню
+[2025-07-18 16:56:45] Webhook script completed
+[2025-07-18 16:57:15] Webhook received: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-18 19:56:45","pbx_call_id":"in_7fb0699bad74561e3efc35bb66bd889725f4cb6b","caller_id":"+380996093860","called_did":"380733103110","internal":"102","calltype":"normal"}
+[2025-07-18 16:57:15] Event: NOTIFY_INTERNAL, Caller: +380996093860, Internal: 102, PBX: in_7fb0699bad74561e3efc35bb66bd889725f4cb6b
+[2025-07-18 16:57:15] INTERNAL CALL: +380996093860 → internal 102
+[2025-07-18 16:57:15] SPECIAL INTERNAL: Ворота від +380996093860 (internal: 102)
+[2025-07-18 16:57:15] Making callback: 0733103110 → 0930063585
+[2025-07-18 16:57:15] Callback URL: https://api.zadarma.com/v1/request/callback/?format=json&from=0733103110&to=0930063585
+[2025-07-18 16:57:15] Callback auth: 322168f1b94be856f0de:NjY2OTU1ODJhZjc3YTllMmNhOGYzOWRjNWZjZWZhN2Y5NjY3YmJiMQ==
+[2025-07-18 16:57:15] Callback response: HTTP 200, Body: {"status":"success","from":"0733103110","to":"0930063585","time":1752857835}
+[2025-07-18 16:57:15] ✅ Callback успішний: 0733103110 → 0930063585
+[2025-07-18 16:57:15] ✅ Ворота callback успішний
+[2025-07-18 16:57:15] Webhook script completed
+[2025-07-18 16:57:15] Webhook received: {"event":"NOTIFY_END","call_start":"2025-07-18 19:56:45","pbx_call_id":"in_7fb0699bad74561e3efc35bb66bd889725f4cb6b","caller_id":"+380996093860","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 16:57:15] Event: NOTIFY_END, Caller: +380996093860, Internal: , PBX: in_7fb0699bad74561e3efc35bb66bd889725f4cb6b
+[2025-07-18 16:57:15] CALL END: +380996093860, Internal: , Duration: 0s, Status: cancel
+[2025-07-18 16:57:15] Webhook script completed
+[2025-07-18 16:57:18] Webhook received: {"event":"NOTIFY_START","call_start":"2025-07-18 19:57:17","pbx_call_id":"in_ed6f9a6ca831b1ad70b5750c195daee822a30f07","caller_id":"+0930063585","called_did":"380733103110"}
+[2025-07-18 16:57:18] Event: NOTIFY_START, Caller: +0930063585, Internal: , PBX: in_ed6f9a6ca831b1ad70b5750c195daee822a30f07
+[2025-07-18 16:57:18] CALL START: +0930063585 → голосове меню
+[2025-07-18 16:57:18] Webhook script completed
+[2025-07-18 16:57:28] Webhook received: {"event":"NOTIFY_END","call_start":"2025-07-18 19:57:17","pbx_call_id":"in_ed6f9a6ca831b1ad70b5750c195daee822a30f07","caller_id":"+0930063585","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 16:57:28] Event: NOTIFY_END, Caller: +0930063585, Internal: , PBX: in_ed6f9a6ca831b1ad70b5750c195daee822a30f07
+[2025-07-18 16:57:28] CALL END: +0930063585, Internal: , Duration: 0s, Status: cancel
+[2025-07-18 16:57:28] Webhook script completed
+[2025-07-18 17:29:02] Webhook received: {"event":"NOTIFY_START","call_start":"2025-07-18 20:29:02","pbx_call_id":"in_581d22c5ddd91605cd0e7197c10095effc15a294","caller_id":"+0930063585","called_did":"380733103110"}
+[2025-07-18 17:29:02] Event: NOTIFY_START, Caller: +0930063585, Internal: , PBX: in_581d22c5ddd91605cd0e7197c10095effc15a294
+[2025-07-18 17:29:02] CALL START: +0930063585 → голосове меню
+[2025-07-18 17:29:02] Webhook script completed
+[2025-07-18 17:29:12] Webhook received: {"event":"NOTIFY_END","call_start":"2025-07-18 20:29:02","pbx_call_id":"in_581d22c5ddd91605cd0e7197c10095effc15a294","caller_id":"+0930063585","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 17:29:12] Event: NOTIFY_END, Caller: +0930063585, Internal: , PBX: in_581d22c5ddd91605cd0e7197c10095effc15a294
+[2025-07-18 17:29:12] CALL END: +0930063585, Internal: , Duration: 0s, Status: cancel
+[2025-07-18 17:29:12] Webhook script completed
+[2025-07-18 18:19:44] Webhook received: {"event":"NOTIFY_IVR","caller_id":"0933297777","wait_dtmf":{"name":"main_menu","digits":"1"}}
+[2025-07-18 18:19:44] Event: NOTIFY_IVR, Caller: 0933297777 → 0933297777, Internal: 
+[2025-07-18 18:19:44] IVR: 0933297777 натиснув '1'
+[2025-07-18 18:19:44] IVR: Ворота запит від 0933297777 - програю gate_Laura.mp3
+[2025-07-18 18:19:44] Making callback: 0733103110 → 0930063585 (ініціатор: 0933297777)
+[2025-07-18 18:19:45] Callback response: HTTP 200, Body: {"status":"success","from":"0733103110","to":"0930063585","time":1752862785}
+[2025-07-18 18:19:45] ✅ Callback успішний
+[2025-07-18 18:19:45] Webhook script completed
+[2025-07-18 18:19:45] Webhook received: {"event":"NOTIFY_IVR","caller_id":"0933297777","wait_dtmf":{"name":"main_menu","digits":"3"}}
+[2025-07-18 18:19:45] Event: NOTIFY_IVR, Caller: 0933297777 → 0933297777, Internal: 
+[2025-07-18 18:19:45] IVR: 0933297777 натиснув '3'
+[2025-07-18 18:19:45] IVR: Хвіртка запит від 0933297777 - програю doors_Laura.mp3
+[2025-07-18 18:19:45] Making callback: 0733103110 → 0933297777 (ініціатор: 0933297777)
+[2025-07-18 18:19:45] Callback response: HTTP 200, Body: {"status":"success","from":"0733103110","to":"0933297777","time":1752862785}
+[2025-07-18 18:19:45] ✅ Callback успішний
+[2025-07-18 18:19:45] Webhook script completed
+[2025-07-18 18:19:45] Webhook received: {"event":"NOTIFY_INTERNAL","caller_id":"0933297777","internal":"103"}
+[2025-07-18 18:19:45] Event: NOTIFY_INTERNAL, Caller: 0933297777 → 0933297777, Internal: 103
+[2025-07-18 18:19:45] INTERNAL CALL: 0933297777 → internal 103
+[2025-07-18 18:19:45] 🏠 Дзвінок з номера хвіртки - ігноруємо
+[2025-07-18 18:19:45] Webhook script completed
+[2025-07-18 18:19:48] Webhook received: {"event":"NOTIFY_START","call_start":"2025-07-18 21:19:48","pbx_call_id":"in_fdf60525371075d94a3f43bb86383656e6f92842","caller_id":"+0933297777","called_did":"380733103110"}
+[2025-07-18 18:19:48] Event: NOTIFY_START, Caller: +0933297777 → 0933297777, Internal: 
+[2025-07-18 18:19:48] CALL START: 0933297777 → голосове меню
+[2025-07-18 18:19:48] Webhook script completed
+[2025-07-18 18:19:48] Webhook received: {"event":"NOTIFY_START","call_start":"2025-07-18 21:19:48","pbx_call_id":"in_b424b8b274718487704f18b8b9ab4c84d7839ecc","caller_id":"+0930063585","called_did":"380733103110"}
+[2025-07-18 18:19:48] Event: NOTIFY_START, Caller: +0930063585 → 0930063585, Internal: 
+[2025-07-18 18:19:48] CALL START: 0930063585 → голосове меню
+[2025-07-18 18:19:48] Webhook script completed
+[2025-07-18 18:19:58] Webhook received: {"event":"NOTIFY_END","call_start":"2025-07-18 21:19:48","pbx_call_id":"in_b424b8b274718487704f18b8b9ab4c84d7839ecc","caller_id":"+0930063585","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 18:19:58] Event: NOTIFY_END, Caller: +0930063585 → 0930063585, Internal: 
+[2025-07-18 18:19:58] CALL END: 0930063585, Internal: , Duration: 0s, Status: cancel
+[2025-07-18 18:19:58] Webhook script completed
+[2025-07-18 18:20:04] Webhook received: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-18 21:19:48","pbx_call_id":"in_fdf60525371075d94a3f43bb86383656e6f92842","caller_id":"+0933297777","called_did":"380733103110","internal":"104","calltype":"normal"}
+[2025-07-18 18:20:04] Event: NOTIFY_INTERNAL, Caller: +0933297777 → 0933297777, Internal: 104
+[2025-07-18 18:20:04] INTERNAL CALL: 0933297777 → internal 104
+[2025-07-18 18:20:04] 🏠 Дзвінок з номера хвіртки - ігноруємо
+[2025-07-18 18:20:04] Webhook script completed
+[2025-07-18 18:20:22] Webhook received: {"event":"NOTIFY_END","call_start":"2025-07-18 21:19:48","pbx_call_id":"in_fdf60525371075d94a3f43bb86383656e6f92842","caller_id":"+0933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 18:20:22] Event: NOTIFY_END, Caller: +0933297777 → 0933297777, Internal: 
+[2025-07-18 18:20:22] CALL END: 0933297777, Internal: , Duration: 0s, Status: cancel
+[2025-07-18 18:20:22] Webhook script completed
+[2025-07-18 18:30:42] Webhook received: {"event":"NOTIFY_IVR","caller_id":"0933297777","wait_dtmf":{"digits":"1"}}
+[2025-07-18 18:30:42] Event: NOTIFY_IVR, Caller: 0933297777 → 0933297777, Internal: 
+[2025-07-18 18:30:42] IVR: 0933297777 натиснув '1' (menu: )
+[2025-07-18 18:30:42] МЕНЮ 2: Хвіртка запит від 0933297777 - програю doors_Laura.mp3
+[2025-07-18 18:30:42] Making callback: 0733103110 → 0933297777 (ініціатор: 0933297777)
+[2025-07-18 18:30:42] Callback response: HTTP 200, Body: {"status":"success","from":"0733103110","to":"0933297777","time":1752863442}
+[2025-07-18 18:30:42] ✅ Callback успішний
+[2025-07-18 18:30:42] Webhook script completed
+[2025-07-18 18:30:45] Webhook received: {"event":"NOTIFY_START","call_start":"2025-07-18 21:30:45","pbx_call_id":"in_6141a75f333ffc009ee285378a5b390306123f23","caller_id":"+0933297777","called_did":"380733103110"}
+[2025-07-18 18:30:45] Event: NOTIFY_START, Caller: +0933297777 → 0933297777, Internal: 
+[2025-07-18 18:30:45] CALL START: 0933297777 → перше меню (обробляється Zadarma)
+[2025-07-18 18:30:45] Webhook script completed
+[2025-07-18 18:31:01] Webhook received: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-18 21:30:45","pbx_call_id":"in_6141a75f333ffc009ee285378a5b390306123f23","caller_id":"+0933297777","called_did":"380733103110","internal":"104","calltype":"normal"}
+[2025-07-18 18:31:01] Event: NOTIFY_INTERNAL, Caller: +0933297777 → 0933297777, Internal: 104
+[2025-07-18 18:31:01] INTERNAL CALL: 0933297777 → internal 104
+[2025-07-18 18:31:01] 🏠 Дзвінок з номера хвіртки - ігноруємо
+[2025-07-18 18:31:01] Webhook script completed
+[2025-07-18 18:31:12] Webhook received: {"event":"NOTIFY_END","call_start":"2025-07-18 21:30:45","pbx_call_id":"in_6141a75f333ffc009ee285378a5b390306123f23","caller_id":"+0933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 18:31:12] Event: NOTIFY_END, Caller: +0933297777 → 0933297777, Internal: 
+[2025-07-18 18:31:12] CALL END: 0933297777, Internal: , Duration: 0s, Status: cancel
+[2025-07-18 18:31:12] Webhook script completed
+[2025-07-18 18:32:00] Webhook received: []
+[2025-07-18 18:32:00] Event: , Caller: Unknown → , Internal: 
+[2025-07-18 18:32:00] Unknown event: 
+[2025-07-18 18:32:00] Webhook script completed
+[2025-07-18 18:32:00] Webhook received: {"event":"NOTIFY_IVR","caller_id":"0933297777","wait_dtmf":{"digits":"2"}}
+[2025-07-18 18:32:00] Event: NOTIFY_IVR, Caller: 0933297777 → 0933297777, Internal: 
+[2025-07-18 18:32:00] IVR: 0933297777 натиснув '2' (menu: )
+[2025-07-18 18:32:00] МЕНЮ 2: Ворота запит від 0933297777 - програю gate_Laura.mp3
+[2025-07-18 18:32:00] Making callback: 0733103110 → 0930063585 (ініціатор: 0933297777)
+[2025-07-18 18:32:00] Callback response: HTTP 200, Body: {"status":"success","from":"0733103110","to":"0930063585","time":1752863520}
+[2025-07-18 18:32:00] ✅ Callback успішний
+[2025-07-18 18:32:00] Webhook script completed
+[2025-07-18 18:32:00] Webhook received: {"event":"NOTIFY_IVR","caller_id":"0933297777","wait_dtmf":{"digits":"3"}}
+[2025-07-18 18:32:00] Event: NOTIFY_IVR, Caller: 0933297777 → 0933297777, Internal: 
+[2025-07-18 18:32:00] IVR: 0933297777 натиснув '3' (menu: )
+[2025-07-18 18:32:00] МЕНЮ 2: SMS/Telegram запит від 0933297777 - програю telegram_Laura.mp3
+[2025-07-18 18:32:00] Sending Telegram notification for: 0933297777
+[2025-07-18 18:32:00] Telegram response: HTTP 200
+[2025-07-18 18:32:00] Webhook script completed
+[2025-07-18 18:32:03] Webhook received: {"event":"NOTIFY_START","call_start":"2025-07-18 21:32:03","pbx_call_id":"in_de8036236edb4ffc49684712b730181fce6a0423","caller_id":"+0930063585","called_did":"380733103110"}
+[2025-07-18 18:32:03] Event: NOTIFY_START, Caller: +0930063585 → 0930063585, Internal: 
+[2025-07-18 18:32:03] CALL START: 0930063585 → перше меню (обробляється Zadarma)
+[2025-07-18 18:32:03] Webhook script completed
+[2025-07-18 18:32:14] Webhook received: {"event":"NOTIFY_END","call_start":"2025-07-18 21:32:03","pbx_call_id":"in_de8036236edb4ffc49684712b730181fce6a0423","caller_id":"+0930063585","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 18:32:14] Event: NOTIFY_END, Caller: +0930063585 → 0930063585, Internal: 
+[2025-07-18 18:32:14] CALL END: 0930063585, Internal: , Duration: 0s, Status: cancel
+[2025-07-18 18:32:14] Webhook script completed
+[2025-07-18 18:35:40] Webhook received: {"event":"NOTIFY_START","call_start":"2025-07-18 21:35:39","pbx_call_id":"in_6a207ab9a18d8c5274c863846526e58eaaaecf77","caller_id":"+380996093860","called_did":"380733103110"}
+[2025-07-18 18:35:40] Event: NOTIFY_START, Caller: +380996093860 → 0996093860, Internal: 
+[2025-07-18 18:35:40] CALL START: 0996093860 → перше меню (обробляється Zadarma)
+[2025-07-18 18:35:40] Webhook script completed
+[2025-07-18 18:36:11] Webhook received: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-18 21:35:39","pbx_call_id":"in_6a207ab9a18d8c5274c863846526e58eaaaecf77","caller_id":"+380996093860","called_did":"380733103110","internal":"101","calltype":"normal"}
+[2025-07-18 18:36:11] Event: NOTIFY_INTERNAL, Caller: +380996093860 → 0996093860, Internal: 101
+[2025-07-18 18:36:11] INTERNAL CALL: 0996093860 → internal 101
+[2025-07-18 18:36:11] ПРЯМИЙ ВНУТРІШНІЙ: Хвіртка від 0996093860 (internal: 101)
+[2025-07-18 18:36:11] 🏠 Прямий 101: Хвіртка callback
+[2025-07-18 18:36:11] Making callback: 0733103110 → 0933297777 (ініціатор: 0996093860)
+[2025-07-18 18:36:11] Callback response: HTTP 200, Body: {"status":"success","from":"0733103110","to":"0933297777","time":1752863771}
+[2025-07-18 18:36:11] ✅ Callback успішний
+[2025-07-18 18:36:11] ✅ Хвіртка callback успішний
+[2025-07-18 18:36:11] Webhook script completed
+[2025-07-18 18:36:12] Webhook received: {"event":"NOTIFY_END","call_start":"2025-07-18 21:35:39","pbx_call_id":"in_6a207ab9a18d8c5274c863846526e58eaaaecf77","caller_id":"+380996093860","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 18:36:12] Event: NOTIFY_END, Caller: +380996093860 → 0996093860, Internal: 
+[2025-07-18 18:36:12] CALL END: 0996093860, Internal: , Duration: 0s, Status: cancel
+[2025-07-18 18:36:12] Webhook script completed
+[2025-07-18 18:36:14] Webhook received: {"event":"NOTIFY_START","call_start":"2025-07-18 21:36:14","pbx_call_id":"in_3cc46b2c0c3c93f29d6fc521ca60d7c12e7aac85","caller_id":"+0933297777","called_did":"380733103110"}
+[2025-07-18 18:36:14] Event: NOTIFY_START, Caller: +0933297777 → 0933297777, Internal: 
+[2025-07-18 18:36:14] CALL START: 0933297777 → перше меню (обробляється Zadarma)
+[2025-07-18 18:36:14] Webhook script completed
+[2025-07-18 18:36:27] Webhook received: {"event":"NOTIFY_END","call_start":"2025-07-18 21:36:14","pbx_call_id":"in_3cc46b2c0c3c93f29d6fc521ca60d7c12e7aac85","caller_id":"+0933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 18:36:27] Event: NOTIFY_END, Caller: +0933297777 → 0933297777, Internal: 
+[2025-07-18 18:36:27] CALL END: 0933297777, Internal: , Duration: 0s, Status: cancel
+[2025-07-18 18:36:27] Webhook script completed
+[2025-07-18 18:45:34] Webhook received: {"event":"NOTIFY_INTERNAL","caller_id":"0996093860","internal":"201"}
+[2025-07-18 18:45:34] Event: NOTIFY_INTERNAL, Caller: 0996093860 → 0996093860, Internal: 201
+[2025-07-18 18:45:34] INTERNAL CALL: 0996093860 → internal 201
+[2025-07-18 18:45:34] 🎯 СПЕЦІАЛЬНИЙ ВНУТРІШНІЙ: IVR Хвіртка від 0996093860 (internal: 201)
+[2025-07-18 18:45:34] 📋 Дія: ivr_open_door, Ціль: 0933297777, Звук: door_laura
+[2025-07-18 18:45:34] 🏠 ХВІРТКА: Відкриваємо хвіртку через IVR меню
+[2025-07-18 18:45:34] 📞 Making callback: 0733103110 → 0933297777 (ініціатор: 0996093860)
+[2025-07-18 18:45:34] Callback response: HTTP 200, Body: {"status":"success","from":"0733103110","to":"0933297777","time":1752864334}
+[2025-07-18 18:45:34] ✅ Callback успішний
+[2025-07-18 18:45:34] ✅ Хвіртка callback успішний
+[2025-07-18 18:45:34] 🎵 Програю звук: door_laura (687a8e13a7987a5ca70a4eb7)
+[2025-07-18 18:45:34] Webhook script completed
+[2025-07-18 18:45:34] Webhook received: {"event":"NOTIFY_INTERNAL","caller_id":"0996093860","internal":"202"}
+[2025-07-18 18:45:34] Event: NOTIFY_INTERNAL, Caller: 0996093860 → 0996093860, Internal: 202
+[2025-07-18 18:45:34] INTERNAL CALL: 0996093860 → internal 202
+[2025-07-18 18:45:34] 🎯 СПЕЦІАЛЬНИЙ ВНУТРІШНІЙ: IVR Ворота від 0996093860 (internal: 202)
+[2025-07-18 18:45:34] 📋 Дія: ivr_open_gate, Ціль: 0930063585, Звук: gate_laura
+[2025-07-18 18:45:34] 🚪 ВОРОТА: Відкриваємо ворота через IVR меню
+[2025-07-18 18:45:34] 📞 Making callback: 0733103110 → 0930063585 (ініціатор: 0996093860)
+[2025-07-18 18:45:34] Callback response: HTTP 200, Body: {"status":"success","from":"0733103110","to":"0930063585","time":1752864334}
+[2025-07-18 18:45:34] ✅ Callback успішний
+[2025-07-18 18:45:34] ✅ Ворота callback успішний
+[2025-07-18 18:45:34] 🎵 Програю звук: gate_laura (687a8e0c3490bc1c2c043ce5)
+[2025-07-18 18:45:34] Webhook script completed
+[2025-07-18 18:45:37] Webhook received: {"event":"NOTIFY_START","call_start":"2025-07-18 21:45:37","pbx_call_id":"in_8294ef5b48fcb8e93130b3a32e5be3d6b0184440","caller_id":"+0933297777","called_did":"380733103110"}
+[2025-07-18 18:45:37] Event: NOTIFY_START, Caller: +0933297777 → 0933297777, Internal: 
+[2025-07-18 18:45:37] Event NOTIFY_START - логуємо
+[2025-07-18 18:45:37] Webhook script completed
+[2025-07-18 18:45:38] Webhook received: {"event":"NOTIFY_START","call_start":"2025-07-18 21:45:37","pbx_call_id":"in_0bf142a293123046a1c0d33bd99bfd25a24f04c2","caller_id":"+0930063585","called_did":"380733103110"}
+[2025-07-18 18:45:38] Event: NOTIFY_START, Caller: +0930063585 → 0930063585, Internal: 
+[2025-07-18 18:45:38] Event NOTIFY_START - логуємо
+[2025-07-18 18:45:38] Webhook script completed
+[2025-07-18 18:45:48] Webhook received: {"event":"NOTIFY_END","call_start":"2025-07-18 21:45:37","pbx_call_id":"in_0bf142a293123046a1c0d33bd99bfd25a24f04c2","caller_id":"+0930063585","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 18:45:48] Event: NOTIFY_END, Caller: +0930063585 → 0930063585, Internal: 
+[2025-07-18 18:45:48] Event NOTIFY_END - логуємо
+[2025-07-18 18:45:48] Webhook script completed
+[2025-07-18 18:45:53] Webhook received: {"event":"NOTIFY_END","call_start":"2025-07-18 21:45:37","pbx_call_id":"in_8294ef5b48fcb8e93130b3a32e5be3d6b0184440","caller_id":"+0933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 18:45:53] Event: NOTIFY_END, Caller: +0933297777 → 0933297777, Internal: 
+[2025-07-18 18:45:53] Event NOTIFY_END - логуємо
+[2025-07-18 18:45:53] Webhook script completed
+[2025-07-18 18:45:54] Webhook received: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-18 21:45:37","pbx_call_id":"in_8294ef5b48fcb8e93130b3a32e5be3d6b0184440","caller_id":"+0933297777","called_did":"380733103110","internal":"104","calltype":"normal"}
+[2025-07-18 18:45:54] Event: NOTIFY_INTERNAL, Caller: +0933297777 → 0933297777, Internal: 104
+[2025-07-18 18:45:54] INTERNAL CALL: 0933297777 → internal 104
+[2025-07-18 18:45:54] 🏠 Дзвінок з номера хвіртки (0933297777) - ігноруємо
+[2025-07-18 18:45:54] Webhook script completed
+[2025-07-18 18:47:00] Webhook received: {"event":"NOTIFY_START","call_start":"2025-07-18 21:47:00","pbx_call_id":"in_3a6381876bce7dcf7014882679e9f60953271455","caller_id":"+380996093860","called_did":"380733103110"}
+[2025-07-18 18:47:00] Event: NOTIFY_START, Caller: +380996093860 → 0996093860, Internal: 
+[2025-07-18 18:47:00] Event NOTIFY_START - логуємо
+[2025-07-18 18:47:00] Webhook script completed
+[2025-07-18 18:47:27] Webhook received: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-18 21:47:00","pbx_call_id":"in_3a6381876bce7dcf7014882679e9f60953271455","caller_id":"+380996093860","called_did":"380733103110","internal":"101","calltype":"normal"}
+[2025-07-18 18:47:27] Event: NOTIFY_INTERNAL, Caller: +380996093860 → 0996093860, Internal: 101
+[2025-07-18 18:47:27] INTERNAL CALL: 0996093860 → internal 101
+[2025-07-18 18:47:27] 🎯 СПЕЦІАЛЬНИЙ ВНУТРІШНІЙ: Прямо Хвіртка від 0996093860 (internal: 101)
+[2025-07-18 18:47:27] 📋 Дія: direct_open_door, Ціль: 0933297777, Звук: 
+[2025-07-18 18:47:27] 🏠 ХВІРТКА: Пряме відкриття хвіртки
+[2025-07-18 18:47:27] 📞 Making callback: 0733103110 → 0933297777 (ініціатор: 0996093860)
+[2025-07-18 18:47:27] Callback response: HTTP 200, Body: {"status":"success","from":"0733103110","to":"0933297777","time":1752864447}
+[2025-07-18 18:47:27] ✅ Callback успішний
+[2025-07-18 18:47:27] ✅ Хвіртка callback успішний
+[2025-07-18 18:47:27] 🔇 Без звуку (прямий дзвінок)
+[2025-07-18 18:47:27] Webhook script completed
+[2025-07-18 18:47:27] Webhook received: {"event":"NOTIFY_END","call_start":"2025-07-18 21:47:00","pbx_call_id":"in_3a6381876bce7dcf7014882679e9f60953271455","caller_id":"+380996093860","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 18:47:27] Event: NOTIFY_END, Caller: +380996093860 → 0996093860, Internal: 
+[2025-07-18 18:47:27] Event NOTIFY_END - логуємо
+[2025-07-18 18:47:27] Webhook script completed
+[2025-07-18 18:47:30] Webhook received: {"event":"NOTIFY_START","call_start":"2025-07-18 21:47:30","pbx_call_id":"in_73d65e7b03b6cbc2c831429f1bd6dda66d5ba7fc","caller_id":"+0933297777","called_did":"380733103110"}
+[2025-07-18 18:47:30] Event: NOTIFY_START, Caller: +0933297777 → 0933297777, Internal: 
+[2025-07-18 18:47:30] Event NOTIFY_START - логуємо
+[2025-07-18 18:47:30] Webhook script completed
+[2025-07-18 18:47:40] Webhook received: {"event":"NOTIFY_END","call_start":"2025-07-18 21:47:30","pbx_call_id":"in_73d65e7b03b6cbc2c831429f1bd6dda66d5ba7fc","caller_id":"+0933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 18:47:40] Event: NOTIFY_END, Caller: +0933297777 → 0933297777, Internal: 
+[2025-07-18 18:47:40] Event NOTIFY_END - логуємо
+[2025-07-18 18:47:40] Webhook script completed
+[2025-07-18 18:51:29] === SOUND DEBUG ===
+[2025-07-18 18:51:29] Input: {"event": "NOTIFY_INTERNAL", "caller_id": "0996093860", "internal": "201"}
+[2025-07-18 18:51:29] 🎵 SOUND TEST: Internal 201, Caller 0996093860
+[2025-07-18 18:51:29] TEST 1: ivr_play + hangup
+[2025-07-18 18:51:29] Callback: 0733103110 → 0933297777
+[2025-07-18 18:51:29] Callback: HTTP 200, Response: {"status":"success","from":"0733103110","to":"0933297777","time":1752864689}
+[2025-07-18 18:51:29] Response: {"ivr_play":"687a8e13a7987a5ca70a4eb7","hangup":true}
+[2025-07-18 18:51:29] === SOUND DEBUG ===
+[2025-07-18 18:51:29] Input: {"event": "NOTIFY_INTERNAL", "caller_id": "0996093860", "internal": "202"}
+[2025-07-18 18:51:29] 🎵 SOUND TEST: Internal 202, Caller 0996093860
+[2025-07-18 18:51:29] TEST 2: ivr_play без hangup
+[2025-07-18 18:51:29] Callback: 0733103110 → 0930063585
+[2025-07-18 18:51:30] Callback: HTTP 200, Response: {"status":"success","from":"0733103110","to":"0930063585","time":1752864689}
+[2025-07-18 18:51:30] Response: {"ivr_play":"687a8e0c3490bc1c2c043ce5"}
+[2025-07-18 18:51:30] === SOUND DEBUG ===
+[2025-07-18 18:51:30] Input: {"event": "NOTIFY_INTERNAL", "caller_id": "0996093860", "internal": "203"}
+[2025-07-18 18:51:30] 🎵 SOUND TEST: Internal 203, Caller 0996093860
+[2025-07-18 18:51:30] TEST 3: ivr_saypopular
+[2025-07-18 18:51:30] Response: {"ivr_saypopular":5,"language":"ua","hangup":true}
+[2025-07-18 18:51:30] === SOUND DEBUG ===
+[2025-07-18 18:51:30] Input: {"event": "NOTIFY_INTERNAL", "caller_id": "0996093860", "internal": "204"}
+[2025-07-18 18:51:30] 🎵 SOUND TEST: Internal 204, Caller 0996093860
+[2025-07-18 18:51:30] TEST 4: ivr_saydigits
+[2025-07-18 18:51:30] Response: {"ivr_saydigits":"1234","language":"ua","hangup":true}
+[2025-07-18 18:51:32] === SOUND DEBUG ===
+[2025-07-18 18:51:32] Input: event=NOTIFY_START&call_start=2025-07-18+21%3A51%3A32&pbx_call_id=in_d7d9c90cd8352347180f09ea0e687be7aa21705e&caller_id=%2B0933297777&called_did=380733103110
+[2025-07-18 18:51:32] === SOUND DEBUG ===
+[2025-07-18 18:51:32] Input: event=NOTIFY_START&call_start=2025-07-18+21%3A51%3A32&pbx_call_id=in_5937b412be9a2267b077b9c639d42c77ba57a632&caller_id=%2B0930063585&called_did=380733103110
+[2025-07-18 18:51:42] === SOUND DEBUG ===
+[2025-07-18 18:51:42] Input: event=NOTIFY_END&call_start=2025-07-18+21%3A51%3A32&pbx_call_id=in_5937b412be9a2267b077b9c639d42c77ba57a632&caller_id=%2B0930063585&called_did=380733103110&duration=0&status_code=16&is_recorded=0&calltype=normal&disposition=cancel
+[2025-07-18 18:51:48] === SOUND DEBUG ===
+[2025-07-18 18:51:48] Input: event=NOTIFY_INTERNAL&call_start=2025-07-18+21%3A51%3A32&pbx_call_id=in_d7d9c90cd8352347180f09ea0e687be7aa21705e&caller_id=%2B0933297777&called_did=380733103110&internal=104&calltype=normal
+[2025-07-18 18:51:48] 🎵 SOUND TEST: Internal 104, Caller 0933297777
+[2025-07-18 18:51:48] Невідомий internal: 104
+[2025-07-18 18:51:48] Response: {"status":"ok"}
+[2025-07-18 18:51:48] === SOUND DEBUG ===
+[2025-07-18 18:51:48] Input: event=NOTIFY_END&call_start=2025-07-18+21%3A51%3A32&pbx_call_id=in_d7d9c90cd8352347180f09ea0e687be7aa21705e&caller_id=%2B0933297777&called_did=380733103110&duration=0&status_code=16&is_recorded=0&calltype=normal&disposition=cancel
+[2025-07-18 18:53:49] Webhook received: {"event":"NOTIFY_START","call_start":"2025-07-18 21:53:49","pbx_call_id":"in_1fba57f65d32d360977df2dc297a3b27036c93f6","caller_id":"+380996093860","called_did":"380733103110"}
+[2025-07-18 18:53:49] Event: NOTIFY_START, Caller: +380996093860 → 0996093860, Internal: 
+[2025-07-18 18:53:49] Event NOTIFY_START - логуємо
+[2025-07-18 18:53:49] Webhook script completed
+[2025-07-18 18:54:12] Webhook received: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-18 21:53:49","pbx_call_id":"in_1fba57f65d32d360977df2dc297a3b27036c93f6","caller_id":"+380996093860","called_did":"380733103110","internal":"101","calltype":"normal"}
+[2025-07-18 18:54:12] Event: NOTIFY_INTERNAL, Caller: +380996093860 → 0996093860, Internal: 101
+[2025-07-18 18:54:12] INTERNAL CALL: 0996093860 → internal 101
+[2025-07-18 18:54:12] 🎯 СПЕЦІАЛЬНИЙ: Прямо Хвіртка від 0996093860 (internal: 101)
+[2025-07-18 18:54:12] 🏠 ХВІРТКА: Callback на 0933297777
+[2025-07-18 18:54:12] 📞 Making callback: 0733103110 → 0933297777 (ініціатор: 0996093860)
+[2025-07-18 18:54:13] Callback response: HTTP 200, Body: {"status":"success","from":"0733103110","to":"0933297777","time":1752864853}
+[2025-07-18 18:54:13] ✅ Хвіртка callback успішний
+[2025-07-18 18:54:13] Webhook script completed
+[2025-07-18 18:54:13] Webhook received: {"event":"NOTIFY_END","call_start":"2025-07-18 21:53:49","pbx_call_id":"in_1fba57f65d32d360977df2dc297a3b27036c93f6","caller_id":"+380996093860","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 18:54:13] Event: NOTIFY_END, Caller: +380996093860 → 0996093860, Internal: 
+[2025-07-18 18:54:13] Event NOTIFY_END - логуємо
+[2025-07-18 18:54:13] Webhook script completed
+[2025-07-18 18:54:16] Webhook received: {"event":"NOTIFY_START","call_start":"2025-07-18 21:54:16","pbx_call_id":"in_d22809c322a434c0ce5aee2645d6c78c248b6cd6","caller_id":"+0933297777","called_did":"380733103110"}
+[2025-07-18 18:54:16] Event: NOTIFY_START, Caller: +0933297777 → 0933297777, Internal: 
+[2025-07-18 18:54:16] Event NOTIFY_START - логуємо
+[2025-07-18 18:54:16] Webhook script completed
+[2025-07-18 18:54:27] Webhook received: {"event":"NOTIFY_END","call_start":"2025-07-18 21:54:16","pbx_call_id":"in_d22809c322a434c0ce5aee2645d6c78c248b6cd6","caller_id":"+0933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 18:54:27] Event: NOTIFY_END, Caller: +0933297777 → 0933297777, Internal: 
+[2025-07-18 18:54:27] Event NOTIFY_END - логуємо
+[2025-07-18 18:54:27] Webhook script completed
+[2025-07-18 19:23:42] ID TEST: {"event":"NOTIFY_INTERNAL","caller_id":"0996093860","internal":"205"}
+[2025-07-18 19:23:42] 🧪 ID TEST: Internal 205, Caller 0996093860
+[2025-07-18 19:23:42] TEST 5: Популярна фраза (контроль)
+[2025-07-18 19:23:42] Response: {"ivr_saypopular":5,"language":"ua","hangup":true}
+[2025-07-18 19:23:42] ID TEST: {"event":"NOTIFY_INTERNAL","caller_id":"0996093860","internal":"201"}
+[2025-07-18 19:23:42] 🧪 ID TEST: Internal 201, Caller 0996093860
+[2025-07-18 19:23:42] TEST 1: Довгий hex ID - doors_Laura
+[2025-07-18 19:23:42] Callback: 0733103110 → 0933297777
+[2025-07-18 19:23:42] Callback: HTTP 200
+[2025-07-18 19:23:42] Response: {"ivr_play":"687a8e13a7987a5ca70a4eb7","hangup":true}
+[2025-07-18 19:23:42] ID TEST: {"event":"NOTIFY_INTERNAL","caller_id":"0996093860","internal":"203"}
+[2025-07-18 19:23:42] 🧪 ID TEST: Internal 203, Caller 0996093860
+[2025-07-18 19:23:42] TEST 3: Числовий ID = 1
+[2025-07-18 19:23:42] Response: {"ivr_play":"1","hangup":true}
+[2025-07-18 19:23:42] ID TEST: {"event":"NOTIFY_INTERNAL","caller_id":"0996093860","internal":"206"}
+[2025-07-18 19:23:42] 🧪 ID TEST: Internal 206, Caller 0996093860
+[2025-07-18 19:23:42] TEST 6: Числовий ID = 2
+[2025-07-18 19:23:42] Response: {"ivr_play":"2","hangup":true}
+[2025-07-18 19:23:45] ID TEST: {"event":"NOTIFY_START","call_start":"2025-07-18 22:23:45","pbx_call_id":"in_b5e3abd3315ffdc53292d7bd40ae78145e87b76f","caller_id":"+0933297777","called_did":"380733103110"}
+[2025-07-18 19:23:56] ID TEST: {"event":"NOTIFY_END","call_start":"2025-07-18 22:23:45","pbx_call_id":"in_b5e3abd3315ffdc53292d7bd40ae78145e87b76f","caller_id":"+0933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 19:41:03] ID TEST: {"event":"NOTIFY_START","call_start":"2025-07-18 22:41:03","pbx_call_id":"in_b4f71ddd3cece3b6479ff502feb64cf7b9bffe6a","caller_id":"+380933297777","called_did":"380733103110"}
+[2025-07-18 19:41:24] ID TEST: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-18 22:41:03","pbx_call_id":"in_b4f71ddd3cece3b6479ff502feb64cf7b9bffe6a","caller_id":"+380933297777","called_did":"380733103110","internal":"101","calltype":"normal"}
+[2025-07-18 19:41:24] 🧪 ID TEST: Internal 101, Caller 0933297777
+[2025-07-18 19:41:24] Невідомий internal: 101
+[2025-07-18 19:41:24] Response: {"status":"ok"}
+[2025-07-18 19:41:25] ID TEST: {"event":"NOTIFY_END","call_start":"2025-07-18 22:41:03","pbx_call_id":"in_b4f71ddd3cece3b6479ff502feb64cf7b9bffe6a","caller_id":"+380933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 19:43:23] REAL TEST: {"event":"NOTIFY_START","call_start":"2025-07-18 22:43:23","pbx_call_id":"in_1243645c0ec6e26e46e7acba9b6382d438e036a6","caller_id":"+380933297777","called_did":"380733103110"}
+[2025-07-18 19:43:23] Event: NOTIFY_START - ігноруємо
+[2025-07-18 19:43:40] REAL TEST: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-18 22:43:23","pbx_call_id":"in_1243645c0ec6e26e46e7acba9b6382d438e036a6","caller_id":"+380933297777","called_did":"380733103110","internal":"101","calltype":"normal"}
+[2025-07-18 19:43:40] 🎵 REAL SOUND TEST: Internal 101, Caller 0933297777
+[2025-07-18 19:43:40] 🔥 КОНТРОЛЬ: Популярна фраза 'Ласкаво просимо'
+[2025-07-18 19:43:40] Callback: 0733103110 → 0933297777
+[2025-07-18 19:43:40] Callback: HTTP 200
+[2025-07-18 19:43:40] Response: {"ivr_saypopular":5,"language":"ua","hangup":true}
+[2025-07-18 19:43:40] REAL TEST: {"event":"NOTIFY_END","call_start":"2025-07-18 22:43:23","pbx_call_id":"in_1243645c0ec6e26e46e7acba9b6382d438e036a6","caller_id":"+380933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 19:43:40] Event: NOTIFY_END - ігноруємо
+[2025-07-18 19:43:44] REAL TEST: {"event":"NOTIFY_START","call_start":"2025-07-18 22:43:43","pbx_call_id":"in_fe61ecee2261e37cc3e82139c3a67d42ee53c904","caller_id":"+0933297777","called_did":"380733103110"}
+[2025-07-18 19:43:44] Event: NOTIFY_START - ігноруємо
+[2025-07-18 19:43:53] REAL TEST: {"event":"NOTIFY_END","call_start":"2025-07-18 22:43:43","pbx_call_id":"in_fe61ecee2261e37cc3e82139c3a67d42ee53c904","caller_id":"+0933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 19:43:53] Event: NOTIFY_END - ігноруємо
+[2025-07-18 19:48:03] DOUBLE API: {"event":"NOTIFY_START","call_start":"2025-07-18 22:48:03","pbx_call_id":"in_443fd131b9c2a841edad98104bb90f403df706b1","caller_id":"+380933297777","called_did":"380733103110"}
+[2025-07-18 19:48:23] DOUBLE API: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-18 22:48:03","pbx_call_id":"in_443fd131b9c2a841edad98104bb90f403df706b1","caller_id":"+380933297777","called_did":"380733103110","internal":"101","calltype":"normal"}
+[2025-07-18 19:48:23] 🔄 DOUBLE API: Internal 101, Caller 0933297777, PBX: in_443fd131b9c2a841edad98104bb90f403df706b1
+[2025-07-18 19:48:23] 🛡️ Захист від петлі
+[2025-07-18 19:48:24] DOUBLE API: {"event":"NOTIFY_END","call_start":"2025-07-18 22:48:03","pbx_call_id":"in_443fd131b9c2a841edad98104bb90f403df706b1","caller_id":"+380933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 20:01:52] DOUBLE API: {"event":"NOTIFY_START","call_start":"2025-07-18 23:01:52","pbx_call_id":"in_31c5bb00525dd262c65f7e7720405c51bd9f0523","caller_id":"+380933297777","called_did":"380733103110"}
+[2025-07-18 20:02:08] DOUBLE API: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-18 23:01:52","pbx_call_id":"in_31c5bb00525dd262c65f7e7720405c51bd9f0523","caller_id":"+380933297777","called_did":"380733103110","internal":"101","calltype":"normal"}
+[2025-07-18 20:02:08] 🔄 DOUBLE API: Internal 101, Caller 0933297777, PBX: in_31c5bb00525dd262c65f7e7720405c51bd9f0523
+[2025-07-18 20:02:08] 🎯 Прямо Хвіртка - ТЕСТ ПОДВІЙНОГО API
+[2025-07-18 20:02:08] 🎵 Спроба Sound API...
+[2025-07-18 20:02:08] 🎵 Sound API: PBX in_31c5bb00525dd262c65f7e7720405c51bd9f0523, File: 687a8e13a7987a5ca70a4eb7
+[2025-07-18 20:02:08] Trying: /v1/pbx/ivr/play/
+[2025-07-18 20:02:08] API /v1/pbx/ivr/play/: HTTP 404, Response: {"status":"error","message":"Wrong method name"}
+[2025-07-18 20:02:08] API /v1/pbx/ivr/play/: HTTP 404, Response: {"status":"error","message":"Wrong method name"}
+[2025-07-18 20:02:08] Trying: /v1/pbx/call/play/
+[2025-07-18 20:02:09] API /v1/pbx/call/play/: HTTP 404, Response: {"status":"error","message":"Wrong method name"}
+[2025-07-18 20:02:09] API /v1/pbx/call/play/: HTTP 404, Response: {"status":"error","message":"Wrong method name"}
+[2025-07-18 20:02:09] Trying: /v1/call/play/
+[2025-07-18 20:02:09] DOUBLE API: {"event":"NOTIFY_END","call_start":"2025-07-18 23:01:52","pbx_call_id":"in_31c5bb00525dd262c65f7e7720405c51bd9f0523","caller_id":"+380933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 20:02:09] API /v1/call/play/: HTTP 404, Response: {"status":"error","message":"Wrong method name"}
+[2025-07-18 20:02:09] API /v1/call/play/: HTTP 404, Response: {"status":"error","message":"Wrong method name"}
+[2025-07-18 20:02:09] Trying: /v1/ivr/play/
+[2025-07-18 20:02:09] API /v1/ivr/play/: HTTP 404, Response: {"status":"error","message":"Wrong method name"}
+[2025-07-18 20:02:09] API /v1/ivr/play/: HTTP 404, Response: {"status":"error","message":"Wrong method name"}
+[2025-07-18 20:02:09] ❌ Всі Sound API методи неуспішні
+[2025-07-18 20:02:09] ❌ Sound API помилка
+[2025-07-18 20:02:09] 📞 Спроба Callback API...
+[2025-07-18 20:02:09] 📞 Callback API: 0733103110 → 0933297777
+[2025-07-18 20:02:09] API /v1/request/callback/: HTTP 200, Response: {"status":"success","from":"0733103110","to":"0933297777","time":1752868929}
+[2025-07-18 20:02:09] ✅ Callback API успішний
+[2025-07-18 20:02:12] DOUBLE API: {"event":"NOTIFY_START","call_start":"2025-07-18 23:02:12","pbx_call_id":"in_99538e68d2a835b1a255a2ae7d7deaf8eca1b3e4","caller_id":"+0933297777","called_did":"380733103110"}
+[2025-07-18 20:02:21] DOUBLE API: {"event":"NOTIFY_END","call_start":"2025-07-18 23:02:12","pbx_call_id":"in_99538e68d2a835b1a255a2ae7d7deaf8eca1b3e4","caller_id":"+0933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-18 20:15:36] COMPLETE SYSTEM: {"event":"NOTIFY_INTERNAL","caller_id":"0996093860","internal":"203"}
+[2025-07-18 20:15:36] 🎯 COMPLETE SYSTEM: Internal 203, Caller 0996093860
+[2025-07-18 20:15:36] 🎵 IVR SMS - звук програється в IVR
+[2025-07-18 20:15:36] 📱 SMS: Відправка через SMS-Fly
+[2025-07-18 20:15:36] 📱 SMS-Fly: Відправка SMS на 0996093860
+[2025-07-18 20:15:36] 📱 SMS-Fly: Форматований номер 380996093860
+[2025-07-18 20:15:36] 📱 SMS-Fly request: {"action":"SENDMESSAGE","data":{"recipient":"380996093860","channels":["sms"],"sms":{"source":"Dr.Gomon","text":"Щоб отримати простий спосіб доступу до Dr. Gomon Cosmetology скористайтесь нашим консьєрж ботом - https:\/\/t.me\/DrGomonConciergeBot","start_time":"AUTO"}},"auth":{"key":"pJYAWmZpWOvUozqAUvsTaBjxTpu9oJEk"}}
+[2025-07-18 20:15:36] 📱 SMS-Fly response: HTTP 401, Body: 401 Unauthorized
+[2025-07-18 20:15:36] ❌ SMS-Fly HTTP error: 401
+[2025-07-18 20:15:36] ❌ Помилка SMS
+[2025-07-18 20:15:36] 📱 Резервний Telegram
+[2025-07-18 20:15:36] 📱 Telegram backup для: 0996093860
+[2025-07-18 20:15:36] 📱 Telegram backup: HTTP 200
+[2025-07-18 20:20:40] FINAL SYSTEM: {"event":"NOTIFY_INTERNAL","caller_id":"0996093860","internal":"203"}
+[2025-07-18 20:20:40] 🚀 FINAL: Internal 203, Caller 0996093860
+[2025-07-18 20:20:40] 📱 SMS через правильний URL
+[2025-07-18 20:20:40] 📱 SMS-Fly CORRECT: правильний URL v2
+[2025-07-18 20:20:40] 📱 SMS-Fly CORRECT: номер 380996093860
+[2025-07-18 20:20:40] 📱 SMS-Fly CORRECT request: {"auth":{"key":"pJYAWmZpWOvUozqAUvsTaBjxTpu9oJEk"},"action":"SENDMESSAGE","data":{"recipient":"380996093860","channels":["sms"],"sms":{"source":"Dr.Gomon","text":"Щоб отримати простий спосіб доступу до Dr. Gomon Cosmetology скористайтесь нашим консьєрж ботом - https://t.me/DrGomonConciergeBot","start_time":"AUTO"}}}
+[2025-07-18 20:20:40] 📱 SMS-Fly CORRECT: HTTP 400, Response: {"success":0,"error":{"code":"ERRPHONES","date":"2025-07-18 23:20:40","description":"in blacklist"}}
+[2025-07-18 20:20:40] ❌ SMS-Fly HTTP error: 400
+[2025-07-18 20:20:40] ❌ SMS помилка
+[2025-07-18 20:20:40] 📱 Fallback Telegram
+[2025-07-18 20:20:40] 📱 Telegram backup для 0996093860
+[2025-07-18 20:20:40] 📱 Telegram backup: HTTP 200
+[2025-07-18 20:21:50] FINAL SYSTEM: {"event":"NOTIFY_INTERNAL","caller_id":"0933297777","internal":"203"}
+[2025-07-18 20:21:50] 🚀 FINAL: Internal 203, Caller 0933297777
+[2025-07-18 20:21:50] 📱 SMS через правильний URL
+[2025-07-18 20:21:50] 📱 SMS-Fly CORRECT: правильний URL v2
+[2025-07-18 20:21:50] 📱 SMS-Fly CORRECT: номер 380933297777
+[2025-07-18 20:21:50] 📱 SMS-Fly CORRECT request: {"auth":{"key":"pJYAWmZpWOvUozqAUvsTaBjxTpu9oJEk"},"action":"SENDMESSAGE","data":{"recipient":"380933297777","channels":["sms"],"sms":{"source":"Dr.Gomon","text":"Щоб отримати простий спосіб доступу до Dr. Gomon Cosmetology скористайтесь нашим консьєрж ботом - https://t.me/DrGomonConciergeBot","start_time":"AUTO"}}}
+[2025-07-18 20:21:50] 📱 SMS-Fly CORRECT: HTTP 400, Response: {"success":0,"error":{"code":"INVSOURCE","date":"2025-07-18 23:21:50","description":1609}}
+[2025-07-18 20:21:50] ❌ SMS-Fly HTTP error: 400
+[2025-07-18 20:21:50] ❌ SMS помилка
+[2025-07-18 20:21:50] 📱 Fallback Telegram
+[2025-07-18 20:21:50] 📱 Telegram backup для 0933297777
+[2025-07-18 20:21:50] 📱 Telegram backup: HTTP 200
+[2025-07-18 20:25:42] CORRECT SOURCE: {"event":"NOTIFY_INTERNAL","caller_id":"0933297777","internal":"203"}
+[2025-07-18 20:25:42] 🚀 CORRECT SOURCE: Internal 203, Caller 0933297777
+[2025-07-18 20:25:42] 📱 SMS з правильним відправником 'Dr. Gomon'
+[2025-07-18 20:25:42] 📱 SMS-Fly FINAL: з правильним відправником
+[2025-07-18 20:25:42] 📱 SMS-Fly FINAL: номер 380933297777, відправник 'Dr. Gomon'
+[2025-07-18 20:25:42] 📱 SMS-Fly FINAL request: {"auth":{"key":"pJYAWmZpWOvUozqAUvsTaBjxTpu9oJEk"},"action":"SENDMESSAGE","data":{"recipient":"380933297777","channels":["sms"],"sms":{"source":"Dr. Gomon","text":"Щоб отримати простий спосіб доступу до Dr. Gomon Cosmetology скористайтесь нашим консьєрж ботом - https://t.me/DrGomonConciergeBot","start_time":"AUTO"}}}
+[2025-07-18 20:25:42] 📱 SMS-Fly FINAL: HTTP 200, Response: {"success":1,"date":"2025-07-18 23:25:42 +0300","data":{"messageID":"FAPI0012D862F900000A","sms":{"status":"ACCEPTD","date":"2025-07-18 23:25:42 +0300","cost":"1.958"}}}
+[2025-07-18 20:25:42] 🎉 SMS-Fly SUCCESS! Повідомлення надіслано успішно
+[2025-07-18 20:25:42] ✅ SMS успішно надіслано
+[2025-07-18 20:26:59] CORRECT SOURCE: {"event":"NOTIFY_START","call_start":"2025-07-18 23:26:59","pbx_call_id":"in_6a5ba016d66d8af320c46a06a2f585e685bd5fb8","caller_id":"+380933297777","called_did":"380733103110"}
+[2025-07-18 20:27:17] CORRECT SOURCE: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-18 23:26:59","pbx_call_id":"in_6a5ba016d66d8af320c46a06a2f585e685bd5fb8","caller_id":"+380933297777","called_did":"380733103110","internal":"103","calltype":"normal"}
+[2025-07-18 20:27:17] 🚀 CORRECT SOURCE: Internal 103, Caller 0933297777
+[2025-07-18 20:27:17] 📱 SMS з правильним відправником 'Dr. Gomon'
+[2025-07-18 20:27:17] 📱 SMS-Fly FINAL: з правильним відправником
+[2025-07-18 20:27:17] 📱 SMS-Fly FINAL: номер 380933297777, відправник 'Dr. Gomon'
+[2025-07-18 20:27:17] 📱 SMS-Fly FINAL request: {"auth":{"key":"pJYAWmZpWOvUozqAUvsTaBjxTpu9oJEk"},"action":"SENDMESSAGE","data":{"recipient":"380933297777","channels":["sms"],"sms":{"source":"Dr. Gomon","text":"Щоб отримати простий спосіб доступу до Dr. Gomon Cosmetology скористайтесь нашим консьєрж ботом - https://t.me/DrGomonConciergeBot","start_time":"AUTO"}}}
+[2025-07-18 20:27:17] 📱 SMS-Fly FINAL: HTTP 200, Response: {"success":1,"date":"2025-07-18 23:27:17 +0300","data":{"messageID":"FAPI0012D862F900000B","sms":{"status":"ACCEPTD","date":"2025-07-18 23:27:17 +0300","cost":"1.958"}}}
+[2025-07-18 20:27:17] 🎉 SMS-Fly SUCCESS! Повідомлення надіслано успішно
+[2025-07-18 20:27:17] ✅ SMS успішно надіслано
+[2025-07-18 20:27:17] CORRECT SOURCE: {"event":"NOTIFY_END","call_start":"2025-07-18 23:26:59","pbx_call_id":"in_6a5ba016d66d8af320c46a06a2f585e685bd5fb8","caller_id":"+380933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-19 08:58:41] CORRECT SOURCE: {"event":"NOTIFY_START","call_start":"2025-07-19 11:58:41","pbx_call_id":"in_055fc8db6808e17a3050e952113f2859f4c7bd4b","caller_id":"+380996093860","called_did":"380733103110"}
+[2025-07-19 08:59:18] CORRECT SOURCE: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-19 11:58:41","pbx_call_id":"in_055fc8db6808e17a3050e952113f2859f4c7bd4b","caller_id":"+380996093860","called_did":"380733103110","internal":"103","calltype":"normal"}
+[2025-07-19 08:59:18] 🚀 CORRECT SOURCE: Internal 103, Caller 0996093860
+[2025-07-19 08:59:18] 📱 SMS з правильним відправником 'Dr. Gomon'
+[2025-07-19 08:59:18] 📱 SMS-Fly FINAL: з правильним відправником
+[2025-07-19 08:59:18] 📱 SMS-Fly FINAL: номер 380996093860, відправник 'Dr. Gomon'
+[2025-07-19 08:59:18] 📱 SMS-Fly FINAL request: {"auth":{"key":"pJYAWmZpWOvUozqAUvsTaBjxTpu9oJEk"},"action":"SENDMESSAGE","data":{"recipient":"380996093860","channels":["sms"],"sms":{"source":"Dr. Gomon","text":"Щоб отримати простий спосіб доступу до Dr. Gomon Cosmetology скористайтесь нашим консьєрж ботом - https://t.me/DrGomonConciergeBot","start_time":"AUTO"}}}
+[2025-07-19 08:59:18] 📱 SMS-Fly FINAL: HTTP 400, Response: {"success":0,"error":{"code":"ERRPHONES","date":"2025-07-19 11:59:18","description":"in blacklist"}}
+[2025-07-19 08:59:18] ❌ SMS помилка
+[2025-07-19 08:59:18] 📱 Backup Telegram
+[2025-07-19 08:59:18] CORRECT SOURCE: {"event":"NOTIFY_END","call_start":"2025-07-19 11:58:41","pbx_call_id":"in_055fc8db6808e17a3050e952113f2859f4c7bd4b","caller_id":"+380996093860","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-19 13:19:03] CORRECT SOURCE: {"event":"NOTIFY_START","call_start":"2025-07-19 16:19:03","pbx_call_id":"in_8f69f63ee81e20d73be17c01e8318a31f9b8c9db","caller_id":"+380962715159","called_did":"380733103110"}
+[2025-07-19 13:19:20] CORRECT SOURCE: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-19 16:19:03","pbx_call_id":"in_8f69f63ee81e20d73be17c01e8318a31f9b8c9db","caller_id":"+380962715159","called_did":"380733103110","internal":"104","calltype":"normal"}
+[2025-07-19 13:19:20] 🚀 CORRECT SOURCE: Internal 104, Caller 0962715159
+[2025-07-19 13:19:42] CORRECT SOURCE: {"event":"NOTIFY_END","call_start":"2025-07-19 16:19:03","pbx_call_id":"in_8f69f63ee81e20d73be17c01e8318a31f9b8c9db","caller_id":"+380962715159","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-19 13:31:47] CORRECT SOURCE: {"event":"NOTIFY_START","call_start":"2025-07-19 16:31:46","pbx_call_id":"in_6f798b993a6a6c53550831702ff24c714eaa176b","caller_id":"+380962715159","called_did":"380733103110"}
+[2025-07-19 13:32:10] CORRECT SOURCE: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-19 16:31:46","pbx_call_id":"in_6f798b993a6a6c53550831702ff24c714eaa176b","caller_id":"+380962715159","called_did":"380733103110","internal":"103","calltype":"normal"}
+[2025-07-19 13:32:10] 🚀 CORRECT SOURCE: Internal 103, Caller 0962715159
+[2025-07-19 13:32:10] 📱 SMS з правильним відправником 'Dr. Gomon'
+[2025-07-19 13:32:10] 📱 SMS-Fly FINAL: з правильним відправником
+[2025-07-19 13:32:10] 📱 SMS-Fly FINAL: номер 380962715159, відправник 'Dr. Gomon'
+[2025-07-19 13:32:10] 📱 SMS-Fly FINAL request: {"auth":{"key":"pJYAWmZpWOvUozqAUvsTaBjxTpu9oJEk"},"action":"SENDMESSAGE","data":{"recipient":"380962715159","channels":["sms"],"sms":{"source":"Dr. Gomon","text":"Щоб отримати простий спосіб доступу до Dr. Gomon Cosmetology скористайтесь нашим консьєрж ботом - https://t.me/DrGomonConciergeBot","start_time":"AUTO"}}}
+[2025-07-19 13:32:10] 📱 SMS-Fly FINAL: HTTP 200, Response: {"success":1,"date":"2025-07-19 16:32:10 +0300","data":{"messageID":"FAPI0012D9B8D9000004","sms":{"status":"ACCEPTD","date":"2025-07-19 16:32:10 +0300","cost":"1.958"}}}
+[2025-07-19 13:32:10] 🎉 SMS-Fly SUCCESS! Повідомлення надіслано успішно
+[2025-07-19 13:32:10] ✅ SMS успішно надіслано
+[2025-07-19 13:32:11] CORRECT SOURCE: {"event":"NOTIFY_END","call_start":"2025-07-19 16:31:46","pbx_call_id":"in_6f798b993a6a6c53550831702ff24c714eaa176b","caller_id":"+380962715159","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-19 19:29:30] CORRECT SOURCE: {"event":"NOTIFY_START","call_start":"2025-07-19 22:29:29","pbx_call_id":"in_e692a383159c0b519f8889ca6100d8491468a653","caller_id":"+0933297777","called_did":"380733103110"}
+[2025-07-19 19:29:45] CORRECT SOURCE: {"event":"NOTIFY_END","call_start":"2025-07-19 22:29:29","pbx_call_id":"in_e692a383159c0b519f8889ca6100d8491468a653","caller_id":"+0933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-19 19:41:55] CORRECT SOURCE: {"event":"NOTIFY_START","caller_id":"380999999999","called_id":"0733103110"}
+[2025-07-19 20:34:54] CORRECT SOURCE: {"event":"NOTIFY_START","call_start":"2025-07-19 23:34:54","pbx_call_id":"in_b95cbc65b9acb11cfa0d10f322f8aad1cf895f13","caller_id":"+0933297777","called_did":"380733103110"}
+[2025-07-19 20:35:04] CORRECT SOURCE: {"event":"NOTIFY_END","call_start":"2025-07-19 23:34:54","pbx_call_id":"in_b95cbc65b9acb11cfa0d10f322f8aad1cf895f13","caller_id":"+0933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-20 17:14:25] CORRECT SOURCE: {"event":"NOTIFY_START","call_start":"2025-07-20 20:14:24","pbx_call_id":"in_3073f77fb7b6ea267217be8ad730de402efcb7a0","caller_id":"+0930063585","called_did":"380733103110"}
+[2025-07-20 17:14:36] CORRECT SOURCE: {"event":"NOTIFY_END","call_start":"2025-07-20 20:14:24","pbx_call_id":"in_3073f77fb7b6ea267217be8ad730de402efcb7a0","caller_id":"+0930063585","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-20 18:04:31] CORRECT SOURCE: {"event":"NOTIFY_START","call_start":"2025-07-20 21:04:31","pbx_call_id":"in_96554da7e76ed4ca2c88e25f5d0e900600d1353e","caller_id":"+380933297777","called_did":"380733103110"}
+[2025-07-20 18:04:47] CORRECT SOURCE: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-20 21:04:31","pbx_call_id":"in_96554da7e76ed4ca2c88e25f5d0e900600d1353e","caller_id":"+380933297777","called_did":"380733103110","internal":"104","calltype":"normal"}
+[2025-07-20 18:04:47] 🚀 CORRECT SOURCE: Internal 104, Caller 0933297777
+[2025-07-20 18:04:58] CORRECT SOURCE: {"event":"NOTIFY_END","call_start":"2025-07-20 21:04:31","pbx_call_id":"in_96554da7e76ed4ca2c88e25f5d0e900600d1353e","caller_id":"+380933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-20 18:05:04] CORRECT SOURCE: {"event":"NOTIFY_START","call_start":"2025-07-20 21:05:03","pbx_call_id":"in_4d0a6b4d043bf804a3ff8f51d0d10549617b966d","caller_id":"+380933297777","called_did":"380733103110"}
+[2025-07-20 18:05:28] CORRECT SOURCE: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-20 21:05:03","pbx_call_id":"in_4d0a6b4d043bf804a3ff8f51d0d10549617b966d","caller_id":"+380933297777","called_did":"380733103110","internal":"102","calltype":"normal"}
+[2025-07-20 18:05:28] 🚀 CORRECT SOURCE: Internal 102, Caller 0933297777
+[2025-07-20 18:05:28] 🚪 ВОРОТА
+[2025-07-20 18:05:28] 📞 Callback: 0733103110 → 0930063585
+[2025-07-20 18:05:28] 📞 Callback result: HTTP 200
+[2025-07-20 18:05:28] ✅ Ворота відкриті
+[2025-07-20 18:05:28] CORRECT SOURCE: {"event":"NOTIFY_END","call_start":"2025-07-20 21:05:03","pbx_call_id":"in_4d0a6b4d043bf804a3ff8f51d0d10549617b966d","caller_id":"+380933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-20 18:05:30] CORRECT SOURCE: {"event":"NOTIFY_START","call_start":"2025-07-20 21:05:30","pbx_call_id":"in_3509a075e3171890cf3c973fc499b911e0d77bb1","caller_id":"+0930063585","called_did":"380733103110"}
+[2025-07-20 18:05:41] CORRECT SOURCE: {"event":"NOTIFY_END","call_start":"2025-07-20 21:05:30","pbx_call_id":"in_3509a075e3171890cf3c973fc499b911e0d77bb1","caller_id":"+0930063585","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-20 20:14:52] CORRECT SOURCE: {"event":"NOTIFY_START","call_start":"2025-07-20 23:14:52","pbx_call_id":"in_ab2bffed4698977b0f5fbee6f7eb9823e22f9aa2","caller_id":"+380933297777","called_did":"380733103110"}
+[2025-07-20 20:15:14] CORRECT SOURCE: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-20 23:14:52","pbx_call_id":"in_ab2bffed4698977b0f5fbee6f7eb9823e22f9aa2","caller_id":"+380933297777","called_did":"380733103110","internal":"101","calltype":"normal"}
+[2025-07-20 20:15:14] 🚀 CORRECT SOURCE: Internal 101, Caller 0933297777
+[2025-07-20 20:15:14] 🏠 ХВІРТКА
+[2025-07-20 20:15:14] 📞 Callback: 0733103110 → 0933297777
+[2025-07-20 20:15:14] 📞 Callback result: HTTP 200
+[2025-07-20 20:15:14] ✅ Хвіртка відкрита
+[2025-07-20 20:15:17] CORRECT SOURCE: {"event":"NOTIFY_START","call_start":"2025-07-20 23:15:17","pbx_call_id":"in_759902a71610a38eb5e48a2e3a47dc8b8d317b4a","caller_id":"+0933297777","called_did":"380733103110"}
+[2025-07-20 20:15:23] CORRECT SOURCE: {"event":"NOTIFY_END","call_start":"2025-07-20 23:14:52","pbx_call_id":"in_ab2bffed4698977b0f5fbee6f7eb9823e22f9aa2","caller_id":"+380933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-20 20:15:24] CORRECT SOURCE: {"event":"NOTIFY_END","call_start":"2025-07-20 23:15:17","pbx_call_id":"in_759902a71610a38eb5e48a2e3a47dc8b8d317b4a","caller_id":"+0933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-20 20:21:45] CORRECT SOURCE: {"event":"NOTIFY_START","call_start":"2025-07-20 23:21:44","pbx_call_id":"in_97a95c375c2638b837b76f5f2723bc391c42f094","caller_id":"+380996093860","called_did":"380733103110"}
+[2025-07-20 20:22:10] CORRECT SOURCE: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-20 23:21:44","pbx_call_id":"in_97a95c375c2638b837b76f5f2723bc391c42f094","caller_id":"+380996093860","called_did":"380733103110","internal":"101","calltype":"normal"}
+[2025-07-20 20:22:10] 🚀 CORRECT SOURCE: Internal 101, Caller 0996093860
+[2025-07-20 20:22:10] 🏠 ХВІРТКА
+[2025-07-20 20:22:10] 📞 Callback: 0733103110 → 0933297777
+[2025-07-20 20:22:11] 📞 Callback result: HTTP 200
+[2025-07-20 20:22:11] ✅ Хвіртка відкрита
+[2025-07-20 20:22:14] CORRECT SOURCE: {"event":"NOTIFY_START","call_start":"2025-07-20 23:22:14","pbx_call_id":"in_4bbb8210f2d4d17e3f5c686da71b3e0a9b1b0816","caller_id":"+0933297777","called_did":"380733103110"}
+[2025-07-20 20:22:22] CORRECT SOURCE: {"event":"NOTIFY_END","call_start":"2025-07-20 23:21:44","pbx_call_id":"in_97a95c375c2638b837b76f5f2723bc391c42f094","caller_id":"+380996093860","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-20 20:22:23] CORRECT SOURCE: {"event":"NOTIFY_END","call_start":"2025-07-20 23:22:14","pbx_call_id":"in_4bbb8210f2d4d17e3f5c686da71b3e0a9b1b0816","caller_id":"+0933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-20 20:22:48] CORRECT SOURCE: {"event":"NOTIFY_START","call_start":"2025-07-20 23:22:48","pbx_call_id":"in_9e9ef0491da672e166869407e2414357be7592e4","caller_id":"+380996093860","called_did":"380733103110"}
+[2025-07-20 20:23:20] CORRECT SOURCE: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-20 23:22:48","pbx_call_id":"in_9e9ef0491da672e166869407e2414357be7592e4","caller_id":"+380996093860","called_did":"380733103110","internal":"101","calltype":"normal"}
+[2025-07-20 20:23:20] 🚀 CORRECT SOURCE: Internal 101, Caller 0996093860
+[2025-07-20 20:23:20] 🏠 ХВІРТКА
+[2025-07-20 20:23:20] 📞 Callback: 0733103110 → 0933297777
+[2025-07-20 20:23:21] 📞 Callback result: HTTP 200
+[2025-07-20 20:23:21] ✅ Хвіртка відкрита
+[2025-07-20 20:23:23] CORRECT SOURCE: {"event":"NOTIFY_START","call_start":"2025-07-20 23:23:23","pbx_call_id":"in_3bc98589edb5ad3baadf597139080ea771a69b28","caller_id":"+0933297777","called_did":"380733103110"}
+[2025-07-20 20:23:31] CORRECT SOURCE: {"event":"NOTIFY_END","call_start":"2025-07-20 23:22:48","pbx_call_id":"in_9e9ef0491da672e166869407e2414357be7592e4","caller_id":"+380996093860","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-20 20:23:37] CORRECT SOURCE: {"event":"NOTIFY_END","call_start":"2025-07-20 23:23:23","pbx_call_id":"in_3bc98589edb5ad3baadf597139080ea771a69b28","caller_id":"+0933297777","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-20 20:23:43] CORRECT SOURCE: {"event":"NOTIFY_OUT_START","call_start":"2025-07-20 23:23:43","pbx_call_id":"out_791db5c52068d67154971f718872ec638ff1723c","caller_id":"380733103110","internal":"104","destination":"+380933297777","calltype":"normal"}
+[2025-07-20 20:23:44] CORRECT SOURCE: {"event":"NOTIFY_OUT_END","call_start":"2025-07-20 23:23:43","pbx_call_id":"out_791db5c52068d67154971f718872ec638ff1723c","caller_id":"380733103110","internal":"104","destination":"+380933297777","duration":"0","status_code":"0","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-22 08:58:22] CORRECT SOURCE: {"event":"NOTIFY_START","call_start":"2025-07-22 11:58:22","pbx_call_id":"in_477a1c4a88d6dd91e6a498584bdadb52d4c336bd","caller_id":"+380442270723","called_did":"380733103110"}
+[2025-07-22 08:58:26] CORRECT SOURCE: {"event":"NOTIFY_END","call_start":"2025-07-22 11:58:22","pbx_call_id":"in_477a1c4a88d6dd91e6a498584bdadb52d4c336bd","caller_id":"+380442270723","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-22 08:58:36] CORRECT SOURCE: {"event":"NOTIFY_START","call_start":"2025-07-22 11:58:36","pbx_call_id":"in_61f427f812b3203896653f3af8d23af54c0f4100","caller_id":"+380442270723","called_did":"380733103110"}
+[2025-07-22 08:58:56] CORRECT SOURCE: {"event":"NOTIFY_END","call_start":"2025-07-22 11:58:36","pbx_call_id":"in_61f427f812b3203896653f3af8d23af54c0f4100","caller_id":"+380442270723","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-23 10:39:55] CORRECT SOURCE: {"event":"NOTIFY_START","call_start":"2025-07-23 13:39:55","pbx_call_id":"in_17f50be10180beb9fe36de345fc1a2f7677e715c","caller_id":"+380962798763","called_did":"380733103110"}
+[2025-07-23 10:40:25] CORRECT SOURCE: {"event":"NOTIFY_INTERNAL","call_start":"2025-07-23 13:39:55","pbx_call_id":"in_17f50be10180beb9fe36de345fc1a2f7677e715c","caller_id":"+380962798763","called_did":"380733103110","internal":"102","calltype":"normal"}
+[2025-07-23 10:40:25] 🚀 CORRECT SOURCE: Internal 102, Caller 0962798763
+[2025-07-23 10:40:25] 🚪 ВОРОТА
+[2025-07-23 10:40:25] 📞 Callback: 0733103110 → 0930063585
+[2025-07-23 10:40:25] 📞 Callback result: HTTP 200
+[2025-07-23 10:40:25] ✅ Ворота відкриті
+[2025-07-23 10:40:27] CORRECT SOURCE: {"event":"NOTIFY_START","call_start":"2025-07-23 13:40:27","pbx_call_id":"in_75801d849c5a37afc6a125f66e8439826a2d1f8c","caller_id":"+0930063585","called_did":"380733103110"}
+[2025-07-23 10:40:36] CORRECT SOURCE: {"event":"NOTIFY_END","call_start":"2025-07-23 13:39:55","pbx_call_id":"in_17f50be10180beb9fe36de345fc1a2f7677e715c","caller_id":"+380962798763","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-23 10:40:38] CORRECT SOURCE: {"event":"NOTIFY_END","call_start":"2025-07-23 13:40:27","pbx_call_id":"in_75801d849c5a37afc6a125f66e8439826a2d1f8c","caller_id":"+0930063585","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
+[2025-07-23 10:49:24] CORRECT SOURCE: {"event":"NOTIFY_START","call_start":"2025-07-23 13:49:24","pbx_call_id":"in_35f2d6e3e9cd2969375a04c9e195cbdbc25f1600","caller_id":"+0930063585","called_did":"380733103110"}
+[2025-07-23 10:49:36] CORRECT SOURCE: {"event":"NOTIFY_END","call_start":"2025-07-23 13:49:24","pbx_call_id":"in_35f2d6e3e9cd2969375a04c9e195cbdbc25f1600","caller_id":"+0930063585","called_did":"380733103110","duration":"0","status_code":"16","is_recorded":"0","calltype":"normal","disposition":"cancel"}
