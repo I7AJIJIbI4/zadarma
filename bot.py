@@ -79,31 +79,30 @@ def start_command(bot, update):
             logger.info(f"✅ Користувач {user_id} вже авторизований")
             
             welcome_message = (
-                f"🎉 Вітаємо, {first_name}!\n\n"
-                "Ви авторизовані в системі і маєте доступ до всіх функцій Dr. Gomon Concierge.\n\n"
-                "🔓 Доступні дії:\n\n"
-                "🚪 /hvirtka - Відкрити хвіртку для пішого проходу\n"
-                "🏠 /vorota - Відкрити ворота для авто\n"
+                f"🎉 **Вітаємо, {first_name}!**\n\n"
+                "✅ Ви авторизовані в системі Dr. Gomon Cosmetology\n\n"
+                "🔓 **Доступні дії:**\n"
+                "🚪 /hvirtka - Відкрити хвіртку\n"
+                "🏠 /vorota - Відкрити ворота\n"
                 "📞 /call - Зателефонувати лікарю Вікторії\n"
-                "🗺️ /map - Показати розташування косметології на мапі\n"
-                "📋 /scheme - Схема розташування косметології в ЖК Графський\n\n"
-                "💡 Підказка: для швидкого доступу до команд\n"
-                "   натисніть кнопку \"Меню\" ☰ зліва внизу"
+                "🗺️ /map - Подивитись розташування на мапі\n"
+                "📋 /scheme - Схема розташування в ЖК Графський\n\n"
+                "💡 **Швидкий доступ:** Меню ☰ зліва внизу"
             )
             
-            bot.send_message(chat_id=update.message.chat_id, text=welcome_message)
+            bot.send_message(chat_id=update.message.chat_id, text=welcome_message, parse_mode='Markdown')
             logger.info(f"✅ Авторизоване повідомлення відправлено користувачу {user_id}")
         else:
             logger.info(f"❌ Користувач {user_id} НЕ авторизований")
             
             unauthorized_message = (
-                f"👋 Вітаємо, {first_name}!\n\n"
-                "❌ Ви не авторизовані в системі.\n\n"
-                "📱 Для авторизації поділіться своїм номером телефону."
+                f"👋 **Вітаємо, {first_name}!**\n\n"
+                "❌ Ви не авторизовані в системі\n\n"
+                "📱 **Для авторизації поділіться номером телефону**"
             )
             
             # Спочатку відправляємо звичайне повідомлення
-            bot.send_message(chat_id=update.message.chat_id, text=unauthorized_message)
+            bot.send_message(chat_id=update.message.chat_id, text=unauthorized_message, parse_mode='Markdown')
             logger.info(f"📤 Повідомлення неавторизованому користувачу {user_id} відправлено")
             
             # Потім намагаємося додати кнопку
@@ -121,13 +120,14 @@ def start_command(bot, update):
                 )
                 logger.info(f"✅ Кнопка створена успішно для користувача {user_id}")
                 
-                button_message = "👇 Натисніть кнопку для авторизації:"
+                button_message = "👇 **Натисніть кнопку для авторизації:**"
                 
                 logger.info(f"🔄 Відправляємо кнопку користувачу {user_id}")
                 bot.send_message(
                     chat_id=update.message.chat_id,
                     text=button_message,
-                    reply_markup=reply_markup
+                    reply_markup=reply_markup,
+                    parse_mode='Markdown'
                 )
                 logger.info(f"✅ Кнопка успішно відправлена користувачу {user_id}")
                 
@@ -138,17 +138,18 @@ def start_command(bot, update):
                 
                 # Fallback
                 fallback_message = (
-                    "📱 Відправте свій номер телефону текстом\n"
-                    "Формат: +380XXXXXXXXX"
+                    "📱 **Відправте свій номер телефону текстом**\n\n"
+                    "📝 Формат: +380XXXXXXXXX"
                 )
-                bot.send_message(chat_id=update.message.chat_id, text=fallback_message)
+                bot.send_message(chat_id=update.message.chat_id, text=fallback_message, parse_mode='Markdown')
                 logger.info(f"📱 Fallback повідомлення відправлено користувачу {user_id}")
             
     except Exception as e:
         logger.exception(f"❌ Критична помилка в start_command для користувача {user_id}: {e}")
         bot.send_message(
             chat_id=update.message.chat_id,
-            text="❌ Технічна помилка. Зверніться до підтримки: 073-310-31-10"
+            text="❌ **Технічна помилка.** Зверніться до підтримки: 073-310-31-10",
+            parse_mode='Markdown'
         )
 
 def contact_handler(bot, update):
@@ -211,14 +212,14 @@ def contact_handler(bot, update):
                 logger.info(f"✅ Користувач {user_id} успішно авторизований")
             else:
                 denied_message = (
-                    "⚠️ Доступ обмежено!\n\n"
-                    "Ваш номер не зареєстровано в системі Dr. Gomon Cosmetology.\n\n"
-                    "📞 Для реєстрації зверніться:\n"
+                    "⚠️ **Доступ обмежено!**\n\n"
+                    "❌ Ваш номер не зареєстровано в системі Dr. Gomon Cosmetology\n\n"
+                    "📞 **Для реєстрації зверніться:**\n"
                     "📱 +380733103110 - телефонуйте\n"
                     "💬 <a href=\"https://instagram.com/dr.gomon\">Instagram</a> - пишіть в Direct\n\n"
-                    "🔓 Доступні функції:\n"
+                    "🔓 **Доступні функції:**\n"
                     "📞 /call - Зателефонувати лікарю Вікторії\n"
-                    "🗺️ /map - Показати розташування на мапі\n"
+                    "🗺️ /map - Подивитись розташування на мапі\n"
                     "📋 /scheme - Схема розташування в ЖК Графський"
                 )
                 
@@ -230,14 +231,15 @@ def contact_handler(bot, update):
                 logger.info(f"❌ Користувач {user_id} не авторизований - номер не в системі")
         else:
             error_message = (
-                "❌ Виникла помилка при збереженні ваших даних.\n\n"
+                "❌ **Виникла помилка при збереженні ваших даних**\n\n"
                 "📞 Зверніться до підтримки: 073-310-31-10"
             )
             
             bot.send_message(
                 chat_id=update.message.chat_id, 
                 text=error_message,
-                reply_markup=ReplyKeyboardRemove()
+                reply_markup=ReplyKeyboardRemove(),
+                parse_mode='Markdown'
             )
             logger.error(f"❌ Не вдалося зберегти користувача {user_id}")
             
@@ -247,8 +249,9 @@ def contact_handler(bot, update):
         from telegram import ReplyKeyboardRemove
         bot.send_message(
             chat_id=update.message.chat_id,
-            text="❌ Виникла помилка. Спробуйте пізніше.",
-            reply_markup=ReplyKeyboardRemove()
+            text="❌ **Виникла помилка.** Спробуйте пізніше",
+            reply_markup=ReplyKeyboardRemove(),
+            parse_mode='Markdown'
         )
 
 def call_command(bot, update):
@@ -257,14 +260,18 @@ def call_command(bot, update):
     logger.info(f"📞 /call викликано користувачем: {user_id}")
     
     try:
-        call_message = "📞 Щоб зателефонувати лікарю Вікторії - наберіть - 0996093860"
+        call_message = (
+            "📞 **Телефон лікаря Вікторії**\n\n"
+            "📱 +380996093860\n\n"
+            "💡 Натисніть на номер для виклику"
+        )
         
-        bot.send_message(chat_id=update.message.chat_id, text=call_message)
+        bot.send_message(chat_id=update.message.chat_id, text=call_message, parse_mode='Markdown')
         logger.info(f"📞 Телефон лікаря відправлено користувачу {user_id}")
         
     except Exception as e:
         logger.exception(f"❌ Помилка в call_command: {e}")
-        bot.send_message(chat_id=update.message.chat_id, text="❌ Помилка отримання телефону")
+        bot.send_message(chat_id=update.message.chat_id, text="❌ **Помилка отримання телефону**", parse_mode='Markdown')
 
 def map_command(bot, update):
     user_id = update.effective_user.id
@@ -272,17 +279,17 @@ def map_command(bot, update):
     
     try:
         map_message = (
-            "🗺️ Карта локації:\n\n"
-            f"📍 Посилання на карту: {MAP_URL}\n\n"
-            "🚗 Виберіть зручний маршрут для прибуття."
+            "🗺️ **Розташування Dr. Gomon Cosmetology на мапі**\n\n"
+            f"📍 Посилання: https://maps.app.goo.gl/iqNLsScEutJhVKLi7?g_st=ic\n\n"
+            "🚗 Оберіть зручний маршрут"
         )
         
-        bot.send_message(chat_id=update.message.chat_id, text=map_message)
+        bot.send_message(chat_id=update.message.chat_id, text=map_message, parse_mode='Markdown')
         logger.info(f"🗺️ Карта відправлена користувачу {user_id}")
         
     except Exception as e:
         logger.exception(f"❌ Помилка в map_command: {e}")
-        bot.send_message(chat_id=update.message.chat_id, text="❌ Помилка отримання карти")
+        bot.send_message(chat_id=update.message.chat_id, text="❌ **Помилка отримання карти**", parse_mode='Markdown')
 
 def scheme_command(bot, update):
     user_id = update.effective_user.id
@@ -290,17 +297,37 @@ def scheme_command(bot, update):
     
     try:
         scheme_message = (
-            "🏗️ Схема будівлі:\n\n"
-            f"📋 Посилання на схему: {SCHEME_URL}\n\n"
-            "🏠 Оберіть потрібний вхід згідно схеми."
+            "📋 **Схема розташування в ЖК Графський**\n\n"
+            "🏠 Пройдіть другі ворота/хвіртку та поверніть ліворуч"
         )
         
-        bot.send_message(chat_id=update.message.chat_id, text=scheme_message)
-        logger.info(f"🧭 Схема відправлена користувачу {user_id}")
+        # Намагаємося відправити фото зі схемою
+        try:
+            with open('/home/gomoncli/zadarma/enter-min.png', 'rb') as photo:
+                bot.send_photo(
+                    chat_id=update.message.chat_id, 
+                    photo=photo,
+                    caption=scheme_message,
+                    parse_mode='Markdown'
+                )
+                logger.info(f"🧭 Схема з фото відправлена користувачу {user_id}")
+        except FileNotFoundError:
+            # Якщо файл не знайдено, відправляємо тільки текст
+            scheme_message_fallback = (
+                "📋 **Схема розташування в ЖК Графський**\n\n"
+                "🏠 Пройдіть другі ворота/хвіртку та поверніть ліворуч\n\n"
+                "⚠️ Схема зображення тимчасово недоступна"
+            )
+            bot.send_message(
+                chat_id=update.message.chat_id, 
+                text=scheme_message_fallback,
+                parse_mode='Markdown'
+            )
+            logger.warning(f"⚠️ Файл схеми не знайдено, відправлено тільки текст користувачу {user_id}")
         
     except Exception as e:
         logger.exception(f"❌ Помилка в scheme_command: {e}")
-        bot.send_message(chat_id=update.message.chat_id, text="❌ Помилка отримання схеми")
+        bot.send_message(chat_id=update.message.chat_id, text="❌ **Помилка отримання схеми**", parse_mode='Markdown')
 
 def restart_command(bot, update):
     user_id = update.effective_user.id
@@ -382,18 +409,24 @@ def sync_command(bot, update):
     if user_id != ADMIN_USER_ID:
         bot.send_message(
             chat_id=update.message.chat_id, 
-            text="❌ Ця команда доступна тільки адміністратору"
+            text="❌ **Ця команда доступна тільки адміністратору**",
+            parse_mode='Markdown'
         )
         return
     
     try:
+        sync_message = (
+            "🔄 **Ручна синхронізація клієнтів запущена...**\n\n"
+            "📊 **Автоматична синхронізація відбувається:**\n"
+            "🌅 09:00 - Ранкова синхронізація\n"
+            "🌆 21:00 - Вечірня синхронізація\n\n"
+            "📱 Результати будуть надіслані в Telegram"
+        )
+        
         bot.send_message(
             chat_id=update.message.chat_id, 
-            text="🔄 Ручна синхронізація клієнтів запущена...\n\n"
-                 "📊 Автоматична синхронізація відбувається:\n"
-                 "🌅 09:00 - Ранкова синхронізація\n"
-                 "🌆 21:00 - Вечірня синхронізація\n\n"
-                 "📱 Результати будуть надіслані в Telegram"
+            text=sync_message,
+            parse_mode='Markdown'
         )
         
         # Запускаємо ручну синхронізацію через скрипт
@@ -406,7 +439,8 @@ def sync_command(bot, update):
         logger.exception(f"❌ Помилка в sync_command: {e}")
         bot.send_message(
             chat_id=update.message.chat_id, 
-            text="❌ Помилка при запуску ручної синхронізації"
+            text="❌ **Помилка при запуску ручної синхронізації**",
+            parse_mode='Markdown'
         )
 
 def error_handler(bot, update, error):
@@ -417,8 +451,8 @@ def error_handler(bot, update, error):
         try:
             if update.message:
                 update.message.reply_text(
-                    "❌ Сталася помилка при обробці команди. "
-                    "Будь ласка, спробуйте ще раз або зверніться до підтримки."
+                    "❌ **Сталася помилка при обробці команди.** Будь ласка, спробуйте ще раз або зверніться до підтримки",
+                    parse_mode='Markdown'
                 )
         except:
             pass
