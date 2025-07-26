@@ -8,8 +8,8 @@ import atexit
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram import ChatAction
 from user_db import init_db, is_authorized_user_simple, get_user_info
-from zadarma_call import handle_door_command, handle_gate_command
-from config import TELEGRAM_TOKEN, ADMIN_USER_ID, MAP_URL, SCHEME_URL
+from zadarma_call import handle_door_command, handle_gate_command, handle_admin_stats_command
+from config import TELEGRAM_TOKEN, ADMIN_USER_ID, MAP_URL, SCHEME_URL, validate_config
 
 # Змініть назву функції для сумісності
 is_authenticated = is_authorized_user_simple
@@ -466,11 +466,25 @@ def main():
     create_pid_file()
     
     try:
+        # Валідація конфігурації
+        logger.info("⚙️ Перевіряємо конфігурацію...")
+        validate_config()
+        logger.info("✅ Конфігурація валідна")
+        
         init_db()
         logger.info("✅ База даних ініціалізована")
+        
+        # Тестуємо Zadarma API
+        logger.info("📞 Тестуємо підключення до Zadarma API...")
+        from zadarma_api import test_zadarma_auth
+        if test_zadarma_auth():
+            logger.info("✅ Zadarma API підключено")
+        else:
+            logger.warning("⚠️ Проблеми з Zadarma API, але продовжуємо запуск")
+            
     except Exception as e:
-        logger.error(f"❌ Помилка ініціалізації БД: {e}")
-        return
+        logger.error(f"❌ Критична помилка ініціалізації: {e}")
+        sys.exit(1)
 
     # Початкова синхронізація видалена - тепер через cron
 
@@ -489,6 +503,7 @@ def main():
     dp.add_handler(CommandHandler("sync", sync_command))
     dp.add_handler(CommandHandler("hvirtka", handle_door_command))
     dp.add_handler(CommandHandler("vorota", handle_gate_command))
+    dp.add_handler(CommandHandler("stats", handle_admin_stats_command))
     
     dp.add_error_handler(error_handler)
     
