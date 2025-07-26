@@ -2734,3 +2734,52 @@ bot.py:477: TelegramDeprecationWarning: Old Handler API is deprecated - see http
 2025-07-26 23:30:02,269 - __main__ - INFO - ℹ️  Для зупинки натисніть Ctrl+C
 2025-07-26 23:38:17,354 - __main__ - INFO - 📞 /call викликано користувачем: 573368771
 2025-07-26 23:38:17,507 - __main__ - INFO - 📞 Телефон лікаря відправлено користувачу 573368771
+Traceback (most recent call last):
+  File "bot.py", line 11, in <module>
+    from zadarma_call import handle_door_command, handle_gate_command, handle_admin_stats_command
+  File "/home/gomoncli/zadarma/zadarma_call.py", line 5, in <module>
+    from zadarma_api import make_zadarma_call_with_tracking, send_error_to_admin
+  File "/home/gomoncli/zadarma/zadarma_api.py", line 13, in <module>
+    from config import (
+  File "/home/gomoncli/zadarma/config.py", line 25
+    <<<<<<< Updated upstream
+     ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "bot.py", line 11, in <module>
+    from zadarma_call import handle_door_command, handle_gate_command, handle_admin_stats_command
+  File "/home/gomoncli/zadarma/zadarma_call.py", line 5, in <module>
+    from zadarma_api import make_zadarma_call_with_tracking, send_error_to_admin
+  File "/home/gomoncli/zadarma/zadarma_api.py", line 13, in <module>
+    from config import (
+  File "/home/gomoncli/zadarma/config.py", line 25
+    <<<<<<< Updated upstream
+     ^
+SyntaxError: invalid syntax
+⚠️ Використовується застаріла функція make_zadarma_call_handler для Ворота
+⚠️ Використовується застаріла функція make_zadarma_call_handler для Хвіртку
+2025-07-26 23:59:01,622 - __main__ - INFO - 🚀 Бот запускається...
+2025-07-26 23:59:01,622 - __main__ - INFO - 📁 PID файл створено: /home/gomoncli/zadarma/bot.pid (PID: 1241141)
+2025-07-26 23:59:01,622 - __main__ - INFO - ⚙️ Перевіряємо конфігурацію...
+2025-07-26 23:59:01,622 - config - INFO - ✅ Конфігурація пройшла валідацію
+2025-07-26 23:59:01,622 - config - INFO - 📞 HVIRTKA_NUMBER: 0637442017
+2025-07-26 23:59:01,623 - config - INFO - 🚪 VOROTA_NUMBER: 0930063585
+2025-07-26 23:59:01,623 - config - INFO - 📱 ZADARMA_MAIN_PHONE: 0733103110
+2025-07-26 23:59:01,623 - __main__ - INFO - ✅ Конфігурація валідна
+2025-07-26 23:59:01,623 - user_db - INFO - 🔄 Ініціалізація бази даних...
+2025-07-26 23:59:01,623 - user_db - INFO - ✅ База даних успішно ініціалізована
+2025-07-26 23:59:01,623 - __main__ - INFO - ✅ База даних ініціалізована
+2025-07-26 23:59:01,623 - __main__ - INFO - 📞 Тестуємо підключення до Zadarma API...
+2025-07-26 23:59:01,623 - zadarma_api - INFO - 🧪 Тестування авторизації з офіційним API...
+2025-07-26 23:59:01,624 - zadarma_api - INFO - 📡 Zadarma API call: /v1/info/balance/, params: {}
+2025-07-26 23:59:01,624 - zadarma_api - INFO - 🔐 Params string: format=json
+2025-07-26 23:59:01,624 - zadarma_api - INFO - 🔐 Auth header: 322168f1b94be856f0de:NDE5MmM1MmM2MmNiN2E4OWI5YzMzZDk4YmIyMGUwZWQyMWQ0ZDU5NA==
+2025-07-26 23:59:01,624 - zadarma_api - INFO - 🌐 Request URL: https://api.zadarma.com/v1/info/balance/
+2025-07-26 23:59:01,815 - zadarma_api - INFO - 📡 Response status: 200
+2025-07-26 23:59:01,816 - zadarma_api - INFO - 📡 Response: {"status":"success","balance":107.445,"currency":"UAH"}
+2025-07-26 23:59:01,816 - zadarma_api - INFO - ✅ Авторизація працює. Баланс: 107.445 UAH
+2025-07-26 23:59:01,816 - __main__ - INFO - ✅ Zadarma API підключено
+2025-07-26 23:59:01,817 - __main__ - INFO - ✅ Всі обробники додані
+2025-07-26 23:59:01,817 - __main__ - INFO - ✅ Стартуємо polling...
+2025-07-26 23:59:01,974 - __main__ - INFO - 🤖 Бот успішно запущений та чекає на повідомлення...
+2025-07-26 23:59:01,974 - __main__ - INFO - ℹ️  Для зупинки натисніть Ctrl+C

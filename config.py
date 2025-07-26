@@ -22,20 +22,14 @@ COMPANY_ID = "3f3027ca-0b21-11ed-8355-65920565acdd"
 # Шлях до БД
 DB_PATH = "/home/gomoncli/zadarma/users.db"
 
-<<<<<<< Updated upstream
 # Номери для викликів - ВИПРАВЛЕНО на основі логів
 HVIRTKA_NUMBER = "0637442017"  # Реальний номер з логів
 VOROTA_NUMBER = "0930063585"   # Залишаємо як було
-=======
-# Номери для викликів
-HVIRTKA_NUMBER = "0637442017"  # приклад: +380991234567
-VOROTA_NUMBER = "0930063585"   # приклад: +380991234568
->>>>>>> Stashed changes
 
 # URLs для бота
 MAP_URL = "https://maps.app.goo.gl/vf1EzwWPNdCqZDvx9"
 SCHEME_URL = "https://ibb.co/6JZ9VHw"
-SUPPORT_PHONE = "0733103110"
+SUPPORT_PHONE = "073-310-31-10"
 
 def format_phone_for_zadarma(phone):
     """
