@@ -220,9 +220,40 @@ class CallTracker:
         except Exception as e:
             logger.error(f"❌ Помилка отримання дзвінка по PBX ID: {e}")
             return None
+
+    def get_call_by_target_and_time(self, target_number, start_time_window=60):
+        """Отримує дані дзвінка по номеру телефону і часовому вікну"""
+        try:
+            conn = sqlite3.connect(self.db_path)
+            cursor = conn.cursor()
+            
+            current_time = int(time.time())
+            time_start = current_time - start_time_window
+            
+            query = "SELECT call_id, user_id, chat_id, action_type, target_number, start_time, status FROM call_tracking WHERE target_number = ? AND start_time > ? AND status = 'api_success' ORDER BY start_time DESC LIMIT 1"
+            cursor.execute(query, (target_number, time_start))
+            
+            result = cursor.fetchone()
+            conn.close()
+            
+            if result:
+                return {
+                    'call_id': result[0],
+                    'user_id': result[1], 
+                    'chat_id': result[2],
+                    'action_type': result[3],
+                    'target_number': result[4],
+                    'start_time': result[5],
+                    'status': result[6]
+                }
+            return None
+            
+        except Exception as e:
+            logger.error(f"❌ Помилка отримання дзвінка по номеру і часу: {e}")
+            return None
     
     def cleanup_old_calls(self, hours=24):
-        """Очищає старі записи дзвінків"""
+        """Очищує старі записи дзвінків"""
         try:
             conn = sqlite3.connect(self.db_path)
             cursor = conn.cursor()
@@ -373,8 +404,26 @@ def process_webhook_call_status(webhook_data):
         logger.info(f"🔔 Webhook подія: {event}, PBX ID: {pbx_call_id}, Disposition: {disposition}")
         
         if event == 'NOTIFY_END':
-            # Шукаємо дзвінок в нашій базі по PBX call ID
+            # Спочатку шукаємо по PBX ID
             call_data = call_tracker.get_call_by_pbx_id(pbx_call_id)
+            
+            # Якщо не знайдено, шукаємо по номеру телефону і часу
+            if not call_data:
+                # Визначаємо номер телефону з webhook даних
+                caller_id = webhook_data.get('caller_id', '')
+                called_did = webhook_data.get('called_did', '')
+                
+                # Нормалізуємо номери  
+                target_number = None
+                if '0637442017' in caller_id or '0637442017' in called_did:
+                    target_number = '0637442017'
+                elif '0930063585' in caller_id or '0930063585' in called_did:
+                    target_number = '0930063585'
+                
+                if target_number:
+                    call_data = call_tracker.get_call_by_target_and_time(target_number, 120)
+                    if call_data:
+                        logger.info(f"📞 Знайдено дзвінок по номеру {target_number}: {call_data['call_id']}")
             
             if call_data:
                 logger.info(f"📞 Знайдено відстежуваний дзвінок: {call_data['call_id']}")
