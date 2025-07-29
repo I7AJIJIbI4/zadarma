@@ -1,0 +1,37 @@
+# ============================================
+# ТЕЛЕГРАМ БОТИ - кожну хвилину
+# ============================================
+*/1 * * * * /home/gomoncli/my_telegram_bot/check_and_run_bot.sh
+*/1 * * * * /home/gomoncli/zadarma/improved_check_bot.sh
+
+# ============================================
+# АВТОЗАПУСК ПІСЛЯ РЕБУТУ
+# ============================================
+@reboot /home/gomoncli/my_telegram_bot/check_and_run_bot.sh
+@reboot /home/gomoncli/zadarma/improved_check_bot.sh
+
+# ============================================
+# API МОНІТОРИНГ - кожні 2 години
+# ============================================
+0 */2 * * * /home/gomoncli/zadarma/api_check.sh >> /home/gomoncli/api_monitor.log 2>&1
+
+# ============================================
+# ЩОДЕННЕ ОБСЛУГОВУВАННЯ - о 06:00
+# ============================================
+0 6 * * * /home/gomoncli/zadarma/daily_maintenance.sh >> /home/gomoncli/zadarma/maintenance.log 2>&1
+
+# ============================================
+# СИНХРОНІЗАЦІЯ WLAUNCH - 2 рази на день
+# ============================================
+0 9 * * * /home/gomoncli/zadarma/sync_with_notification.sh
+0 21 * * * /home/gomoncli/zadarma/sync_with_notification.sh
+
+# ============================================
+# КРИТИЧНІ API - кожні 15 хвилин в робочий час (8-20, щодня)
+# ============================================
+*/15 8-20 * * * /home/gomoncli/zadarma/critical_api_check.sh >> /home/gomoncli/critical_api.log 2>&1
+
+# ============================================
+# ОЧИЩЕННЯ ЛОГІВ - кожної неділі о 02:00
+# ============================================
+0 2 * * 0 find /home/gomoncli -name "*.log" -mtime +30 -delete

@@ -366,6 +366,8 @@ def make_zadarma_call_with_tracking(to_number: str, user_id: int, chat_id: int, 
             logger.error(f"❌ {error_msg}")
             return {"success": False, "message": error_msg}
         
+        logger.info("🔍 CRITICAL: Before status check in zadarma_api.py")
+        logger.info("🔍 CRITICAL: result content: " + str(result))
         if result.get("status") == "success":
             logger.info(f"✅ Успішний запит дзвінка з {from_number} на {formatted_to}")
             logger.info(f"📋 Повна відповідь: {result}")

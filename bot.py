@@ -444,7 +444,20 @@ def sync_command(bot, update):
         )
 
 def error_handler(bot, update, error):
-    logger.error(f"❌ Помилка в обробці апдейту: {error}")
+    error_str = str(error)
+    
+    # Ігноруємо звичайні мережеві помилки
+    if any(x in error_str.lower() for x in [
+        'connection aborted', 'connection broken', 'connection reset',
+        'remote end closed', 'httpconnectionpool', 'read timeout',
+        'connection timeout', 'temporary failure'
+    ]):
+        logger.warning(f"⚠️ Мережева помилка (ігнорується): {error}")
+        return
+    
+    # Логуємо тільки критичні помилки
+    logger.error(f"❌ Критична помилка в обробці апдейту: {error}")
+    
     if update:
         logger.error(f"📝 Апдейт: {update.to_dict()}")
         
@@ -457,7 +470,8 @@ def error_handler(bot, update, error):
         except:
             pass
     
-    send_error_to_admin(bot, f"❌ Помилка: {error}")
+    # Відправляємо адміну тільки критичні помилки
+    send_error_to_admin(bot, f"❌ Критична помилка: {error}")
 
 def main():
     logger.info("🚀 Бот запускається...")

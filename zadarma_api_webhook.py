@@ -279,7 +279,7 @@ class CallTracker:
 call_tracker = CallTracker()
 
 def send_telegram_message(chat_id, message):
-    """Відправляє повідомлення в Telegram з HTML форматуванням"""
+    """Відправляє повідомлення в Telegram з HTML форматуванням та retry логікою"""
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
     payload = {
         "chat_id": chat_id, 
@@ -288,14 +288,25 @@ def send_telegram_message(chat_id, message):
         "disable_web_page_preview": True
     }
     
-    try:
-        response = requests.post(url, data=payload, timeout=10)
-        if response.status_code == 200:
-            logger.info(f"📤 Повідомлення відправлено в чат {chat_id}")
-        else:
-            logger.error(f"❌ Помилка відправки повідомлення (код {response.status_code})")
-    except Exception as e:
-        logger.error(f"❌ Помилка надсилання повідомлення: {e}")
+    # Спробуємо 3 рази з паузами
+    for attempt in range(3):
+        try:
+            response = requests.post(url, data=payload, timeout=15)
+            if response.status_code == 200:
+                logger.info(f"📤 Повідомлення відправлено в чат {chat_id}")
+                return True
+            else:
+                logger.warning(f"⚠️ Помилка відправки (спроба {attempt + 1}): код {response.status_code}")
+        except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
+            logger.warning(f"⚠️ Мережева помилка відправки (спроба {attempt + 1}): {e}")
+            if attempt < 2:  # Пауза тільки між спробами
+                time.sleep(2)
+        except Exception as e:
+            logger.error(f"❌ Критична помилка надсилання повідомлення: {e}")
+            break
+    
+    logger.error(f"❌ Не вдалося відправити повідомлення після 3 спроб")
+    return False
 
 def send_error_to_admin(message):
     """Відправляє повідомлення про помилку адміну"""
@@ -355,9 +366,15 @@ def make_zadarma_call_with_tracking(to_number: str, user_id: int, chat_id: int, 
             call_tracker.update_call_status(call_id, 'failed')
             return {"success": False, "message": error_msg}
         
+        logger.info("🔍 CRITICAL: Before status check")
+        logger.info("🔍 CRITICAL: result type: " + str(type(result)))
+        logger.info("🔍 CRITICAL: result content: " + str(result))
+        status_val = result.get("status")
+        logger.info("🔍 CRITICAL: status value: " + str(status_val))
         if result.get("status") == "success":
             logger.info(f"✅ Успішний запит дзвінка з {from_number} на {formatted_to}")
             logger.info(f"📋 Повна відповідь: {result}")
+            logger.info('🔍 DEBUG: Before API time processing')
             
             # Отримуємо time з відповіді API (якщо є)
             api_time = result.get('time')
@@ -366,7 +383,9 @@ def make_zadarma_call_with_tracking(to_number: str, user_id: int, chat_id: int, 
                 logger.info(f"📅 API час: {api_time}")
             
             # Оновлюємо статус в базі
+            logger.info('🔍 DEBUG: Before update_call_status')
             call_tracker.update_call_status(call_id, 'api_success')
+            logger.info('🔍 DEBUG: After update_call_status')
             
             return {
                 "success": True, 
@@ -434,7 +453,7 @@ def process_webhook_call_status(webhook_data):
                 # Аналізуємо результат дзвінка
                 if disposition == 'cancel' and duration == 0:
                     # ✅ УСПІХ: Дзвінок скинуто після гудків
-                    message = f"✅ {action_name.capitalize()} буде відчинено за кілька секунд."
+                    message = f"✅ {action_name.capitalize()} відчинено"
                     status = 'success'
                     logger.info(f"✅ SUCCESS: {action_name} відкрито успішно")
                     
