@@ -1,0 +1,23 @@
+INFO:__main__:🔍 Початок тестування всіх API...
+INFO:__main__:🧪 Тестування Zadarma API...
+INFO:zadarma_api:🔄 Запущено автоочищення історії дзвінків
+INFO:zadarma_api:🧪 Тестування авторизації з офіційним API...
+INFO:zadarma_api:📡 Zadarma API call: /v1/info/balance/, params: {}
+INFO:zadarma_api:🔐 Params string: format=json
+INFO:zadarma_api:🔐 Auth header: 322168f1b94be856f0de:NDE5MmM1MmM2MmNiN2E4OWI5YzMzZDk4YmIyMGUwZWQyMWQ0ZDU5NA==
+INFO:zadarma_api:🌐 Request URL: https://api.zadarma.com/v1/info/balance/
+INFO:zadarma_api:📡 Response status: 200
+INFO:zadarma_api:📡 Response: {"status":"success","balance":85.94,"currency":"UAH"}
+INFO:zadarma_api:✅ Авторизація працює. Баланс: 85.94 UAH
+INFO:__main__:🧪 Тестування WLaunch API...
+INFO:__main__:🧪 Тестування SMS Fly API...
+INFO:__main__:🧪 Тестування Telegram API...
+
+📊 РЕЗУЛЬТАТИ ТЕСТУВАННЯ API:
+========================================
+✅ ZADARMA: API працює
+❌ WLAUNCH: HTTPSConnectionPool(host='wlaunch.wlapi.net', port=443): Max retries exceeded with url: /api/v1/companies (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7fdbb6160eb8>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+⚙️ SMS_FLY: SMS Fly не налаштовано
+✅ TELEGRAM: Бот: DrGomonConcierge
+========================================
+⚠️ Незначні проблеми з API (2/4 працюють)

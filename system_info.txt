@@ -1,0 +1,55 @@
+=== СТРУКТУРА ПРОЄКТУ ===
+/home/gomoncli/zadarma.zip
+/home/gomoncli/zadarma
+/home/gomoncli/zadarma/zadarma_api_webhook.py.backup
+/home/gomoncli/zadarma/zadarma_api.py
+/home/gomoncli/zadarma/zadarma_call_webhook.py
+/home/gomoncli/zadarma/user_api/zadarma
+/home/gomoncli/zadarma/zadarma_call.py
+/home/gomoncli/zadarma/zadarma_api_webhook_backup.py
+/home/gomoncli/zadarma/webhook_processor.log
+/home/gomoncli/zadarma/__pycache__/zadarma_api.cpython-36.pyc
+/home/gomoncli/zadarma/__pycache__/zadarma_api_webhook.cpython-36.pyc
+/home/gomoncli/zadarma/__pycache__/zadarma_call_webhook.cpython-36.pyc
+/home/gomoncli/zadarma/__pycache__/zadarma_call.cpython-36.pyc
+/home/gomoncli/zadarma/zadarma_api_fixed_backup.py
+/home/gomoncli/zadarma/zadarma_api_webhook_debug.py
+/home/gomoncli/zadarma/webhooks
+/home/gomoncli/zadarma/webhooks/telegram_webhook.php
+/home/gomoncli/zadarma/zadarma_api_backup.py
+/home/gomoncli/zadarma/zadarma_project.tar
+/home/gomoncli/zadarma/zadarma_ivr_webhook_updated.php
+/home/gomoncli/zadarma/zadarma_api_webhook.py
+/home/gomoncli/zadarma/process_webhook.py
+/home/gomoncli/zadarma/ivr_webhook.log
+/home/gomoncli/my_telegram_bot
+/home/gomoncli/webhook_server.py
+/home/gomoncli/public_html/zadarma_ivr_webhook_sound_debug.php
+/home/gomoncli/public_html/zadarma
+/home/gomoncli/public_html/zadarma/webhook.php
+/home/gomoncli/public_html/minimal_webhook.php
+/home/gomoncli/public_html/zadarma_ivr_webhook_fixed.php
+/home/gomoncli/public_html/zadarma_webhook_check.php
+/home/gomoncli/public_html/zadarma_test.php
+/home/gomoncli/public_html/zadarma_ivr_webhook.php
+/home/gomoncli/public_html/webhook_test.php
+/home/gomoncli/public_html/zadarma_webhook.php
+/home/gomoncli/public_html/zadarma_ivr_webhook_backup.php
+/home/gomoncli/public_html/gomonclinic_webhook.php
+/home/gomoncli/public_html/zadarma_ivr_webhook_double.php
+/home/gomoncli/public_html/telegram_webhook.php
+/home/gomoncli/.htpasswds/zadarma
+/home/gomoncli/.htpasswds/my_telegram_bot
+/home/gomoncli/.htpasswds/zadarma_venv
+/home/gomoncli/repositories/ipteltest/zadarma
+/home/gomoncli/user-api-py-v1/zadarma
+/home/gomoncli/zadarma_venv
+/home/gomoncli/.cagefs/tmp/webhook_fix.py
+/home/gomoncli/.cagefs/tmp/updated_webhook.php
+/home/gomoncli/.cagefs/tmp/my_telegram_bot.lock
+/home/gomoncli/.cagefs/tmp/zadarma_bot.lock
+/home/gomoncli/.cagefs/tmp/webhook_logic_fix.py
+
+=== ПРОЦЕСИ ===
+gomoncli 1437309  0.1  0.0 874756 37764 ?        Sl   11:44   0:01 /home/gomoncli/my_telegram_bot/venv/bin/python bot_skin_type.py
+gomoncli 1465987  0.3  0.0 1032916 41868 pts/0   Sl   11:51   0:01 python3 bot.py

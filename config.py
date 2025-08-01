@@ -29,7 +29,12 @@ VOROTA_NUMBER = "0930063585"   # Залишаємо як було
 # URLs для бота
 MAP_URL = "https://maps.app.goo.gl/vf1EzwWPNdCqZDvx9"
 SCHEME_URL = "https://ibb.co/6JZ9VHw"
-SUPPORT_PHONE = "073-310-31-10"
+SUPPORT_PHONE = "0733103110"
+
+# SMS Fly
+SMS_FLY_LOGIN = "380933297777"
+SMS_FLY_PASSWORD = "pJYAWmZpWOvUozqAUvsTaBjxTpu9oJEk"  
+SMS_FLY_SENDER = "Dr. Gomon"
 
 def format_phone_for_zadarma(phone):
     """
