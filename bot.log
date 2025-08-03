@@ -3715,3 +3715,235 @@ bot.py:505: TelegramDeprecationWarning: Old Handler API is deprecated - see http
 2025-08-03 09:26:01,651 - __main__ - INFO - ✅ Стартуємо polling...
 2025-08-03 09:26:01,816 - __main__ - INFO - 🤖 Бот успішно запущений та чекає на повідомлення...
 2025-08-03 09:26:01,816 - __main__ - INFO - ℹ️  Для зупинки натисніть Ctrl+C
+⚠️ Використовується застаріла функція make_zadarma_call_handler для Ворота
+⚠️ Використовується застаріла функція make_zadarma_call_handler для Хвіртку
+2025-08-03 10:27:02,079 - __main__ - INFO - 🚀 Бот запускається...
+2025-08-03 10:27:02,079 - __main__ - INFO - 📁 PID файл створено: /home/gomoncli/zadarma/bot.pid (PID: 2295725)
+2025-08-03 10:27:02,079 - __main__ - INFO - ⚙️ Перевіряємо конфігурацію...
+2025-08-03 10:27:02,079 - config - INFO - ✅ Конфігурація пройшла валідацію
+2025-08-03 10:27:02,080 - config - INFO - 📞 HVIRTKA_NUMBER: 0637442017
+2025-08-03 10:27:02,080 - config - INFO - 🚪 VOROTA_NUMBER: 0930063585
+2025-08-03 10:27:02,080 - config - INFO - 📱 ZADARMA_MAIN_PHONE: 0733103110
+2025-08-03 10:27:02,080 - __main__ - INFO - ✅ Конфігурація валідна
+2025-08-03 10:27:02,080 - user_db - INFO - 🔄 Ініціалізація бази даних...
+2025-08-03 10:27:02,080 - user_db - INFO - ✅ База даних успішно ініціалізована
+2025-08-03 10:27:02,080 - __main__ - INFO - ✅ База даних ініціалізована
+2025-08-03 10:27:02,080 - __main__ - INFO - 📞 Тестуємо підключення до Zadarma API...
+2025-08-03 10:27:02,081 - zadarma_api - INFO - 🔄 Запущено автоочищення історії дзвінків
+2025-08-03 10:27:02,081 - zadarma_api - INFO - 🧪 Тестування авторизації з офіційним API...
+2025-08-03 10:27:02,081 - zadarma_api - INFO - 📡 Zadarma API call: /v1/info/balance/, params: {}
+2025-08-03 10:27:02,081 - zadarma_api - INFO - 🔐 Params string: format=json
+2025-08-03 10:27:02,081 - zadarma_api - INFO - 🔐 Auth header: 322168f1b94be856f0de:NDE5MmM1MmM2MmNiN2E4OWI5YzMzZDk4YmIyMGUwZWQyMWQ0ZDU5NA==
+2025-08-03 10:27:02,081 - zadarma_api - INFO - 🌐 Request URL: https://api.zadarma.com/v1/info/balance/
+2025-08-03 10:27:02,234 - zadarma_api - INFO - 📡 Response status: 200
+2025-08-03 10:27:02,234 - zadarma_api - INFO - 📡 Response: {"status":"success","balance":83.755,"currency":"UAH"}
+2025-08-03 10:27:02,234 - zadarma_api - INFO - ✅ Авторизація працює. Баланс: 83.755 UAH
+2025-08-03 10:27:02,234 - __main__ - INFO - ✅ Zadarma API підключено
+2025-08-03 10:27:02,236 - __main__ - INFO - ✅ Всі обробники додані
+2025-08-03 10:27:02,236 - __main__ - INFO - ✅ Стартуємо polling...
+2025-08-03 10:27:02,369 - __main__ - INFO - 🤖 Бот успішно запущений та чекає на повідомлення...
+2025-08-03 10:27:02,369 - __main__ - INFO - ℹ️  Для зупинки натисніть Ctrl+C
+⚠️ Використовується застаріла функція make_zadarma_call_handler для Ворота
+⚠️ Використовується застаріла функція make_zadarma_call_handler для Хвіртку
+2025-08-03 11:28:01,958 - __main__ - INFO - 🚀 Бот запускається...
+2025-08-03 11:28:01,959 - __main__ - INFO - 📁 PID файл створено: /home/gomoncli/zadarma/bot.pid (PID: 2539243)
+2025-08-03 11:28:01,959 - __main__ - INFO - ⚙️ Перевіряємо конфігурацію...
+2025-08-03 11:28:01,959 - config - INFO - ✅ Конфігурація пройшла валідацію
+2025-08-03 11:28:01,959 - config - INFO - 📞 HVIRTKA_NUMBER: 0637442017
+2025-08-03 11:28:01,959 - config - INFO - 🚪 VOROTA_NUMBER: 0930063585
+2025-08-03 11:28:01,959 - config - INFO - 📱 ZADARMA_MAIN_PHONE: 0733103110
+2025-08-03 11:28:01,959 - __main__ - INFO - ✅ Конфігурація валідна
+2025-08-03 11:28:01,959 - user_db - INFO - 🔄 Ініціалізація бази даних...
+2025-08-03 11:28:01,959 - user_db - INFO - ✅ База даних успішно ініціалізована
+2025-08-03 11:28:01,960 - __main__ - INFO - ✅ База даних ініціалізована
+2025-08-03 11:28:01,960 - __main__ - INFO - 📞 Тестуємо підключення до Zadarma API...
+2025-08-03 11:28:01,960 - zadarma_api - INFO - 🔄 Запущено автоочищення історії дзвінків
+2025-08-03 11:28:01,960 - zadarma_api - INFO - 🧪 Тестування авторизації з офіційним API...
+2025-08-03 11:28:01,961 - zadarma_api - INFO - 📡 Zadarma API call: /v1/info/balance/, params: {}
+2025-08-03 11:28:01,961 - zadarma_api - INFO - 🔐 Params string: format=json
+2025-08-03 11:28:01,961 - zadarma_api - INFO - 🔐 Auth header: 322168f1b94be856f0de:NDE5MmM1MmM2MmNiN2E4OWI5YzMzZDk4YmIyMGUwZWQyMWQ0ZDU5NA==
+2025-08-03 11:28:01,961 - zadarma_api - INFO - 🌐 Request URL: https://api.zadarma.com/v1/info/balance/
+2025-08-03 11:28:02,097 - zadarma_api - INFO - 📡 Response status: 200
+2025-08-03 11:28:02,097 - zadarma_api - INFO - 📡 Response: {"status":"success","balance":83.755,"currency":"UAH"}
+2025-08-03 11:28:02,097 - zadarma_api - INFO - ✅ Авторизація працює. Баланс: 83.755 UAH
+2025-08-03 11:28:02,097 - __main__ - INFO - ✅ Zadarma API підключено
+2025-08-03 11:28:02,099 - __main__ - INFO - ✅ Всі обробники додані
+2025-08-03 11:28:02,099 - __main__ - INFO - ✅ Стартуємо polling...
+2025-08-03 11:28:02,253 - __main__ - INFO - 🤖 Бот успішно запущений та чекає на повідомлення...
+2025-08-03 11:28:02,253 - __main__ - INFO - ℹ️  Для зупинки натисніть Ctrl+C
+2025-08-03 11:55:19,648 - zadarma_call - INFO - 🚪 /hvirtka викликано користувачем: 573368771 (@I7AJIJIbI4)
+2025-08-03 11:55:19,648 - user_db - INFO - 🔍 Спрощена перевірка авторизації для користувача: 573368771
+2025-08-03 11:55:19,649 - user_db - INFO - ✅ Телефон користувача: 380933297777
+2025-08-03 11:55:19,650 - user_db - INFO - ✅ Знайдено клієнта: Иван Павловский
+2025-08-03 11:55:19,804 - zadarma_call - INFO - 📞 Ініціюємо дзвінок на хвіртку: 0637442017
+2025-08-03 11:55:19,805 - zadarma_api_webhook - INFO - 📞 Робимо дзвінок з відстеженням на номер: 0637442017
+2025-08-03 11:55:19,805 - config - INFO - 📞 Фінальне форматування: '0637442017' -> '0637442017'
+2025-08-03 11:55:19,805 - zadarma_api_webhook - INFO - 📞 Відформатований номер TO: 0637442017
+2025-08-03 11:55:19,805 - zadarma_api_webhook - INFO - 📞 Використовуємо FROM номер: 0733103110
+2025-08-03 11:55:19,809 - zadarma_api_webhook - INFO - 📋 Зареєстровано дзвінок для відстеження: 573368771_1754211319
+2025-08-03 11:55:19,809 - zadarma_api_webhook - INFO - 📡 Zadarma API call: /v1/request/callback/, params: {'from': '0733103110', 'to': '0637442017'}
+2025-08-03 11:55:19,809 - zadarma_api_webhook - INFO - 🔐 Params string: format=json&from=0733103110&to=0637442017
+2025-08-03 11:55:19,809 - zadarma_api_webhook - INFO - 🔐 Auth header: 322168f1b94be856f0de:MWFkYTQ5MmI3N2FkM2YzMmJhMmIwM2JiN2FjNDUxZThlMGEzNzU1Yw==
+2025-08-03 11:55:19,809 - zadarma_api_webhook - INFO - 🌐 Request URL: https://api.zadarma.com/v1/request/callback/
+2025-08-03 11:55:20,066 - zadarma_api_webhook - INFO - 📡 Response status: 200
+2025-08-03 11:55:20,067 - zadarma_api_webhook - INFO - 📡 Response: {"status":"success","from":"0733103110","to":"0637442017","time":1754211320}
+2025-08-03 11:55:20,067 - zadarma_api_webhook - INFO - 🔍 CRITICAL: Before status check
+2025-08-03 11:55:20,067 - zadarma_api_webhook - INFO - 🔍 CRITICAL: result type: <class 'dict'>
+2025-08-03 11:55:20,067 - zadarma_api_webhook - INFO - 🔍 CRITICAL: result content: {'status': 'success', 'from': '0733103110', 'to': '0637442017', 'time': 1754211320}
+2025-08-03 11:55:20,067 - zadarma_api_webhook - INFO - 🔍 CRITICAL: status value: success
+2025-08-03 11:55:20,067 - zadarma_api_webhook - INFO - ✅ Успішний запит дзвінка з 0733103110 на 0637442017
+2025-08-03 11:55:20,067 - zadarma_api_webhook - INFO - 📋 Повна відповідь: {'status': 'success', 'from': '0733103110', 'to': '0637442017', 'time': 1754211320}
+2025-08-03 11:55:20,067 - zadarma_api_webhook - INFO - 🔍 DEBUG: Before API time processing
+2025-08-03 11:55:20,067 - zadarma_api_webhook - INFO - 📅 API час: 1754211320
+2025-08-03 11:55:20,067 - zadarma_api_webhook - INFO - 🔍 DEBUG: Before update_call_status
+2025-08-03 11:55:20,069 - zadarma_api_webhook - INFO - 📝 Оновлено статус дзвінка 573368771_1754211319: api_success
+2025-08-03 11:55:20,069 - zadarma_api_webhook - INFO - 🔍 DEBUG: After update_call_status
+2025-08-03 11:55:20,124 - zadarma_call - INFO - ✅ Дзвінок на хвіртку успішно ініційовано для користувача 573368771
+2025-08-03 12:00:05,042 - zadarma_call - INFO - 🚪 /hvirtka викликано користувачем: 573368771 (@I7AJIJIbI4)
+2025-08-03 12:00:05,043 - user_db - INFO - 🔍 Спрощена перевірка авторизації для користувача: 573368771
+2025-08-03 12:00:05,043 - user_db - INFO - ✅ Телефон користувача: 380933297777
+2025-08-03 12:00:05,043 - user_db - INFO - ✅ Знайдено клієнта: Иван Павловский
+2025-08-03 12:00:05,170 - zadarma_call - INFO - 📞 Ініціюємо дзвінок на хвіртку: 0637442017
+2025-08-03 12:00:05,170 - zadarma_api_webhook - INFO - 📞 Робимо дзвінок з відстеженням на номер: 0637442017
+2025-08-03 12:00:05,170 - config - INFO - 📞 Фінальне форматування: '0637442017' -> '0637442017'
+2025-08-03 12:00:05,170 - zadarma_api_webhook - INFO - 📞 Відформатований номер TO: 0637442017
+2025-08-03 12:00:05,170 - zadarma_api_webhook - INFO - 📞 Використовуємо FROM номер: 0733103110
+2025-08-03 12:00:05,175 - zadarma_api_webhook - INFO - 📋 Зареєстровано дзвінок для відстеження: 573368771_1754211605
+2025-08-03 12:00:05,175 - zadarma_api_webhook - INFO - 📡 Zadarma API call: /v1/request/callback/, params: {'from': '0733103110', 'to': '0637442017'}
+2025-08-03 12:00:05,175 - zadarma_api_webhook - INFO - 🔐 Params string: format=json&from=0733103110&to=0637442017
+2025-08-03 12:00:05,175 - zadarma_api_webhook - INFO - 🔐 Auth header: 322168f1b94be856f0de:MWFkYTQ5MmI3N2FkM2YzMmJhMmIwM2JiN2FjNDUxZThlMGEzNzU1Yw==
+2025-08-03 12:00:05,175 - zadarma_api_webhook - INFO - 🌐 Request URL: https://api.zadarma.com/v1/request/callback/
+2025-08-03 12:00:05,397 - zadarma_api_webhook - INFO - 📡 Response status: 200
+2025-08-03 12:00:05,397 - zadarma_api_webhook - INFO - 📡 Response: {"status":"success","from":"0733103110","to":"0637442017","time":1754211605}
+2025-08-03 12:00:05,398 - zadarma_api_webhook - INFO - 🔍 CRITICAL: Before status check
+2025-08-03 12:00:05,398 - zadarma_api_webhook - INFO - 🔍 CRITICAL: result type: <class 'dict'>
+2025-08-03 12:00:05,398 - zadarma_api_webhook - INFO - 🔍 CRITICAL: result content: {'status': 'success', 'from': '0733103110', 'to': '0637442017', 'time': 1754211605}
+2025-08-03 12:00:05,398 - zadarma_api_webhook - INFO - 🔍 CRITICAL: status value: success
+2025-08-03 12:00:05,398 - zadarma_api_webhook - INFO - ✅ Успішний запит дзвінка з 0733103110 на 0637442017
+2025-08-03 12:00:05,398 - zadarma_api_webhook - INFO - 📋 Повна відповідь: {'status': 'success', 'from': '0733103110', 'to': '0637442017', 'time': 1754211605}
+2025-08-03 12:00:05,398 - zadarma_api_webhook - INFO - 🔍 DEBUG: Before API time processing
+2025-08-03 12:00:05,398 - zadarma_api_webhook - INFO - 📅 API час: 1754211605
+2025-08-03 12:00:05,398 - zadarma_api_webhook - INFO - 🔍 DEBUG: Before update_call_status
+2025-08-03 12:00:05,401 - zadarma_api_webhook - INFO - 📝 Оновлено статус дзвінка 573368771_1754211605: api_success
+2025-08-03 12:00:05,401 - zadarma_api_webhook - INFO - 🔍 DEBUG: After update_call_status
+2025-08-03 12:00:05,469 - zadarma_call - INFO - ✅ Дзвінок на хвіртку успішно ініційовано для користувача 573368771
+2025-08-03 12:00:41,830 - telegram.ext.updater - INFO - Received signal 15 (SIGTERM), stopping...
+bot.py:505: TelegramDeprecationWarning: Old Handler API is deprecated - see https://git.io/fxJuV for details
+  updater = Updater(TELEGRAM_TOKEN)
+2025-08-03 12:00:45,175 - __main__ - INFO - 📁 PID файл видалено: /home/gomoncli/zadarma/bot.pid
+⚠️ Використовується застаріла функція make_zadarma_call_handler для Ворота
+⚠️ Використовується застаріла функція make_zadarma_call_handler для Хвіртку
+2025-08-03 12:00:58,079 - __main__ - INFO - 🚀 Бот запускається...
+2025-08-03 12:00:58,079 - __main__ - INFO - 📁 PID файл створено: /home/gomoncli/zadarma/bot.pid (PID: 2667659)
+2025-08-03 12:00:58,079 - __main__ - INFO - ⚙️ Перевіряємо конфігурацію...
+2025-08-03 12:00:58,079 - config - INFO - ✅ Конфігурація пройшла валідацію
+2025-08-03 12:00:58,080 - config - INFO - 📞 HVIRTKA_NUMBER: 0637442017
+2025-08-03 12:00:58,080 - config - INFO - 🚪 VOROTA_NUMBER: 0930063585
+2025-08-03 12:00:58,080 - config - INFO - 📱 ZADARMA_MAIN_PHONE: 0733103110
+2025-08-03 12:00:58,080 - __main__ - INFO - ✅ Конфігурація валідна
+2025-08-03 12:00:58,080 - user_db - INFO - 🔄 Ініціалізація бази даних...
+2025-08-03 12:00:58,080 - user_db - INFO - ✅ База даних успішно ініціалізована
+2025-08-03 12:00:58,080 - __main__ - INFO - ✅ База даних ініціалізована
+2025-08-03 12:00:58,080 - __main__ - INFO - 📞 Тестуємо підключення до Zadarma API...
+2025-08-03 12:00:58,081 - zadarma_api - INFO - 🔄 Запущено автоочищення історії дзвінків
+2025-08-03 12:00:58,081 - zadarma_api - INFO - 🧪 Тестування авторизації з офіційним API...
+2025-08-03 12:00:58,081 - zadarma_api - INFO - 📡 Zadarma API call: /v1/info/balance/, params: {}
+2025-08-03 12:00:58,081 - zadarma_api - INFO - 🔐 Params string: format=json
+2025-08-03 12:00:58,081 - zadarma_api - INFO - 🔐 Auth header: 322168f1b94be856f0de:NDE5MmM1MmM2MmNiN2E4OWI5YzMzZDk4YmIyMGUwZWQyMWQ0ZDU5NA==
+2025-08-03 12:00:58,081 - zadarma_api - INFO - 🌐 Request URL: https://api.zadarma.com/v1/info/balance/
+2025-08-03 12:00:58,230 - zadarma_api - INFO - 📡 Response status: 200
+2025-08-03 12:00:58,230 - zadarma_api - INFO - 📡 Response: {"status":"success","balance":81.685,"currency":"UAH"}
+2025-08-03 12:00:58,230 - zadarma_api - INFO - ✅ Авторизація працює. Баланс: 81.685 UAH
+2025-08-03 12:00:58,230 - __main__ - INFO - ✅ Zadarma API підключено
+2025-08-03 12:00:58,232 - __main__ - INFO - ✅ Всі обробники додані
+2025-08-03 12:00:58,232 - __main__ - INFO - ✅ Стартуємо polling...
+2025-08-03 12:00:58,356 - __main__ - INFO - 🤖 Бот успішно запущений та чекає на повідомлення...
+2025-08-03 12:00:58,356 - __main__ - INFO - ℹ️  Для зупинки натисніть Ctrl+C
+2025-08-03 12:01:03,571 - zadarma_call - INFO - 🚪 /hvirtka викликано користувачем: 573368771 (@I7AJIJIbI4)
+2025-08-03 12:01:03,571 - user_db - INFO - 🔍 Спрощена перевірка авторизації для користувача: 573368771
+2025-08-03 12:01:03,572 - user_db - INFO - ✅ Телефон користувача: 380933297777
+2025-08-03 12:01:03,572 - user_db - INFO - ✅ Знайдено клієнта: Иван Павловский
+2025-08-03 12:01:03,786 - zadarma_call - INFO - 📞 Ініціюємо дзвінок на хвіртку: 0637442017
+2025-08-03 12:01:03,786 - zadarma_api_webhook - INFO - 📞 Робимо дзвінок з відстеженням на номер: 0637442017
+2025-08-03 12:01:03,787 - config - INFO - 📞 Фінальне форматування: '0637442017' -> '0637442017'
+2025-08-03 12:01:03,787 - zadarma_api_webhook - INFO - 📞 Відформатований номер TO: 0637442017
+2025-08-03 12:01:03,787 - zadarma_api_webhook - INFO - 📞 Використовуємо FROM номер: 0733103110
+2025-08-03 12:01:03,791 - zadarma_api_webhook - INFO - 📋 Зареєстровано дзвінок для відстеження: 573368771_1754211663
+2025-08-03 12:01:03,791 - zadarma_api_webhook - INFO - 📡 Zadarma API call: /v1/request/callback/, params: {'from': '0733103110', 'to': '0637442017'}
+2025-08-03 12:01:03,792 - zadarma_api_webhook - INFO - 🔐 Params string: format=json&from=0733103110&to=0637442017
+2025-08-03 12:01:03,792 - zadarma_api_webhook - INFO - 🔐 Auth header: 322168f1b94be856f0de:MWFkYTQ5MmI3N2FkM2YzMmJhMmIwM2JiN2FjNDUxZThlMGEzNzU1Yw==
+2025-08-03 12:01:03,792 - zadarma_api_webhook - INFO - 🌐 Request URL: https://api.zadarma.com/v1/request/callback/
+2025-08-03 12:01:04,027 - zadarma_api_webhook - INFO - 📡 Response status: 200
+2025-08-03 12:01:04,027 - zadarma_api_webhook - INFO - 📡 Response: {"status":"success","from":"0733103110","to":"0637442017","time":1754211664}
+2025-08-03 12:01:04,027 - zadarma_api_webhook - INFO - 🔍 CRITICAL: Before status check
+2025-08-03 12:01:04,028 - zadarma_api_webhook - INFO - 🔍 CRITICAL: result type: <class 'dict'>
+2025-08-03 12:01:04,028 - zadarma_api_webhook - INFO - 🔍 CRITICAL: result content: {'status': 'success', 'from': '0733103110', 'to': '0637442017', 'time': 1754211664}
+2025-08-03 12:01:04,028 - zadarma_api_webhook - INFO - 🔍 CRITICAL: status value: success
+2025-08-03 12:01:04,028 - zadarma_api_webhook - INFO - ✅ Успішний запит дзвінка з 0733103110 на 0637442017
+2025-08-03 12:01:04,028 - zadarma_api_webhook - INFO - 📋 Повна відповідь: {'status': 'success', 'from': '0733103110', 'to': '0637442017', 'time': 1754211664}
+2025-08-03 12:01:04,028 - zadarma_api_webhook - INFO - 🔍 DEBUG: Before API time processing
+2025-08-03 12:01:04,028 - zadarma_api_webhook - INFO - 📅 API час: 1754211664
+2025-08-03 12:01:04,028 - zadarma_api_webhook - INFO - 🔍 DEBUG: Before update_call_status
+2025-08-03 12:01:04,030 - zadarma_api_webhook - INFO - 📝 Оновлено статус дзвінка 573368771_1754211663: api_success
+2025-08-03 12:01:04,030 - zadarma_api_webhook - INFO - 🔍 DEBUG: After update_call_status
+2025-08-03 12:01:04,091 - zadarma_call - INFO - ✅ Дзвінок на хвіртку успішно ініційовано для користувача 573368771
+2025-08-03 12:05:34,894 - telegram.ext.updater - INFO - Received signal 15 (SIGTERM), stopping...
+bot.py:505: TelegramDeprecationWarning: Old Handler API is deprecated - see https://git.io/fxJuV for details
+  updater = Updater(TELEGRAM_TOKEN)
+2025-08-03 12:05:44,278 - __main__ - INFO - 📁 PID файл видалено: /home/gomoncli/zadarma/bot.pid
+⚠️ Використовується застаріла функція make_zadarma_call_handler для Ворота
+⚠️ Використовується застаріла функція make_zadarma_call_handler для Хвіртку
+2025-08-03 12:05:56,883 - __main__ - INFO - 🚀 Бот запускається...
+2025-08-03 12:05:56,884 - __main__ - INFO - 📁 PID файл створено: /home/gomoncli/zadarma/bot.pid (PID: 2685964)
+2025-08-03 12:05:56,884 - __main__ - INFO - ⚙️ Перевіряємо конфігурацію...
+2025-08-03 12:05:56,884 - config - INFO - ✅ Конфігурація пройшла валідацію
+2025-08-03 12:05:56,884 - config - INFO - 📞 HVIRTKA_NUMBER: 0637442017
+2025-08-03 12:05:56,884 - config - INFO - 🚪 VOROTA_NUMBER: 0930063585
+2025-08-03 12:05:56,884 - config - INFO - 📱 ZADARMA_MAIN_PHONE: 0733103110
+2025-08-03 12:05:56,885 - __main__ - INFO - ✅ Конфігурація валідна
+2025-08-03 12:05:56,885 - user_db - INFO - 🔄 Ініціалізація бази даних...
+2025-08-03 12:05:56,885 - user_db - INFO - ✅ База даних успішно ініціалізована
+2025-08-03 12:05:56,885 - __main__ - INFO - ✅ База даних ініціалізована
+2025-08-03 12:05:56,885 - __main__ - INFO - 📞 Тестуємо підключення до Zadarma API...
+2025-08-03 12:05:56,886 - zadarma_api - INFO - 🔄 Запущено автоочищення історії дзвінків
+2025-08-03 12:05:56,886 - zadarma_api - INFO - 🧪 Тестування авторизації з офіційним API...
+2025-08-03 12:05:56,886 - zadarma_api - INFO - 📡 Zadarma API call: /v1/info/balance/, params: {}
+2025-08-03 12:05:56,886 - zadarma_api - INFO - 🔐 Params string: format=json
+2025-08-03 12:05:56,886 - zadarma_api - INFO - 🔐 Auth header: 322168f1b94be856f0de:NDE5MmM1MmM2MmNiN2E4OWI5YzMzZDk4YmIyMGUwZWQyMWQ0ZDU5NA==
+2025-08-03 12:05:56,886 - zadarma_api - INFO - 🌐 Request URL: https://api.zadarma.com/v1/info/balance/
+2025-08-03 12:05:57,068 - zadarma_api - INFO - 📡 Response status: 200
+2025-08-03 12:05:57,069 - zadarma_api - INFO - 📡 Response: {"status":"success","balance":80.65,"currency":"UAH"}
+2025-08-03 12:05:57,069 - zadarma_api - INFO - ✅ Авторизація працює. Баланс: 80.65 UAH
+2025-08-03 12:05:57,069 - __main__ - INFO - ✅ Zadarma API підключено
+2025-08-03 12:05:57,070 - __main__ - INFO - ✅ Всі обробники додані
+2025-08-03 12:05:57,070 - __main__ - INFO - ✅ Стартуємо polling...
+2025-08-03 12:05:57,198 - __main__ - INFO - 🤖 Бот успішно запущений та чекає на повідомлення...
+2025-08-03 12:05:57,198 - __main__ - INFO - ℹ️  Для зупинки натисніть Ctrl+C
+2025-08-03 12:06:02,714 - zadarma_call - INFO - 🚪 /hvirtka викликано користувачем: 573368771 (@I7AJIJIbI4)
+2025-08-03 12:06:02,714 - user_db - INFO - 🔍 Спрощена перевірка авторизації для користувача: 573368771
+2025-08-03 12:06:02,715 - user_db - INFO - ✅ Телефон користувача: 380933297777
+2025-08-03 12:06:02,715 - user_db - INFO - ✅ Знайдено клієнта: Иван Павловский
+2025-08-03 12:06:02,886 - zadarma_call - INFO - 📞 Ініціюємо дзвінок на хвіртку: 0637442017
+2025-08-03 12:06:02,886 - zadarma_api_webhook - INFO - 📞 Робимо дзвінок з відстеженням на номер: 0637442017
+2025-08-03 12:06:02,886 - config - INFO - 📞 Фінальне форматування: '0637442017' -> '0637442017'
+2025-08-03 12:06:02,886 - zadarma_api_webhook - INFO - 📞 Відформатований номер TO: 0637442017
+2025-08-03 12:06:02,887 - zadarma_api_webhook - INFO - 📞 Використовуємо FROM номер: 0733103110
+2025-08-03 12:06:02,891 - zadarma_api_webhook - INFO - 📋 Зареєстровано дзвінок для відстеження: 573368771_1754211962
+2025-08-03 12:06:02,892 - zadarma_api_webhook - INFO - 📡 Zadarma API call: /v1/request/callback/, params: {'from': '0733103110', 'to': '0637442017'}
+2025-08-03 12:06:02,892 - zadarma_api_webhook - INFO - 🔐 Params string: format=json&from=0733103110&to=0637442017
+2025-08-03 12:06:02,892 - zadarma_api_webhook - INFO - 🔐 Auth header: 322168f1b94be856f0de:MWFkYTQ5MmI3N2FkM2YzMmJhMmIwM2JiN2FjNDUxZThlMGEzNzU1Yw==
+2025-08-03 12:06:02,892 - zadarma_api_webhook - INFO - 🌐 Request URL: https://api.zadarma.com/v1/request/callback/
+2025-08-03 12:06:03,144 - zadarma_api_webhook - INFO - 📡 Response status: 200
+2025-08-03 12:06:03,145 - zadarma_api_webhook - INFO - 📡 Response: {"status":"success","from":"0733103110","to":"0637442017","time":1754211963}
+2025-08-03 12:06:03,145 - zadarma_api_webhook - INFO - 🔍 CRITICAL: Before status check
+2025-08-03 12:06:03,145 - zadarma_api_webhook - INFO - 🔍 CRITICAL: result type: <class 'dict'>
+2025-08-03 12:06:03,145 - zadarma_api_webhook - INFO - 🔍 CRITICAL: result content: {'status': 'success', 'from': '0733103110', 'to': '0637442017', 'time': 1754211963}
+2025-08-03 12:06:03,145 - zadarma_api_webhook - INFO - 🔍 CRITICAL: status value: success
+2025-08-03 12:06:03,145 - zadarma_api_webhook - INFO - ✅ Успішний запит дзвінка з 0733103110 на 0637442017
+2025-08-03 12:06:03,145 - zadarma_api_webhook - INFO - 📋 Повна відповідь: {'status': 'success', 'from': '0733103110', 'to': '0637442017', 'time': 1754211963}
+2025-08-03 12:06:03,145 - zadarma_api_webhook - INFO - 🔍 DEBUG: Before API time processing
+2025-08-03 12:06:03,145 - zadarma_api_webhook - INFO - 📅 API час: 1754211963
+2025-08-03 12:06:03,146 - zadarma_api_webhook - INFO - 🔍 DEBUG: Before update_call_status
+2025-08-03 12:06:03,150 - zadarma_api_webhook - INFO - 📝 Оновлено статус дзвінка 573368771_1754211962: api_success
+2025-08-03 12:06:03,150 - zadarma_api_webhook - INFO - 🔍 DEBUG: After update_call_status
+2025-08-03 12:06:03,384 - zadarma_call - INFO - ✅ Дзвінок на хвіртку успішно ініційовано для користувача 573368771

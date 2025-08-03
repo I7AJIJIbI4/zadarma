@@ -60,8 +60,14 @@ def main():
             logger.info("✅ Успішно імпортовано zadarma_api_webhook")
         except ImportError as e:
             logger.error(f"❌ Помилка імпорту zadarma_api_webhook: {e}")
-            print(json.dumps({"success": False, "message": "Import error"}))
-            sys.exit(1)
+            # Fallback - пробуємо імпортувати зі старого модуля
+            try:
+                from zadarma_api import process_webhook_call_status, send_telegram_message, call_tracker
+                logger.info("✅ Fallback: імпортовано zadarma_api")
+            except ImportError:
+                logger.error("❌ Не вдалося імпортувати жодний модуль webhook обробки")
+                print(json.dumps({"success": False, "message": "Import error"}))
+                sys.exit(1)
         
         # Обробляємо різні типи подій
         if event == 'NOTIFY_END':
@@ -106,6 +112,12 @@ def main():
                     
                 elif disposition == 'busy':
                     # ❌ ЗАЙНЯТО  
+                    message = f"❌ Номер {action_name} зайнятий. Спробуйте ще раз через хвилину."
+                    status = 'busy'
+                    logger.warning(f"❌ BUSY: {action_name} зайнято")
+                    
+                elif disposition in ['no-answer', 'noanswer'] and duration == 0:
+                    # ❌ НЕ ВІДПОВІДАЄ
                     message = f"❌ Номер {action_name} не відповідає. Можливо проблеми зв'язку.\n\nСпробуйте ще раз або зателефонуйте нам за номером <a href=\"tel:+380733103110\">+380733103110</a>"
                     status = 'no_answer'
                     logger.warning(f"❌ NO_ANSWER: {action_name} не відповідає")
@@ -114,7 +126,15 @@ def main():
                     # ⚠️ ПРОБЛЕМА: Дзвінок прийняли замість скидання
                     message = f"⚠️ Дзвінок для відкриття {action_name} було прийнято.\nМожливо, система не налаштована правильно.\n\nЗверніться до підтримки: <a href=\"tel:+380733103110\">+380733103110</a>"
                     status = 'answered'
-                    logger.error(f"⚠️ ANSWERED: Проблема налаштування - дзвінок на {action_name} прийнято")
+                    logger.error(f"⚠️ ANSWERED: Проблема налаштування - дзвінок на {action_name} прийнято (duration: {duration}s)")
+                    
+                    # Сповіщаємо адміна про проблему
+                    try:
+                        from config import ADMIN_USER_ID
+                        admin_message = f"🚨 ПРОБЛЕМА: Дзвінок на {action_name} ({call_data['target_number']}) було ПРИЙНЯТО замість скидання! Тривалість: {duration}s. Перевірте налаштування системи."
+                        send_telegram_message(ADMIN_USER_ID, admin_message)
+                    except Exception as admin_error:
+                        logger.error(f"❌ Помилка відправки повідомлення адміну: {admin_error}")
                     
                 else:
                     # ❌ ІНША ПОМИЛКА
@@ -146,8 +166,15 @@ def main():
                 result = {"success": True, "message": "Call not tracked by our system"}
                 
         elif event == 'NOTIFY_START':
+            # Для початку дзвінка можемо оновити PBX call ID якщо знаходимо відповідний дзвінок
             logger.info(f"📞 START: PBX ID {pbx_call_id}, Caller: {caller_id}")
             result = {"success": True, "message": "Start event logged"}
+            
+        elif event == 'NOTIFY_INTERNAL':
+            # Логуємо внутрішні дзвінки
+            internal = webhook_data.get('internal', '')
+            logger.info(f"📞 INTERNAL: Caller {caller_id} -> Internal {internal}")
+            result = {"success": True, "message": "Internal call logged"}
             
         else:
             logger.info(f"ℹ️ Подія {event} не потребує обробки")
