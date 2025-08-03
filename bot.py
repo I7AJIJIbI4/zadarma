@@ -440,13 +440,14 @@ def help_command(bot, update):
                 "❓ /help - Ця довідка\n\n"
                 
                 "📞 *ДЛЯ РЕЄСТРАЦІЇ ЗВЕРНІТЬСЯ:*\n"
-                "+380733103110\n"
-                "Instagram: @dr.gomon"
+                "+380733103110 - телефонуйте\n"
+                "💬 [Instagram](https://instagram.com/dr.gomon) - пишіть в Direct"
             )
         
         bot.send_message(
             chat_id=update.message.chat_id,
             text=help_message,
+            parse_mode='Markdown'
             )
         logger.info(f"❓ Довідка відправлена користувачу {user_id}")
         

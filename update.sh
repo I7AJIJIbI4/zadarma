@@ -122,13 +122,21 @@ echo -e "${YELLOW}5️⃣ Відновлення конфігурації...${NC
 
 if [ -f "$BACKUP_DIR/config.py" ]; then
     cp "$BACKUP_DIR/config.py" config.py
-    echo -e "   ✅ config.py відновлено"
+    echo -e "   ✅ config.py відновлено з backup"
+elif [ -f "config.py" ]; then
+    echo -e "   ✅ config.py вже існує (залишаємо поточний)"
 else
-    echo -e "${RED}   ❌ config.py не знайдено в backup!${NC}"
+    echo -e "${RED}   ❌ config.py відсутній!${NC}"
     if [ -f "config.py.example" ]; then
-        echo -e "${YELLOW}   📝 Створіть config.py на основі config.py.example${NC}"
-        echo -e "${BLUE}   cp config.py.example config.py${NC}"
+        echo -e "${YELLOW}   📝 Створюємо config.py з шаблону...${NC}"
+        cp config.py.example config.py
+        echo -e "${YELLOW}   ⚠️  УВАГА: Відредагуйте config.py з реальними API ключами!${NC}"
         echo -e "${BLUE}   nano config.py${NC}"
+        echo -e "${YELLOW}   Натисніть Enter після редагування config.py...${NC}"
+        read -r
+    else
+        echo -e "${RED}   ❌ Ні backup, ні шаблон не знайдено!${NC}"
+        exit 1
     fi
 fi
 
