@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-api_monitor.py - Моніторинг API з Telegram сповіщеннями
+api_monitor.py - Покращений моніторинг API з детальною інформацією про баланси
 """
 
 import requests
@@ -30,21 +30,43 @@ class APIMonitor:
         self.notifier = TelegramNotifier() if TELEGRAM_AVAILABLE and enable_notifications else None
     
     def test_zadarma_api(self):
-        """Тестування Zadarma API"""
+        """Тестування Zadarma API з отриманням балансу"""
         try:
-            from zadarma_api import test_zadarma_auth
-            if test_zadarma_auth():
-                self.results['zadarma'] = {'status': 'OK', 'message': 'API працює'}
+            # Використовуємо zadarma_api для отримання балансу
+            from zadarma_api import zadarma_api
+            
+            response = zadarma_api.call('/v1/info/balance/', {}, 'GET')
+            result = json.loads(response.text)
+            
+            if result.get("status") == "success":
+                balance = result.get("balance", "невідомо")
+                currency = result.get("currency", "")
+                
+                # Форматуємо повідомлення як у SMS Fly
+                balance_msg = f"Баланс: {balance} {currency}" if currency else f"Баланс: {balance}"
+                
+                self.results['zadarma'] = {
+                    'status': 'OK', 
+                    'message': balance_msg,
+                    'balance': balance,
+                    'currency': currency
+                }
+                logger.info(f"✅ Zadarma API працює. {balance_msg}")
                 return True
             else:
-                self.results['zadarma'] = {'status': 'ERROR', 'message': 'Помилка авторизації'}
+                error_msg = result.get("message", "Невідома помилка API")
+                self.results['zadarma'] = {'status': 'ERROR', 'message': f'API помилка: {error_msg}'}
+                logger.error(f"❌ Zadarma API помилка: {error_msg}")
                 return False
+                
         except Exception as e:
-            self.results['zadarma'] = {'status': 'ERROR', 'message': str(e)}
+            error_msg = str(e)
+            self.results['zadarma'] = {'status': 'ERROR', 'message': f'Помилка підключення: {error_msg}'}
+            logger.error(f"❌ Zadarma API виключення: {error_msg}")
             return False
     
     def test_wlaunch_api(self):
-        """Тестування WLaunch API"""
+        """Тестування WLaunch API з додатковою інформацією"""
         try:
             url = f"https://api.wlaunch.net/v1/company/{COMPANY_ID}/branch/"
             params = {
@@ -65,10 +87,21 @@ class APIMonitor:
                 if 'content' in data:
                     branches = len(data['content'])
                     total = data.get('page', {}).get('total_elements', 0)
-                    branch_name = data['content'][0]['name'] if data['content'] else 'Unknown'
+                    
+                    if data['content']:
+                        branch_name = data['content'][0]['name']
+                        # Додаємо інформацію про активність
+                        active_branches = sum(1 for b in data['content'] if b.get('active', False))
+                        
+                        message = f"Філій: {branches} ({active_branches} активних) - {branch_name}"
+                    else:
+                        message = f"Філій: {branches} (порожній список)"
+                    
                     self.results['wlaunch'] = {
                         'status': 'OK', 
-                        'message': f'API працює, філій: {branches} ({branch_name})'
+                        'message': message,
+                        'branches_count': branches,
+                        'active_branches': active_branches if data['content'] else 0
                     }
                     return True
             
@@ -83,7 +116,7 @@ class APIMonitor:
             return False
     
     def test_sms_fly_api(self):
-        """Тестування SMS Fly API v2"""
+        """Тестування SMS Fly API v2 з детальною інформацією"""
         try:
             try:
                 from config import SMS_FLY_PASSWORD
@@ -109,7 +142,27 @@ class APIMonitor:
                     data = response.json()
                     if data.get('success') == 1:
                         balance = data.get('data', {}).get('balance', 'невідомо')
-                        self.results['sms_fly'] = {'status': 'OK', 'message': f'Баланс: {balance} грн (v2)'}
+                        
+                        # Додаємо інформацію про рівень балансу
+                        try:
+                            balance_float = float(balance)
+                            if balance_float < 10:
+                                balance_status = "⚠️ Низький баланс"
+                            elif balance_float < 50:
+                                balance_status = "🟡 Помірний баланс"
+                            else:
+                                balance_status = "✅ Достатній баланс"
+                        except:
+                            balance_status = ""
+                        
+                        message = f"Баланс: {balance} грн {balance_status}".strip()
+                        
+                        self.results['sms_fly'] = {
+                            'status': 'OK', 
+                            'message': message,
+                            'balance': balance,
+                            'currency': 'грн'
+                        }
                         return True
                     else:
                         error_info = data.get('error', {})
@@ -128,7 +181,7 @@ class APIMonitor:
             return False
     
     def test_telegram_api(self):
-        """Тестування Telegram Bot API"""
+        """Тестування Telegram Bot API з додатковою інформацією"""
         try:
             from config import TELEGRAM_TOKEN
             
@@ -139,7 +192,21 @@ class APIMonitor:
                 data = response.json()
                 if data.get('ok'):
                     bot_info = data['result']
-                    self.results['telegram'] = {'status': 'OK', 'message': f'Бот: {bot_info["first_name"]}'}
+                    bot_name = bot_info.get("first_name", "Unknown")
+                    username = bot_info.get("username", "")
+                    
+                    # Додаємо інформацію про username якщо є
+                    if username:
+                        message = f"Бот: {bot_name} (@{username})"
+                    else:
+                        message = f"Бот: {bot_name}"
+                    
+                    self.results['telegram'] = {
+                        'status': 'OK', 
+                        'message': message,
+                        'bot_name': bot_name,
+                        'username': username
+                    }
                     return True
             
             self.results['telegram'] = {'status': 'ERROR', 'message': f'HTTP {response.status_code}'}
@@ -148,6 +215,31 @@ class APIMonitor:
         except Exception as e:
             self.results['telegram'] = {'status': 'ERROR', 'message': str(e)}
             return False
+    
+    def get_financial_summary(self):
+        """Отримати фінансовий підсумок балансів"""
+        financial_info = []
+        
+        # Zadarma баланс
+        if 'zadarma' in self.results and self.results['zadarma']['status'] == 'OK':
+            zadarma_data = self.results['zadarma']
+            if 'balance' in zadarma_data:
+                balance = zadarma_data['balance']
+                currency = zadarma_data.get('currency', '')
+                financial_info.append(f"📞 Zadarma: {balance} {currency}")
+        
+        # SMS Fly баланс
+        if 'sms_fly' in self.results and self.results['sms_fly']['status'] == 'OK':
+            sms_data = self.results['sms_fly']
+            if 'balance' in sms_data:
+                balance = sms_data['balance']
+                currency = sms_data.get('currency', '')
+                financial_info.append(f"📱 SMS Fly: {balance} {currency}")
+        
+        if financial_info:
+            return "💰 ФІНАНСОВИЙ СТАТУС:\n" + "\n".join(f"   {info}" for info in financial_info)
+        
+        return ""
     
     def run_all_tests(self, send_notifications=True):
         """Запуск всіх тестів API з сповіщеннями"""
@@ -225,6 +317,13 @@ def main():
     print("=" * 50)
     print(monitor.get_detailed_report())
     print("=" * 50)
+    
+    # Додаємо фінансовий підсумок
+    financial_summary = monitor.get_financial_summary()
+    if financial_summary:
+        print(financial_summary)
+        print("=" * 50)
+    
     print(monitor.get_summary())
     print("=" * 50)
     
