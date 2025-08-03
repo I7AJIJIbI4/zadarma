@@ -277,6 +277,116 @@ class CallTracker:
 
 # Глобальний трекер
 call_tracker = CallTracker()
+    # Додайте ці методи в клас CallTracker в файлі zadarma_api_webhook.py
+
+def get_recent_calls(self, time_window_seconds=300):
+    """
+    Отримує всі дзвінки за останній період
+    
+    Args:
+        time_window_seconds: Вікно часу в секундах (за замовчуванням 5 хвилин)
+    
+    Returns:
+        list: Список дзвінків
+    """
+    try:
+        current_time = time.time()
+        cutoff_time = current_time - time_window_seconds
+        
+        cursor = self.conn.cursor()
+        cursor.execute("""
+            SELECT call_id, chat_id, target_number, action_type, timestamp, status, pbx_call_id
+            FROM call_tracking 
+            WHERE timestamp > ?
+            ORDER BY timestamp DESC
+        """, (cutoff_time,))
+        
+        calls = []
+        for row in cursor.fetchall():
+            calls.append({
+                'call_id': row[0],
+                'chat_id': row[1], 
+                'target_number': row[2],
+                'action_type': row[3],
+                'timestamp': row[4],
+                'status': row[5],
+                'pbx_call_id': row[6]
+            })
+        
+        return calls
+        
+    except Exception as e:
+        logger.error(f"❌ Помилка отримання нещодавніх дзвінків: {e}")
+        return []
+
+def get_call_by_target_and_time(self, target_number, time_window_seconds=120):
+    """
+    Покращена функція пошуку дзвінка по номеру та часу
+    
+    Args:
+        target_number: Цільовий номер телефону
+        time_window_seconds: Вікно часу для пошуку
+    
+    Returns:
+        dict або None: Дані дзвінка
+    """
+    try:
+        current_time = time.time()
+        cutoff_time = current_time - time_window_seconds
+        
+        cursor = self.conn.cursor()
+        
+        # Шукаємо по точній відповідності
+        cursor.execute("""
+            SELECT call_id, chat_id, target_number, action_type, timestamp, status, pbx_call_id
+            FROM call_tracking 
+            WHERE target_number = ? AND timestamp > ? AND status IN ('pending', 'api_success')
+            ORDER BY timestamp DESC
+            LIMIT 1
+        """, (target_number, cutoff_time))
+        
+        row = cursor.fetchone()
+        if row:
+            return {
+                'call_id': row[0],
+                'chat_id': row[1],
+                'target_number': row[2], 
+                'action_type': row[3],
+                'timestamp': row[4],
+                'status': row[5],
+                'pbx_call_id': row[6]
+            }
+        
+        # Якщо не знайдено точної відповідності, шукаємо по частковій
+        # Нормалізуємо номер для пошуку
+        normalized_target = target_number.lstrip('0').lstrip('38')
+        
+        cursor.execute("""
+            SELECT call_id, chat_id, target_number, action_type, timestamp, status, pbx_call_id
+            FROM call_tracking 
+            WHERE (target_number LIKE ? OR target_number LIKE ?) 
+            AND timestamp > ? AND status IN ('pending', 'api_success')
+            ORDER BY timestamp DESC
+            LIMIT 1
+        """, (f'%{normalized_target}', f'%{target_number}%', cutoff_time))
+        
+        row = cursor.fetchone()
+        if row:
+            return {
+                'call_id': row[0],
+                'chat_id': row[1],
+                'target_number': row[2],
+                'action_type': row[3], 
+                'timestamp': row[4],
+                'status': row[5],
+                'pbx_call_id': row[6]
+            }
+        
+        return None
+        
+    except Exception as e:
+        logger.error(f"❌ Помилка пошуку дзвінка по номеру {target_number}: {e}")
+        return None
 
 def send_telegram_message(chat_id, message):
     """Відправляє повідомлення в Telegram з HTML форматуванням та retry логікою"""
@@ -586,3 +696,53 @@ def start_cleanup_scheduler():
 # Ініціалізація при імпорті
 if __name__ != "__main__":
     start_cleanup_scheduler()
+def get_call_statistics(days=7):
+    """
+    Отримує статистику дзвінків за вказаний період
+    """
+    try:
+        import time
+        current_time = time.time()
+        cutoff_time = current_time - (days * 24 * 3600)
+        
+        cursor = call_tracker.conn.cursor()
+        
+        cursor.execute("""
+            SELECT 
+                status,
+                action_type,
+                COUNT(*) as count
+            FROM call_tracking 
+            WHERE timestamp > ?
+            GROUP BY status, action_type
+            ORDER BY count DESC
+        """, (cutoff_time,))
+        
+        stats = {
+            'total_calls': 0,
+            'success_rate': 0,
+            'by_status': {},
+            'by_action': {'hvirtka': 0, 'vorota': 0},
+            'period_days': days
+        }
+        
+        for row in cursor.fetchall():
+            status, action_type, count = row
+            stats['total_calls'] += count
+            
+            if status not in stats['by_status']:
+                stats['by_status'][status] = 0
+            stats['by_status'][status] += count
+            
+            if action_type in stats['by_action']:
+                stats['by_action'][action_type] += count
+        
+        success_count = stats['by_status'].get('success', 0)
+        if stats['total_calls'] > 0:
+            stats['success_rate'] = round((success_count / stats['total_calls']) * 100, 1)
+        
+        return stats
+        
+    except Exception as e:
+        logger.error(f"❌ Помилка отримання статистики: {e}")
+        return None

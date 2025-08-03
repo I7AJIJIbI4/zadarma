@@ -1,4 +1,4 @@
-# bot.py - Final version with HTML clickable links
+# bot.py - Final version with admin functions
 import os
 import sys
 import time
@@ -11,10 +11,8 @@ from user_db import init_db, is_authorized_user_simple, get_user_info
 from zadarma_call import handle_door_command, handle_gate_command, handle_admin_stats_command
 from config import TELEGRAM_TOKEN, ADMIN_USER_ID, MAP_URL, SCHEME_URL, validate_config
 
-# Змініть назву функції для сумісності
 is_authenticated = is_authorized_user_simple
 
-# ВИПРАВЛЕНЕ ЛОГУВАННЯ - без дублювання
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -26,14 +24,12 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 def create_pid_file():
-    """Створює PID файл для бота"""
     pid_file = "/home/gomoncli/zadarma/bot.pid"
     try:
         with open(pid_file, 'w') as f:
             f.write(str(os.getpid()))
         logger.info(f"📁 PID файл створено: {pid_file} (PID: {os.getpid()})")
         
-        # Видаляємо PID файл при завершенні
         def cleanup_pid():
             try:
                 if os.path.exists(pid_file):
@@ -44,7 +40,6 @@ def create_pid_file():
         
         atexit.register(cleanup_pid)
         
-        # Також видаляємо при отриманні сигналів
         import signal
         def signal_handler(signum, frame):
             logger.info(f"📡 Отримано сигнал {signum}, завершуємо роботу...")
@@ -58,7 +53,6 @@ def create_pid_file():
         logger.error(f"❌ Помилка створення PID файлу: {e}")
 
 def send_error_to_admin(bot, message):
-    """Відправляє повідомлення про помилку адміну"""
     try:
         bot.send_message(chat_id=ADMIN_USER_ID, text=message)
         logger.info(f"📤 Повідомлення про помилку відправлено адміну: {message}")
@@ -73,11 +67,7 @@ def start_command(bot, update):
     logger.info(f"👤 /start викликано користувачем: {user_id} (@{username}, {first_name})")
     
     try:
-        logger.info(f"🔍 Перевіряємо авторизацію для користувача {user_id}...")
-        
         if is_authenticated(user_id):
-            logger.info(f"✅ Користувач {user_id} вже авторизований")
-            
             welcome_message = (
                 f"🎉 **Вітаємо, {first_name}!**\n\n"
                 "✅ Ви авторизовані в системі Dr. Gomon Cosmetology\n\n"
@@ -86,66 +76,42 @@ def start_command(bot, update):
                 "🏠 /vorota - Відкрити ворота\n"
                 "📞 /call - Зателефонувати лікарю Вікторії\n"
                 "🗺️ /map - Подивитись розташування на мапі\n"
-                "📋 /scheme - Схема розташування в ЖК Графський\n\n"
+                "📋 /scheme - Схема розташування в ЖК Графський\n"
+                "❓ /help - Довідка по командах\n\n"
                 "💡 **Швидкий доступ:** Меню ☰ зліва внизу"
             )
             
             bot.send_message(chat_id=update.message.chat_id, text=welcome_message, parse_mode='Markdown')
-            logger.info(f"✅ Авторизоване повідомлення відправлено користувачу {user_id}")
         else:
-            logger.info(f"❌ Користувач {user_id} НЕ авторизований")
-            
             unauthorized_message = (
                 f"👋 **Вітаємо, {first_name}!**\n\n"
                 "❌ Ви не авторизовані в системі\n\n"
                 "📱 **Для авторизації поділіться номером телефону**"
             )
             
-            # Спочатку відправляємо звичайне повідомлення
             bot.send_message(chat_id=update.message.chat_id, text=unauthorized_message, parse_mode='Markdown')
-            logger.info(f"📤 Повідомлення неавторизованому користувачу {user_id} відправлено")
             
-            # Потім намагаємося додати кнопку
             try:
-                logger.info(f"🔄 Імпортуємо KeyboardButton для користувача {user_id}")
                 from telegram import KeyboardButton, ReplyKeyboardMarkup
-                logger.info(f"✅ KeyboardButton імпортовано успішно")
-                
-                logger.info(f"🔄 Створюємо кнопку для користувача {user_id}")
                 keyboard = [[KeyboardButton("📱 Поділитися номером", request_contact=True)]]
-                reply_markup = ReplyKeyboardMarkup(
-                    keyboard, 
-                    one_time_keyboard=True, 
-                    resize_keyboard=True
-                )
-                logger.info(f"✅ Кнопка створена успішно для користувача {user_id}")
-                
+                reply_markup = ReplyKeyboardMarkup(keyboard, one_time_keyboard=True, resize_keyboard=True)
                 button_message = "👇 **Натисніть кнопку для авторизації:**"
                 
-                logger.info(f"🔄 Відправляємо кнопку користувачу {user_id}")
                 bot.send_message(
                     chat_id=update.message.chat_id,
                     text=button_message,
                     reply_markup=reply_markup,
                     parse_mode='Markdown'
                 )
-                logger.info(f"✅ Кнопка успішно відправлена користувачу {user_id}")
-                
-            except Exception as button_error:
-                logger.error(f"❌ Помилка створення кнопки для {user_id}: {button_error}")
-                logger.error(f"❌ Тип помилки: {type(button_error)}")
-                logger.error(f"❌ Деталі: {str(button_error)}")
-                
-                # Fallback
+            except Exception:
                 fallback_message = (
                     "📱 **Відправте свій номер телефону текстом**\n\n"
                     "📝 Формат: +380XXXXXXXXX"
                 )
                 bot.send_message(chat_id=update.message.chat_id, text=fallback_message, parse_mode='Markdown')
-                logger.info(f"📱 Fallback повідомлення відправлено користувачу {user_id}")
             
     except Exception as e:
-        logger.exception(f"❌ Критична помилка в start_command для користувача {user_id}: {e}")
+        logger.exception(f"❌ Критична помилка в start_command: {e}")
         bot.send_message(
             chat_id=update.message.chat_id,
             text="❌ **Технічна помилка.** Зверніться до підтримки: 073-310-31-10",
@@ -163,89 +129,59 @@ def contact_handler(bot, update):
         contact = update.message.contact
         phone_number = contact.phone_number
         
-        logger.info(f"📞 Номер телефону: {phone_number}")
-        
         from user_db import store_user
         from telegram import ReplyKeyboardRemove
         
-        # ВИПРАВЛЕНО: додаємо всі потрібні параметри
         store_result = store_user(user_id, phone_number, username, first_name)
-        logger.info(f"📊 store_user повернув: {store_result}")
         
-        # Продовжуємо незалежно від результату, бо користувач уже збережений
-        if True:
-            success_message = (
-                f"✅ Дякуємо, {first_name}!\n\n"
-                f"📱 Ваш номер {phone_number} збережено.\n"
-                f"🔍 Перевіряємо дозволи доступу...\n\n"
-                f"Зачекайте, будь ласка..."
+        success_message = (
+            f"✅ Дякуємо, {first_name}!\n\n"
+            f"📱 Ваш номер {phone_number} збережено.\n"
+            f"🔍 Перевіряємо дозволи доступу...\n\n"
+            f"Зачекайте, будь ласка..."
+        )
+        
+        bot.send_message(
+            chat_id=update.message.chat_id, 
+            text=success_message,
+            reply_markup=ReplyKeyboardRemove()
+        )
+        
+        time.sleep(2)
+        
+        if is_authenticated(user_id):
+            authorized_message = (
+                f"🎉 Вітаємо, {first_name}!\n\n"
+                "Ви авторизовані в системі і маєте доступ до всіх функцій Dr. Gomon Concierge.\n\n"
+                "🔓 Доступні дії:\n\n"
+                "🚪 /hvirtka - Відкрити хвіртку для пішого проходу\n"
+                "🏠 /vorota - Відкрити ворота для авто\n"
+                "📞 /call - Зателефонувати лікарю Вікторії\n"
+                "🗺️ /map - Показати розташування косметології на мапі\n"
+                "📋 /scheme - Схема розташування косметології в ЖК Графський\n"
+                "❓ /help - Довідка по командах\n\n"
+                "💡 Підказка: для швидкого доступу до команд\n"
+                "   натисніть кнопку \"Меню\" ☰ зліва внизу"
             )
             
-            # ВИПРАВЛЕНО: Одразу прибираємо кнопку
-            bot.send_message(
-                chat_id=update.message.chat_id, 
-                text=success_message,
-                reply_markup=ReplyKeyboardRemove()
-            )
-            logger.info(f"📤 Повідомлення з видаленням кнопки відправлено користувачу {user_id}")
-            
-            time.sleep(2)
-            
-            if is_authenticated(user_id):
-                authorized_message = (
-                    f"🎉 Вітаємо, {first_name}!\n\n"
-                    "Ви авторизовані в системі і маєте доступ до всіх функцій Dr. Gomon Concierge.\n\n"
-                    "🔓 Доступні дії:\n\n"
-                    "🚪 /hvirtka - Відкрити хвіртку для пішого проходу\n"
-                    "🏠 /vorota - Відкрити ворота для авто\n"
-                    "📞 /call - Зателефонувати лікарю Вікторії\n"
-                    "🗺️ /map - Показати розташування косметології на мапі\n"
-                    "📋 /scheme - Схема розташування косметології в ЖК Графський\n\n"
-                    "💡 Підказка: для швидкого доступу до команд\n"
-                    "   натисніть кнопку \"Меню\" ☰ зліва внизу"
-                )
-                
-                bot.send_message(
-                    chat_id=update.message.chat_id,
-                    text=authorized_message
-                )
-                logger.info(f"✅ Користувач {user_id} успішно авторизований")
-            else:
-                denied_message = (
-                    "⚠️ **Доступ обмежено!**\n\n"
-                    "❌ Ваш номер не зареєстровано в системі Dr. Gomon Cosmetology\n\n"
-                    "📞 **Для реєстрації зверніться:**\n"
-                    "📱 +380733103110 - телефонуйте\n"
-                    "💬 <a href=\"https://instagram.com/dr.gomon\">Instagram</a> - пишіть в Direct\n\n"
-                    "🔓 **Доступні функції:**\n"
-                    "📞 /call - Зателефонувати лікарю Вікторії\n"
-                    "🗺️ /map - Подивитись розташування на мапі\n"
-                    "📋 /scheme - Схема розташування в ЖК Графський"
-                )
-                
-                bot.send_message(
-                    chat_id=update.message.chat_id,
-                    text=denied_message,
-                    parse_mode='HTML'
-                )
-                logger.info(f"❌ Користувач {user_id} не авторизований - номер не в системі")
+            bot.send_message(chat_id=update.message.chat_id, text=authorized_message)
         else:
-            error_message = (
-                "❌ **Виникла помилка при збереженні ваших даних**\n\n"
-                "📞 Зверніться до підтримки: 073-310-31-10"
+            denied_message = (
+                "⚠️ **Доступ обмежено!**\n\n"
+                "❌ Ваш номер не зареєстровано в системі Dr. Gomon Cosmetology\n\n"
+                "📞 **Для реєстрації зверніться:**\n"
+                "📱 +380733103110 - телефонуйте\n"
+                "💬 <a href=\"https://instagram.com/dr.gomon\">Instagram</a> - пишіть в Direct\n\n"
+                "🔓 **Доступні функції:**\n"
+                "📞 /call - Зателефонувати лікарю Вікторії\n"
+                "🗺️ /map - Подивитись розташування на мапі\n"
+                "📋 /scheme - Схема розташування в ЖК Графський"
             )
             
-            bot.send_message(
-                chat_id=update.message.chat_id, 
-                text=error_message,
-                reply_markup=ReplyKeyboardRemove(),
-                parse_mode='Markdown'
-            )
-            logger.error(f"❌ Не вдалося зберегти користувача {user_id}")
+            bot.send_message(chat_id=update.message.chat_id, text=denied_message, parse_mode='HTML')
             
     except Exception as e:
-        logger.exception(f"❌ Помилка в contact_handler для користувача {user_id}: {e}")
-        
+        logger.exception(f"❌ Помилка в contact_handler: {e}")
         from telegram import ReplyKeyboardRemove
         bot.send_message(
             chat_id=update.message.chat_id,
@@ -255,7 +191,6 @@ def contact_handler(bot, update):
         )
 
 def call_command(bot, update):
-    """Команда для телефону лікаря"""
     user_id = update.effective_user.id
     logger.info(f"📞 /call викликано користувачем: {user_id}")
     
@@ -301,7 +236,6 @@ def scheme_command(bot, update):
             "🏠 Пройдіть другі ворота/хвіртку та поверніть ліворуч"
         )
         
-        # Намагаємося відправити фото зі схемою
         try:
             with open('/home/gomoncli/zadarma/enter-min.png', 'rb') as photo:
                 bot.send_photo(
@@ -312,7 +246,6 @@ def scheme_command(bot, update):
                 )
                 logger.info(f"🧭 Схема з фото відправлена користувачу {user_id}")
         except FileNotFoundError:
-            # Якщо файл не знайдено, відправляємо тільки текст
             scheme_message_fallback = (
                 "📋 **Схема розташування в ЖК Графський**\n\n"
                 "🏠 Пройдіть другі ворота/хвіртку та поверніть ліворуч\n\n"
@@ -328,28 +261,6 @@ def scheme_command(bot, update):
     except Exception as e:
         logger.exception(f"❌ Помилка в scheme_command: {e}")
         bot.send_message(chat_id=update.message.chat_id, text="❌ **Помилка отримання схеми**", parse_mode='Markdown')
-
-def restart_command(bot, update):
-    user_id = update.effective_user.id
-    logger.info(f"🔄 /restart викликано користувачем: {user_id}")
-    
-    if user_id != ADMIN_USER_ID:
-        bot.send_message(
-            chat_id=update.message.chat_id, 
-            text="❌ Ця команда доступна тільки адміністратору"
-        )
-        return
-    
-    try:
-        bot.send_message(chat_id=update.message.chat_id, text="🔄 Перезапуск бота...")
-        logger.info("🔄 Перезапуск бота...")
-        
-        # Завершуємо поточний процес, cron автоматично перезапустить
-        os._exit(0)
-        
-    except Exception as e:
-        logger.exception(f"❌ Помилка перезапуску: {e}")
-        bot.send_message(chat_id=update.message.chat_id, text="❌ Помилка перезапуску")
 
 def test_command(bot, update):
     user_id = update.effective_user.id
@@ -402,6 +313,26 @@ def status_command(bot, update):
         logger.exception(f"❌ Помилка в status_command: {e}")
         bot.send_message(chat_id=update.message.chat_id, text="❌ Помилка при отриманні статусу")
 
+def restart_command(bot, update):
+    user_id = update.effective_user.id
+    logger.info(f"🔄 /restart викликано користувачем: {user_id}")
+    
+    if user_id != ADMIN_USER_ID:
+        bot.send_message(
+            chat_id=update.message.chat_id, 
+            text="❌ Ця команда доступна тільки адміністратору"
+        )
+        return
+    
+    try:
+        bot.send_message(chat_id=update.message.chat_id, text="🔄 Перезапуск бота...")
+        logger.info("🔄 Перезапуск бота...")
+        os._exit(0)
+        
+    except Exception as e:
+        logger.exception(f"❌ Помилка перезапуску: {e}")
+        bot.send_message(chat_id=update.message.chat_id, text="❌ Помилка перезапуску")
+
 def sync_command(bot, update):
     user_id = update.effective_user.id
     logger.info(f"🔄 /sync викликано користувачем: {user_id}")
@@ -429,7 +360,6 @@ def sync_command(bot, update):
             parse_mode='Markdown'
         )
         
-        # Запускаємо ручну синхронізацію через скрипт
         import subprocess
         subprocess.Popen(["/home/gomoncli/zadarma/sync_with_notification.sh"])
         
@@ -443,10 +373,119 @@ def sync_command(bot, update):
             parse_mode='Markdown'
         )
 
+def help_command(bot, update):
+    user_id = update.effective_user.id
+    logger.info(f"❓ /help викликано користувачем: {user_id}")
+    
+    try:
+        if user_id == ADMIN_USER_ID:
+            help_message = (
+                "🤖 *ДОВІДКА ДЛЯ АДМІНІСТРАТОРА*\n\n"
+                
+                "👥 *КОРИСТУВАЦЬКІ КОМАНДИ:*\n"
+                "🚪 /hvirtka - Відкрити хвіртку\n"
+                "🏠 /vorota - Відкрити ворота\n"
+                "📞 /call - Телефон лікаря Вікторії\n"
+                "🗺️ /map - Карта розташування\n"
+                "📋 /scheme - Схема проходу в ЖК\n"
+                "🧪 /test - Тест роботи бота\n"
+                "📊 /status - Статус користувача\n\n"
+                
+                "👑 *АДМІНІСТРАТИВНІ КОМАНДИ:*\n"
+                "📈 /stats - Загальна статистика дзвінків\n"
+                "📊 /stats_detail - Детальна статистика\n"
+                "🔄 /sync - Ручна синхронізація клієнтів\n"
+                "🔄 /restart - Перезапуск бота\n"
+                "❓ /help - Ця довідка\n\n"
+                
+                "📱 *КОНТАКТИ ПІДТРИМКИ:*\n"
+                "+380733103110"
+            )
+        elif is_authenticated(user_id):
+            help_message = (
+                "🤖 *ДОВІДКА ПО КОМАНДАХ*\n\n"
+                
+                "🔓 *ДОСТУПНІ ДІЇ:*\n"
+                "🚪 /hvirtka - Відкрити хвіртку для проходу\n"
+                "🏠 /vorota - Відкрити ворота для авто\n"
+                "📞 /call - Зателефонувати лікарю Вікторії\n"
+                "🗺️ /map - Подивитись розташування на мапі\n"
+                "📋 /scheme - Схема розташування в ЖК Графський\n\n"
+                
+                "ℹ️ *ІНФОРМАЦІЙНІ:*\n"
+                "🧪 /test - Перевірити роботу бота\n"
+                "📊 /status - Ваш статус в системі\n"
+                "❓ /help - Ця довідка\n\n"
+                
+                "💡 *ПІДКАЗКИ:*\n"
+                "• Використовуйте меню ☰ для швидкого доступу\n"
+                "• При проблемах з відкриттям спробуйте ще раз\n"
+                "• Для підтримки дзвоніть: +380733103110"
+            )
+        else:
+            help_message = (
+                "🤖 *ДОВІДКА*\n\n"
+                
+                "❌ *Ви не авторизовані в системі*\n\n"
+                
+                "📱 *Для авторизації:*\n"
+                "1. Натисніть /start\n"
+                "2. Поділіться номером телефону\n"
+                "3. Дочекайтеся підтвердження доступу\n\n"
+                
+                "🔓 *ДОСТУПНІ КОМАНДИ:*\n"
+                "📞 /call - Зателефонувати лікарю\n"
+                "🗺️ /map - Подивитись розташування\n"
+                "📋 /scheme - Схема проходу\n"
+                "❓ /help - Ця довідка\n\n"
+                
+                "📞 *ДЛЯ РЕЄСТРАЦІЇ ЗВЕРНІТЬСЯ:*\n"
+                "+380733103110\n"
+                "Instagram: @dr.gomon"
+            )
+        
+        bot.send_message(
+            chat_id=update.message.chat_id,
+            text=help_message,
+            )
+        logger.info(f"❓ Довідка відправлена користувачу {user_id}")
+        
+    except Exception as e:
+        logger.exception(f"❌ Помилка в help_command: {e}")
+        # Fallback без форматування
+        bot.send_message(
+            chat_id=update.message.chat_id,
+            text="🤖 ДОВІДКА\n\nОсновні команди:\n/hvirtka - Відкрити хвіртку\n/vorota - Відкрити ворота\n/call - Телефон лікаря\n/map - Карта\n/scheme - Схема\n\nТехпідтримка: +380733103110"
+        )
+def stats_detail_command(bot, update):
+    user_id = update.effective_user.id
+    logger.info(f"📊 /stats_detail викликано користувачем: {user_id}")
+    
+    if user_id != ADMIN_USER_ID:
+        bot.send_message(
+            chat_id=update.message.chat_id,
+            text="❌ Ця команда доступна тільки адміністратору"
+        )
+        return
+    
+    try:
+        bot.send_message(
+            chat_id=update.message.chat_id,
+            text="📊 **СТАТИСТИКА СИСТЕМИ**\n\n⚠️ Функції статистики будуть додані в наступному оновленні.\n\nВикористовуйте /stats для базової статистики дзвінків.",
+            parse_mode='Markdown'
+        )
+        logger.info(f"📊 Повідомлення про статистику відправлено адміну")
+        
+    except Exception as e:
+        logger.exception(f"❌ Помилка в stats_detail_command: {e}")
+        bot.send_message(
+            chat_id=update.message.chat_id,
+            text="❌ Помилка отримання статистики"
+        )
+
 def error_handler(bot, update, error):
     error_str = str(error)
     
-    # Ігноруємо звичайні мережеві помилки
     if any(x in error_str.lower() for x in [
         'connection aborted', 'connection broken', 'connection reset',
         'remote end closed', 'httpconnectionpool', 'read timeout',
@@ -455,7 +494,6 @@ def error_handler(bot, update, error):
         logger.warning(f"⚠️ Мережева помилка (ігнорується): {error}")
         return
     
-    # Логуємо тільки критичні помилки
     logger.error(f"❌ Критична помилка в обробці апдейту: {error}")
     
     if update:
@@ -470,17 +508,14 @@ def error_handler(bot, update, error):
         except:
             pass
     
-    # Відправляємо адміну тільки критичні помилки
     send_error_to_admin(bot, f"❌ Критична помилка: {error}")
 
 def main():
     logger.info("🚀 Бот запускається...")
     
-    # Створення PID файлу
     create_pid_file()
     
     try:
-        # Валідація конфігурації
         logger.info("⚙️ Перевіряємо конфігурацію...")
         validate_config()
         logger.info("✅ Конфігурація валідна")
@@ -488,7 +523,6 @@ def main():
         init_db()
         logger.info("✅ База даних ініціалізована")
         
-        # Тестуємо Zadarma API
         logger.info("📞 Тестуємо підключення до Zadarma API...")
         from zadarma_api import test_zadarma_auth
         if test_zadarma_auth():
@@ -500,12 +534,9 @@ def main():
         logger.error(f"❌ Критична помилка ініціалізації: {e}")
         sys.exit(1)
 
-    # Початкова синхронізація видалена - тепер через cron
-
     updater = Updater(TELEGRAM_TOKEN)
     dp = updater.dispatcher
 
-    # Додавання обробників
     dp.add_handler(CommandHandler("start", start_command))
     dp.add_handler(MessageHandler(Filters.contact, contact_handler))
     dp.add_handler(CommandHandler("call", call_command))
@@ -518,11 +549,12 @@ def main():
     dp.add_handler(CommandHandler("hvirtka", handle_door_command))
     dp.add_handler(CommandHandler("vorota", handle_gate_command))
     dp.add_handler(CommandHandler("stats", handle_admin_stats_command))
+    dp.add_handler(CommandHandler("help", help_command))
+    dp.add_handler(CommandHandler("stats_detail", stats_detail_command))
     
     dp.add_error_handler(error_handler)
     
     logger.info("✅ Всі обробники додані")
-
     logger.info("✅ Стартуємо polling...")
     updater.start_polling()
     
