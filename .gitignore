@@ -39,3 +39,4 @@ final_webhook_fix.sh
 # Логи
 *.log
 bot.pid
+users.db
