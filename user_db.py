@@ -222,6 +222,12 @@ def is_authorized_user_simple(telegram_id):
     """Спрощена версія авторизації без складних пошуків"""
     logger.info(f"🔍 Спрощена перевірка авторизації для користувача: {telegram_id}")
     
+    # КРИТИЧНО: Перевірка адміна в першу чергу!
+    from config import ADMIN_USER_ID
+    if telegram_id == ADMIN_USER_ID:
+        logger.info(f"👑 Користувач {telegram_id} є АДМІНОМ - доступ дозволено")
+        return True
+    
     try:
         conn = sqlite3.connect(DB_PATH, timeout=3.0)
         cursor = conn.cursor()
