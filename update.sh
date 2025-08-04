@@ -111,9 +111,26 @@ else
     echo -e "${GREEN}   ✅ Код вже актуальний${NC}"
 fi
 
+# КРИТИЧНО: Тимчасово зберігаємо config.py
+echo -e "${BLUE}   💾 Тимчасово зберігаємо config.py...${NC}"
+if [ -f "config.py" ]; then
+    cp config.py /tmp/zadarma_config_temp.py
+    echo -e "   ✅ config.py збережено в /tmp/"
+fi
+
 # Застосовуємо оновлення
 echo -e "${BLUE}   🔄 Застосовуємо оновлення...${NC}"
 git reset --hard origin/main
+
+# КРИТИЧНО: Відновлюємо config.py
+echo -e "${BLUE}   🔄 Відновлюємо config.py...${NC}"
+if [ -f "/tmp/zadarma_config_temp.py" ]; then
+    cp /tmp/zadarma_config_temp.py config.py
+    rm -f /tmp/zadarma_config_temp.py
+    echo -e "   ✅ config.py відновлено"
+else
+    echo -e "   ⚠️ Тимчасовий config.py не знайдено"
+fi
 
 echo -e "${GREEN}✅ Код оновлено${NC}"
 
