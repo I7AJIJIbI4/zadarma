@@ -561,7 +561,7 @@ def process_webhook_call_status(webhook_data):
                 chat_id = call_data['chat_id']
                 
                 # Аналізуємо результат дзвінка
-                if disposition == 'cancel' and duration > 0:
+                if disposition == 'cancel' and duration == 0:
                     # ✅ УСПІХ: Дзвінок скинуто після гудків
                     message = f"✅ {action_name.capitalize()} відчинено"
                     status = 'success'
@@ -746,6 +746,3 @@ def get_call_statistics(days=7):
     except Exception as e:
         logger.error(f"❌ Помилка отримання статистики: {e}")
         return None
-
-# ВИПРАВЛЕННЯ 2025-08-06: Змінено логіку успішності дзвінків
-# Успіх тепер = duration > 0 (були гудки) AND disposition = 'cancel' (скинули)

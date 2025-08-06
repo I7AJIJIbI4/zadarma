@@ -310,8 +310,28 @@ def handle_admin_stats_command(bot, update):
             text="❌ Помилка отримання статистики"
         )
 
+# Для сумісності зі старим кодом (deprecated)
+def make_zadarma_call_handler(target_number, label):
+    """Застаріла функція для сумісності"""
+    logger.warning(f"⚠️ Використовується застаріла функція make_zadarma_call_handler для {label}")
+    
+    def handler(bot, update):
+        user_id = update.message.chat_id
+        logger.info(f"🔑 Викликано {label} для користувача {user_id} (застарілий метод)")
+        
+        # Перенаправляємо на нові функції
+        if "ворота" in label.lower() or "gate" in label.lower():
+            handle_gate_command(bot, update)
+        elif "хвіртка" in label.lower() or "door" in label.lower():
+            handle_door_command(bot, update)
+        else:
+            bot.send_message(
+                chat_id=user_id, 
+                text="❌ Невідомий тип дзвінка. Зверніться до підтримки."
+            )
+            
+    return handler
 
-# === ЗАСТАРІЛІ ФУНКЦІЇ ВИДАЛЕНО ===
-# Видалено функції make_zadarma_call_handler та legacy обробники
-# для усунення попереджень про deprecated код та сумісності з Python 3.6
-# Дата видалення: $(date +%Y-%m-%d)
+# Застарілі хендлери (залишаємо для сумісності)
+handle_gate_command_legacy = make_zadarma_call_handler(VOROTA_NUMBER, "Ворота")
+handle_door_command_legacy = make_zadarma_call_handler(HVIRTKA_NUMBER, "Хвіртку")
