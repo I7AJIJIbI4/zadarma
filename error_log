@@ -1,0 +1,15 @@
+[05-Aug-2025 10:48:06 UTC] PHP Parse error:  syntax error, unexpected token "<", expecting end of file in webhooks/zadarma_ivr_webhook.php on line 281
+[05-Aug-2025 10:49:18 UTC] PHP Parse error:  syntax error, unexpected token "<", expecting end of file in webhooks/zadarma_ivr_webhook.php on line 281
+[05-Aug-2025 10:51:26 UTC] PHP Warning:  Undefined array key "REQUEST_METHOD" in /home/gomoncli/zadarma/webhooks/zadarma_ivr_webhook.php on line 68
+[05-Aug-2025 10:51:26 UTC] PHP Warning:  Undefined array key "REQUEST_METHOD" in /home/gomoncli/zadarma/webhooks/zadarma_ivr_webhook.php on line 85
+[05-Aug-2025 10:51:26 UTC] PHP Fatal error:  Uncaught TypeError: Unsupported operand types: string * int in /home/gomoncli/zadarma/test_ivr_tracking.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/gomoncli/zadarma/test_ivr_tracking.php on line 6
+[05-Aug-2025 10:55:36 UTC] PHP Warning:  Undefined array key "REQUEST_METHOD" in /home/gomoncli/zadarma/webhooks/zadarma_ivr_webhook.php on line 68
+[05-Aug-2025 10:55:36 UTC] PHP Warning:  Undefined array key "REQUEST_METHOD" in /home/gomoncli/zadarma/webhooks/zadarma_ivr_webhook.php on line 85
+[05-Aug-2025 10:56:53 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/gomoncli/zadarma/test_ivr_simple.php:13) in /home/gomoncli/zadarma/webhooks/zadarma_ivr_webhook.php on line 3
+[05-Aug-2025 10:56:53 UTC] PHP Warning:  Undefined array key "REQUEST_METHOD" in /home/gomoncli/zadarma/webhooks/zadarma_ivr_webhook.php on line 68
+[05-Aug-2025 10:56:53 UTC] PHP Warning:  Undefined array key "REQUEST_METHOD" in /home/gomoncli/zadarma/webhooks/zadarma_ivr_webhook.php on line 85
+[05-Aug-2025 10:56:54 UTC] PHP Warning:  Undefined array key "REQUEST_METHOD" in /home/gomoncli/zadarma/webhooks/zadarma_ivr_webhook.php on line 68
+[05-Aug-2025 10:56:54 UTC] PHP Warning:  Undefined array key "REQUEST_METHOD" in /home/gomoncli/zadarma/webhooks/zadarma_ivr_webhook.php on line 85

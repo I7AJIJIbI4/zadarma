@@ -1,0 +1,2 @@
+[05-Aug-2025 10:51:39 UTC] PHP Warning:  Undefined array key "REQUEST_METHOD" in /home/gomoncli/zadarma/webhooks/zadarma_ivr_webhook_fixed.php on line 41
+[05-Aug-2025 10:51:39 UTC] PHP Warning:  Undefined array key "REQUEST_METHOD" in /home/gomoncli/zadarma/webhooks/zadarma_ivr_webhook_fixed.php on line 57

@@ -238,6 +238,16 @@ def main():
                 }
                 
             else:
+
+            # Перевірити чи є pending IVR дзвінки
+            ivr_call = check_pending_ivr_calls(caller_id, disposition, duration)
+            if ivr_call:
+                logger.info(f"📞 Знайдено pending IVR дзвінок: {ivr_call["call_id"]}")
+                message, status = process_ivr_webhook_result(ivr_call, disposition, duration)
+                logger.info(f"📋 IVR результат: {message}")
+                print(json.dumps({"success": True, "message": message, "call_id": ivr_call["call_id"], "status": status}))
+                return
+
                 logger.warning(f"ℹ️ Дзвінок {pbx_call_id} ({caller_id}) НЕ ВІДСТЕЖУЄТЬСЯ")
                 
                 # Діагностична інформація
@@ -280,3 +290,84 @@ def main():
 
 if __name__ == "__main__":
     main()
+import json
+import os
+import time
+
+def check_pending_ivr_calls(caller_id, disposition, duration):
+    """Перевіряє чи є pending IVR дзвінки для цього номера"""
+    pending_file = '/tmp/pending_ivr_calls.json'
+    
+    if not os.path.exists(pending_file):
+        return None
+    
+    try:
+        with open(pending_file, 'r') as f:
+            data = json.load(f)
+    except:
+        return None
+    
+    # Нормалізуємо номер
+    normalized_caller = caller_id.replace('+', '').replace('380', '0')
+    
+    # Шукаємо pending дзвінок для цього номера
+    for call in data:
+        if (call['target_number'] == normalized_caller and 
+            call['status'] == 'pending' and
+            (time.time() - call['timestamp']) <= 120):  # 2 хвилини
+            
+            return call
+    
+    return None
+
+def update_ivr_call_status(call_id, status):
+    """Оновлює статус IVR дзвінка"""
+    pending_file = '/tmp/pending_ivr_calls.json'
+    
+    if not os.path.exists(pending_file):
+        return False
+    
+    try:
+        with open(pending_file, 'r') as f:
+            data = json.load(f)
+        
+        for call in data:
+            if call['call_id'] == call_id:
+                call['status'] = status
+                call['completed_at'] = int(time.time())
+                break
+        
+        with open(pending_file, 'w') as f:
+            json.dump(data, f, indent=2)
+        
+        return True
+    except:
+        return False
+
+def process_ivr_webhook_result(call_data, disposition, duration):
+    """Обробляє результат IVR webhook і повертає повідомлення для логу"""
+    action_name = call_data['action_type']
+    call_id = call_data['call_id']
+    
+    if disposition == 'cancel' and duration == 0:
+        message = f"✅ {action_name.capitalize()} відкрито!"
+        status = 'success'
+        update_ivr_call_status(call_id, 'success')
+    elif disposition == 'busy':
+        message = f"❌ {action_name.capitalize()}: номер зайнятий"
+        status = 'busy'
+        update_ivr_call_status(call_id, 'busy')
+    elif disposition in ['no-answer', 'noanswer'] and duration == 0:
+        message = f"❌ {action_name.capitalize()}: номер не відповідає"
+        status = 'no_answer' 
+        update_ivr_call_status(call_id, 'no_answer')
+    elif disposition == 'answered' and duration > 0:
+        message = f"⚠️ {action_name.capitalize()}: дзвінок прийнято (потрібна перевірка)"
+        status = 'answered'
+        update_ivr_call_status(call_id, 'answered')
+    else:
+        message = f"❌ {action_name.capitalize()}: невдача ({disposition})"
+        status = 'failed'
+        update_ivr_call_status(call_id, 'failed')
+    
+    return message, status
