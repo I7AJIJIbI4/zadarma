@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-# Покращений простий webhook процесор - ОСТАТОЧНО ВИПРАВЛЕНА ВЕРСІЯ
-# ✅ КРИТИЧНА ВИПРАВЛЕНА ЛОГІКА: cancel завжди означає успіх
+# Покращений простий webhook процесор - ВИПРАВЛЕНА ВЕРСІЯ
+# ✅ КРИТИЧНА ВИПРАВЛЕНА ЛОГІКА: успіх = duration > 0 + cancel
 # ✅ ВИПРАВЛЕНО: шукаємо пристрої в caller_id замість called_did
-# ✅ ВИПРАВЛЕНО: правильні повідомлення про помилки
 # ✅ Python 3.6 сумісність
 # ✅ Покращена діагностика
 # ✅ Telegram API працює
@@ -45,7 +44,7 @@ def send_telegram(chat_id, message):
         print("Telegram error: {}".format(e))
         return False
 
-def find_call_in_db(target_number, time_window=600):  # Збільшено до 10 хвилин
+def find_call_in_db(target_number, time_window=600):
     """Знаходить дзвінок в базі даних з покращеним пошуком"""
     try:
         conn = sqlite3.connect('call_tracking.db')
@@ -54,11 +53,11 @@ def find_call_in_db(target_number, time_window=600):  # Збільшено до 
         current_time = int(time.time())
         time_start = current_time - time_window
         
-        # Точний пошук спочатку - ВИПРАВЛЕНО: шукаємо api_success АБО no_answer
+        # Точний пошук спочатку
         cursor.execute('''
             SELECT call_id, user_id, chat_id, action_type, target_number, start_time, status
             FROM call_tracking 
-            WHERE target_number = ? AND start_time > ? AND status IN ('api_success', 'no_answer')
+            WHERE target_number = ? AND start_time > ? AND status = 'api_success'
             ORDER BY start_time DESC LIMIT 1
         ''', (target_number, time_start))
         
@@ -71,7 +70,7 @@ def find_call_in_db(target_number, time_window=600):  # Збільшено до 
                 SELECT call_id, user_id, chat_id, action_type, target_number, start_time, status
                 FROM call_tracking 
                 WHERE (target_number LIKE ? OR target_number LIKE ?) 
-                AND start_time > ? AND status IN ('api_success', 'no_answer')
+                AND start_time > ? AND status = 'api_success'
                 ORDER BY start_time DESC LIMIT 1
             ''', ('%{}%'.format(normalized), '%{}%'.format(target_number), time_start))
             result = cursor.fetchone()
@@ -171,19 +170,20 @@ def main():
             if call_data:
                 print("Found call: {}".format(call_data['call_id']))
                 
-                # ✅ ВИПРАВЛЕНА ЛОГІКА УСПІХУ - cancel завжди означає успіх
-                if disposition == 'cancel':
+                # ✅ ВИПРАВЛЕНА КРИТИЧНА ЛОГІКА УСПІХУ
+                # Успіх = були гудки (duration > 0) + скинули (cancel)
+                if disposition == 'cancel' and duration > 0:
                     message = "✅ {} відчинено!".format(action_name.capitalize())
                     status = 'success'
-                    print("SUCCESS: Call was cancelled - gate/door opened!")
+                    print("SUCCESS: Call had ringing and was cancelled - gate/door opened!")
                 elif disposition == 'busy':
-                    message = "❌ {} зайняті/відчиняються. Спробуйте ще раз через хвилину.".format(action_name.capitalize())
+                    message = "❌ Номер {} зайнятий. Спробуйте ще раз.".format(action_name)
                     status = 'busy'
-                elif disposition in ['no-answer', 'noanswer']:
-                    message = "❌ {} вже відчинено/відчиняються, або сталася технічна помилка. Спробуйте ще раз.".format(action_name.capitalize())
+                elif disposition in ['no-answer', 'noanswer', 'cancel'] and duration == 0:
+                    message = "❌ Номер {} не відповідає.".format(action_name)
                     status = 'no_answer'
                 else:
-                    message = "❌ Не вдалося відкрити {}. Статус: {}. Спробуйте ще раз.".format(action_name, disposition)
+                    message = "❌ Не вдалося відкрити {}. Статус: {}".format(action_name, disposition)
                     status = 'failed'
                 
                 print("Result: {} - {}".format(status, message))

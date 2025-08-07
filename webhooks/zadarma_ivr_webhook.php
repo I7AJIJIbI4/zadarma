@@ -152,22 +152,14 @@ function handleCorrectSource($internal, $caller_id) {
         switch ($action) {
             case 'open_door':
                 writeLog("🏠 ХВІРТКА");
-                                $result = makeCallbackWithTracking($target, $config, $caller_id, "hvirtka");
-                                if ($result === "pending") {
-                    writeLog("📞 Хвіртка: очікуємо webhook підтвердження...");
-                } else {
-                    writeLog("❌ Помилка API для хвіртки");
-                }
+                $success = makeCallback($target, $config, $caller_id);
+                writeLog($success ? "✅ Хвіртка відкрита" : "❌ Помилка хвіртки");
                 break;
 
             case 'open_gate':
                 writeLog("🚪 ВОРОТА");
-                                $result = makeCallbackWithTracking($target, $config, $caller_id, "vorota");
-                                if ($result === "pending") {
-                    writeLog("📞 Ворота: очікуємо webhook підтвердження...");
-                } else {
-                    writeLog("❌ Помилка API для воріт");
-                }
+                $success = makeCallback($target, $config, $caller_id);
+                writeLog($success ? "✅ Ворота відкриті" : "❌ Помилка воріт");
                 break;
 
             case 'send_sms':
@@ -277,107 +269,6 @@ function makeCallback($toNumber, $config, $caller_id) {
 
     writeLog("📞 Callback result: HTTP $httpCode");
     return $httpCode === 200 && strpos($response, '"status":"success"') !== false;
-}
-
-function makeCallbackWithTracking($toNumber, $config, $caller_id, $action_type) {
-    writeLog("📞 Callback з відстеженням: {$config['main_phone']} → $toNumber");
-    
-    // 1. Створити унікальний ID для відстеження
-    $call_id = "ivr_" . time() . "_" . preg_replace('/[^\d]/', '', $caller_id);
-    
-    // 2. Підготувати дані для відстеження
-    $tracking_data = [
-        'call_id' => $call_id,
-        'target_number' => $toNumber,
-        'caller_id' => $caller_id,
-        'action_type' => $action_type,
-        'timestamp' => time(),
-        'status' => 'pending'
-    ];
-    
-    // 3. Зберегти в тимчасовий файл для webhook
-    $pending_file = '/tmp/pending_ivr_calls.json';
-    $existing_data = [];
-    
-    if (file_exists($pending_file)) {
-        $content = file_get_contents($pending_file);
-        $existing_data = json_decode($content, true) ?: [];
-    }
-    
-    $existing_data[] = $tracking_data;
-    file_put_contents($pending_file, json_encode($existing_data, JSON_PRETTY_PRINT));
-    
-    writeLog("📋 Зареєстровано для відстеження: $call_id");
-    
-    // 4. Зробити API запит
-    $api_success = makeCallback($toNumber, $config, $caller_id);
-    
-    if ($api_success) {
-        writeLog("📞 API callback успішний, очікуємо webhook підтвердження...");
-        return 'pending';
-    } else {
-        writeLog("❌ Помилка API callback");
-        // Видалити з pending списку
-        removePendingCall($call_id);
-        return false;
-    }
-}
-
-function removePendingCall($call_id) {
-    $pending_file = '/tmp/pending_ivr_calls.json';
-    if (file_exists($pending_file)) {
-        $content = file_get_contents($pending_file);
-        $data = json_decode($content, true) ?: [];
-        
-        $data = array_filter($data, function($item) use ($call_id) {
-            return $item['call_id'] !== $call_id;
-        });
-        
-        file_put_contents($pending_file, json_encode(array_values($data), JSON_PRETTY_PRINT));
-    }
-}
-
-function getPendingCallByTarget($target_number, $max_age_seconds = 120) {
-    $pending_file = '/tmp/pending_ivr_calls.json';
-    if (!file_exists($pending_file)) {
-        return null;
-    }
-    
-    $content = file_get_contents($pending_file);
-    $data = json_decode($content, true) ?: [];
-    
-    $current_time = time();
-    
-    foreach ($data as $call) {
-        if ($call['target_number'] === $target_number && 
-            ($current_time - $call['timestamp']) <= $max_age_seconds &&
-            $call['status'] === 'pending') {
-            return $call;
-        }
-    }
-    
-    return null;
-}
-
-function updatePendingCallStatus($call_id, $status) {
-    $pending_file = '/tmp/pending_ivr_calls.json';
-    if (!file_exists($pending_file)) {
-        return false;
-    }
-    
-    $content = file_get_contents($pending_file);
-    $data = json_decode($content, true) ?: [];
-    
-    foreach ($data as &$call) {
-        if ($call['call_id'] === $call_id) {
-            $call['status'] = $status;
-            $call['completed_at'] = time();
-            break;
-        }
-    }
-    
-    file_put_contents($pending_file, json_encode($data, JSON_PRETTY_PRINT));
-    return true;
 }
 
 function sendTelegramBackup($caller_id, $config) {
