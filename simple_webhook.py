@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-# Покращений простий webhook процесор - ВСІПРАВЛЕНА ВЕРСІЯ
+# Покращений простий webhook процесор - ВИПРАВЛЕНА ВЕРСІЯ
 # ✅ КРИТИЧНА ВИПРАВЛЕНА ЛОГІКА: успіх = duration > 0 + cancel
+# ✅ ВИПРАВЛЕНО: шукаємо пристрої в caller_id замість called_did
 # ✅ Python 3.6 сумісність
 # ✅ Покращена діагностика
 # ✅ Telegram API працює
@@ -43,7 +44,7 @@ def send_telegram(chat_id, message):
         print("Telegram error: {}".format(e))
         return False
 
-def find_call_in_db(target_number, time_window=120):
+def find_call_in_db(target_number, time_window=600):  # Збільшено до 10 хвилин
     """Знаходить дзвінок в базі даних з покращеним пошуком"""
     try:
         conn = sqlite3.connect('call_tracking.db')
@@ -52,11 +53,11 @@ def find_call_in_db(target_number, time_window=120):
         current_time = int(time.time())
         time_start = current_time - time_window
         
-        # Точний пошук спочатку
+        # Точний пошук спочатку - ВИПРАВЛЕНО: шукаємо api_success АБО no_answer
         cursor.execute('''
             SELECT call_id, user_id, chat_id, action_type, target_number, start_time, status
             FROM call_tracking 
-            WHERE target_number = ? AND start_time > ? AND status = 'api_success'
+            WHERE target_number = ? AND start_time > ? AND status IN ('api_success', 'no_answer')
             ORDER BY start_time DESC LIMIT 1
         ''', (target_number, time_start))
         
@@ -69,7 +70,7 @@ def find_call_in_db(target_number, time_window=120):
                 SELECT call_id, user_id, chat_id, action_type, target_number, start_time, status
                 FROM call_tracking 
                 WHERE (target_number LIKE ? OR target_number LIKE ?) 
-                AND start_time > ? AND status = 'api_success'
+                AND start_time > ? AND status IN ('api_success', 'no_answer')
                 ORDER BY start_time DESC LIMIT 1
             ''', ('%{}%'.format(normalized), '%{}%'.format(target_number), time_start))
             result = cursor.fetchone()
@@ -135,30 +136,30 @@ def main():
             target_number = None
             action_name = None
             
-            print("DIAGNOSTIC: Checking called_did: '{}'".format(called_did))
+            print("DIAGNOSTIC: Checking caller_id: '{}'".format(caller_id))
             
-            # Перевіряємо номери хвіртки та воріт
-            if '637442017' in called_did:
+            # ✅ ВИПРАВЛЕНО: Перевіряємо номери хвіртки та воріт у caller_id
+            if '637442017' in caller_id:
                 target_number = '0637442017'
                 action_name = 'хвіртка'
                 print("DETECTED: Хвіртка")
-            elif '930063585' in called_did:
+            elif '930063585' in caller_id:
                 target_number = '0930063585' 
                 action_name = 'ворота'
                 print("DETECTED: Ворота")
             else:
-                print("UNKNOWN TARGET: '{}' - trying all possibilities".format(called_did))
+                print("UNKNOWN TARGET: '{}' - trying all possibilities".format(caller_id))
                 # Спробуємо всі можливі номери
                 possible_numbers = ['0637442017', '0930063585']
                 for num in possible_numbers:
-                    if num[-7:] in called_did or num in called_did:
+                    if num[-7:] in caller_id or num in caller_id:
                         target_number = num
                         action_name = 'хвіртка' if '637442017' in num else 'ворота'
                         print("FOUND MATCH: {} -> {}".format(num, action_name))
                         break
                 
                 if not target_number:
-                    print("NO MATCH FOUND for: {}".format(called_did))
+                    print("NO MATCH FOUND for: {}".format(caller_id))
                     return
             
             print("Target: {}, Action: {}".format(target_number, action_name))

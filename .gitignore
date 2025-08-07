@@ -40,3 +40,8 @@ final_webhook_fix.sh
 *.log
 bot.pid
 users.db
+config.py
+users.db
+call_tracking.db
+*.log
+.env
