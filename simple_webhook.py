@@ -54,7 +54,9 @@ def find_call_in_db(target_number, time_window=600):  # Збільшено до 
         current_time = int(time.time())
         time_start = current_time - time_window
         
-        # Точний пошук спочатку - ВИПРАВЛЕНО: шукаємо api_success АБО no_answer
+        print("DB SEARCH: Looking for target '{}' in last {} seconds".format(target_number, time_window))
+        
+        # Спочатку точний пошук по target_number
         cursor.execute('''
             SELECT call_id, user_id, chat_id, action_type, target_number, start_time, status
             FROM call_tracking 
@@ -64,8 +66,11 @@ def find_call_in_db(target_number, time_window=600):  # Збільшено до 
         
         result = cursor.fetchone()
         
-        # Якщо не знайдено - пробуємо альтернативні формати
-        if not result:
+        if result:
+            print("EXACT MATCH found: {}".format(result[0]))
+        else:
+            print("No exact match, trying partial search...")
+            # Якщо не знайдено - пробуємо по частковим номерам
             normalized = target_number.lstrip('0')
             cursor.execute('''
                 SELECT call_id, user_id, chat_id, action_type, target_number, start_time, status
@@ -75,6 +80,23 @@ def find_call_in_db(target_number, time_window=600):  # Збільшено до 
                 ORDER BY start_time DESC LIMIT 1
             ''', ('%{}%'.format(normalized), '%{}%'.format(target_number), time_start))
             result = cursor.fetchone()
+            
+            if result:
+                print("PARTIAL MATCH found: {}".format(result[0]))
+        
+        # Якщо все ще не знайдено - показуємо що є в базі
+        if not result:
+            print("DEBUG: Recent calls in DB:")
+            cursor.execute('''
+                SELECT call_id, action_type, target_number, status, start_time
+                FROM call_tracking 
+                WHERE start_time > ?
+                ORDER BY start_time DESC LIMIT 3
+            ''', (time_start,))
+            recent = cursor.fetchall()
+            for r in recent:
+                age = current_time - r[4]
+                print("  {} - {} - {} - {} ({}s ago)".format(r[0], r[1], r[2], r[3], age))
         
         conn.close()
         
@@ -139,29 +161,47 @@ def main():
             
             print("DIAGNOSTIC: Checking caller_id: '{}'".format(caller_id))
             
-            # ✅ ВИПРАВЛЕНО: Перевіряємо номери хвіртки та воріт у caller_id
-            if '637442017' in caller_id:
-                target_number = '0637442017'
-                action_name = 'хвіртка'
-                print("DETECTED: Хвіртка")
-            elif '930063585' in caller_id:
-                target_number = '0930063585' 
-                action_name = 'ворота'
-                print("DETECTED: Ворота")
-            else:
-                print("UNKNOWN TARGET: '{}' - trying all possibilities".format(caller_id))
-                # Спробуємо всі можливі номери
-                possible_numbers = ['0637442017', '0930063585']
-                for num in possible_numbers:
-                    if num[-7:] in caller_id or num in caller_id:
-                        target_number = num
-                        action_name = 'хвіртка' if '637442017' in num else 'ворота'
-                        print("FOUND MATCH: {} -> {}".format(num, action_name))
-                        break
+            # ВИПРАВЛЕНА ЛОГІКА: В callback дзвінках FROM=клініка, TO=пристрій
+            # Але в webhook CALLER_ID=пристрій, CALLED_DID=клініка (зворотний порядок!)
+            
+            # Спочатку перевіряємо called_did (має бути номер клініки)
+            clinic_numbers = ['0733103110', '733103110']
+            is_from_clinic = any(clinic_num in called_did for clinic_num in clinic_numbers)
+            
+            if is_from_clinic:
+                # Це callback дзвінок від нашого бота
+                print("DETECTED: Bot callback call")
                 
-                if not target_number:
-                    print("NO MATCH FOUND for: {}".format(caller_id))
-                    return
+                # Пристрій буде в caller_id
+                if '637442017' in caller_id:
+                    target_number = '0637442017'
+                    action_name = 'хвіртка'
+                    print("DETECTED: Хвіртка")
+                elif '930063585' in caller_id:
+                    target_number = '0930063585' 
+                    action_name = 'ворота'
+                    print("DETECTED: Ворота")
+                else:
+                    # Додатковий пошук по частковим номерам
+                    possible_devices = [
+                        ('637442017', '0637442017', 'хвіртка'),
+                        ('930063585', '0930063585', 'ворота')
+                    ]
+                    
+                    for partial, full, name in possible_devices:
+                        if partial in caller_id:
+                            target_number = full
+                            action_name = name
+                            print("DETECTED by partial: {} -> {}".format(partial, name))
+                            break
+                    
+                    if not target_number:
+                        print("UNKNOWN DEVICE in caller_id: '{}'".format(caller_id))
+                        return
+            else:
+                # Це не callback дзвінок від бота - ігноруємо
+                print("NOT a bot callback - called_did: '{}'".format(called_did))
+                return
             
             print("Target: {}, Action: {}".format(target_number, action_name))
             

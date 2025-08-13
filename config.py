@@ -18,6 +18,8 @@ ZADARMA_MAIN_PHONE = "0733103110"
 # Wlaunch API
 WLAUNCH_API_KEY = "d5_Js-ZJX_8bJxCxg2ekWTV0Z8c"
 COMPANY_ID = "3f3027ca-0b21-11ed-8355-65920565acdd"
+WLAUNCH_API_URL = "https://api.wlaunch.com/api/v2"
+WLAUNCH_API_BEARER = f"Bearer {WLAUNCH_API_KEY}"
 
 # Шлях до БД
 DB_PATH = "/home/gomoncli/zadarma/users.db"
