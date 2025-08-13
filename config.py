@@ -15,10 +15,10 @@ ZADARMA_API_SECRET = "ae4b189367a9f6de88b3"
 ZADARMA_SIP_ACCOUNT = "107122"  # наприклад: 107122 або +380733103110
 ZADARMA_MAIN_PHONE = "0733103110"
 
-# Wlaunch API
+# Wlaunch API - ВИПРАВЛЕНО: правильний домен та версія API
 WLAUNCH_API_KEY = "d5_Js-ZJX_8bJxCxg2ekWTV0Z8c"
 COMPANY_ID = "3f3027ca-0b21-11ed-8355-65920565acdd"
-WLAUNCH_API_URL = "https://api.wlaunch.com/api/v2"
+WLAUNCH_API_URL = "https://api.wlaunch.net/v1"  # ВИПРАВЛЕНО: .net замість .com та v1 замість v2
 WLAUNCH_API_BEARER = f"Bearer {WLAUNCH_API_KEY}"
 
 # Шлях до БД
