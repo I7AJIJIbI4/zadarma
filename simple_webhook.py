@@ -212,20 +212,27 @@ def main():
                 print("Found call: {}".format(call_data['call_id']))
                 
                 # ✅ ВИПРАВЛЕНА ЛОГІКА УСПІХУ - cancel завжди означає успіх
-                if disposition == 'cancel':
+                # ✅ ПРАВИЛЬНО
+                if disposition == 'cancel' and duration == 0:
+                    # Дзвінок скинули відразу без гудків = ворота/хвіртка відкрилися
                     message = "✅ {} відчинено!".format(action_name.capitalize())
                     status = 'success'
-                    print("SUCCESS: Call was cancelled - gate/door opened!")
                 elif disposition == 'busy':
-                    message = "❌ {} зайняті/відчиняються. Спробуйте ще раз через хвилину.".format(action_name.capitalize())
+                    # Номер зайнятий
+                    message = "❌ {} зайняті. Спробуйте ще раз через хвилину.".format(action_name.capitalize())
                     status = 'busy'
-                elif disposition in ['no-answer', 'noanswer']:
-                    message = "❌ {} вже відчинено/відчиняються, або сталася технічна помилка. Спробуйте ще раз.".format(action_name.capitalize())
-                    status = 'no_answer'
+                elif disposition == 'answered':
+                    # Проблема - дзвінок прийняли замість скидання
+                    message = "⚠️ Технічна проблема з налаштуванням {}. Зверніться до підтримки.".format(action_name)
+                    status = 'config_error'
+                elif disposition == 'cancel' and duration > 0:
+                    # Були гудки, потім скинули - можливо технічна проблема
+                    message = "❌ Можлива технічна проблема з {}. Спробуйте ще раз.".format(action_name)
+                    status = 'technical_error'
                 else:
-                    message = "❌ Не вдалося відкрити {}. Статус: {}. Спробуйте ще раз.".format(action_name, disposition)
+                    # Інші помилки
+                    message = "❌ Не вдалося відкрити {}. Спробуйте ще раз.".format(action_name)
                     status = 'failed'
-                
                 print("Result: {} - {}".format(status, message))
                 
                 # Відправляємо повідомлення користувачу
