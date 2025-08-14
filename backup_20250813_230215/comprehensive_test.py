@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# comprehensive_test.py - Повний тест системи з виправленнями для Python 3.6
+# comprehensive_test.py - Повний тест системи з виправленнями
 import os
 import sys
 import json
@@ -83,6 +83,12 @@ def create_test_database(db_name):
                 VALUES (?, ?, ?, ?)
             ''', (827551951, '380996093860', 'viktoria_gomon', 'Viktoria'))
             
+            # Додаємо тестового клієнта
+            cursor.execute('''
+                INSERT OR REPLACE INTO clients (id, first_name, last_name, phone)
+                VALUES (?, ?, ?, ?)
+            ''', ('827551951', 'Viktoria', 'Gomon', '380996093860'))
+            
         elif db_name == 'call_tracking.db':
             # Таблиця відстеження дзвінків
             cursor.execute('''
@@ -131,6 +137,7 @@ def test_wlaunch_integration():
                 return True
             else:
                 print(f"❌ Клієнт з номером {test_phone} не знайдений в Wlaunch")
+                print("ℹ️  Можливо потрібна синхронізація або клієнт дійсно відсутній")
                 return False
         else:
             print("❌ Не вдалося підключитися до Wlaunch")
@@ -175,7 +182,7 @@ def test_user_authorization():
         return False
 
 def test_call_tracking():
-    """Тестує систему відстеження дзвінків - ВИПРАВЛЕНО для Python 3.6"""
+    """Тестує систему відстеження дзвінків"""
     print("\n📞 ТЕСТУВАННЯ ВІДСТЕЖЕННЯ ДЗВІНКІВ")
     print("=" * 50)
     
@@ -211,49 +218,19 @@ def test_call_tracking():
         print("🔔 Тестуємо webhook обробку...")
         print(f"📋 Дані: {test_webhook_data}")
         
-        # ВИПРАВЛЕНО: Використовуємо Popen замість run для Python 3.6
-        try:
-            import tempfile
-            
-            # Створюємо тимчасовий файл з JSON даними
-            with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
-                json.dump(test_webhook_data, f)
-                temp_file = f.name
-            
-            # Запускаємо через stdin
-            proc = subprocess.Popen([
-                'python3', 'simple_webhook.py'
-            ], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            
-            # Передаємо JSON через stdin
-            stdout, stderr = proc.communicate(input=json.dumps(test_webhook_data).encode())
-            result_code = proc.returncode
-            
-            # Видаляємо тимчасовий файл
-            os.unlink(temp_file)
-            
-            print(f"📤 Результат: код {result_code}")
-            if stdout:
-                stdout_text = stdout.decode('utf-8').strip()
-                if stdout_text:
-                    print(f"✅ Вивід: {stdout_text}")
-            if stderr:
-                stderr_text = stderr.decode('utf-8').strip()  
-                if stderr_text:
-                    print(f"❌ Помилки: {stderr_text}")
-            
-            return result_code == 0
-            
-        except Exception as e:
-            print(f"❌ Помилка виконання webhook тесту: {e}")
-            # Альтернативний тест - просто перевіряємо що функція імпортується
-            try:
-                import simple_webhook
-                print("✅ Модуль simple_webhook імпортується успішно")
-                return True
-            except Exception as e2:
-                print(f"❌ Модуль simple_webhook не імпортується: {e2}")
-                return False
+        # Викликаємо simple_webhook.py
+        result = subprocess.run([
+            'python3', 'simple_webhook.py', 
+            json.dumps(test_webhook_data)
+        ], capture_output=True, text=True, timeout=30)
+        
+        print(f"📤 Результат: код {result.returncode}")
+        if result.stdout:
+            print(f"✅ Вивід: {result.stdout.strip()}")
+        if result.stderr:
+            print(f"❌ Помилки: {result.stderr.strip()}")
+        
+        return result.returncode == 0
         
     except Exception as e:
         print(f"❌ Помилка тестування відстеження: {e}")
@@ -328,10 +305,10 @@ def generate_summary_report():
     
     # Рекомендації
     print("\n💡 РЕКОМЕНДАЦІЇ:")
-    print("1. Система працює! Основні компоненти функціонують правильно")
-    print("2. Webhook тест можна запустити окремо: python3 simple_webhook.py")
-    print("3. Налаштуйте webhook URL в панелі Zadarma")
-    print("4. Протестуйте реальні дзвінки")
+    print("1. Перевірте налаштування webhook в Zadarma")
+    print("2. Переконайтеся що cron синхронізація працює")
+    print("3. Протестуйте реальні дзвінки на пристрої")
+    print("4. Перевірте логи бота на сервері")
 
 def main():
     """Головна функція тестування"""
@@ -341,7 +318,7 @@ def main():
     # Підготовка
     if not setup_test_environment():
         print("❌ Не вдалося підготувати тестове середовище")
-        return False
+        return
     
     # Результати тестів
     test_results = {
@@ -362,9 +339,6 @@ def main():
     if not test_results['user_authorization']:
         print("\n🔄 Авторизація не працює, пробуємо синхронізацію...")
         test_results['sync_test'] = run_sync_test()
-    else:
-        # Якщо авторизація працює, помічаємо sync_test як успішний
-        test_results['sync_test'] = True
     
     # Підсумковий звіт
     generate_summary_report()
@@ -375,15 +349,14 @@ def main():
     
     print(f"\n🏁 ПІДСУМОК: {passed_tests}/{total_tests} тестів пройдено")
     
-    if passed_tests >= 4:
-        print("🎉 Основні компоненти працюють! Система готова до використання")
-        print("💡 Webhook можна протестувати окремо після налаштування URL")
-    elif passed_tests >= 3:
-        print("⚠️ Більшість тестів пройдено, є незначні проблеми")
+    if passed_tests == total_tests:
+        print("🎉 Всі тести успішні! Система готова до роботи")
+    elif passed_tests >= total_tests * 0.8:
+        print("⚠️ Більшість тестів пройдено, але є проблеми")
     else:
         print("❌ Багато тестів не пройшли, потрібні виправлення")
     
-    return passed_tests >= 3
+    return passed_tests >= total_tests * 0.8
 
 if __name__ == "__main__":
     success = main()
