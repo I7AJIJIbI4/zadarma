@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Виправлений webhook процесор з правильним читанням даних
+# Покращений простий webhook процесор з логуванням
 import sys
 import json
 import sqlite3
@@ -53,7 +53,7 @@ def send_telegram(chat_id, message):
         return False
 
 def find_call_in_db(target_number, time_window=600):
-    """Знаходить дзвінок в базі даних"""
+    """Знаходить дзвінок в базі даних з покращеним пошуком"""
     logger.info(f"🔍 Пошук дзвінка для номеру {target_number}")
     try:
         conn = sqlite3.connect('call_tracking.db')
@@ -62,6 +62,7 @@ def find_call_in_db(target_number, time_window=600):
         current_time = int(time.time())
         time_start = current_time - time_window
         
+        # Спочатку точний пошук
         cursor.execute('''
             SELECT call_id, user_id, chat_id, action_type, target_number, start_time, status
             FROM call_tracking 
@@ -97,44 +98,23 @@ def find_call_in_db(target_number, time_window=600):
 def main():
     logger.info("🔔 Webhook викликано")
     
-    # Читаємо дані з різних джерел
-    webhook_data = None
-    
-    # Спочатку спробуємо sys.argv (якщо викликається з PHP)
-    if len(sys.argv) > 1:
-        try:
-            webhook_data = json.loads(sys.argv[1])
-            logger.info("📥 Дані отримано з sys.argv")
-        except:
-            pass
-    
-    # Якщо не вийшло, читаємо з stdin
-    if not webhook_data:
-        try:
-            input_data = sys.stdin.read().strip()
-            if input_data:
-                webhook_data = json.loads(input_data)
-                logger.info("📥 Дані отримано з stdin")
-        except:
-            pass
-    
-    # Якщо все ще немає даних
-    if not webhook_data:
-        logger.error("❌ Немає webhook даних (ні argv, ні stdin)")
+    if len(sys.argv) < 2:
+        logger.error("❌ Немає webhook даних")
         return
     
     try:
-        logger.info(f"📋 Webhook дані: {webhook_data}")
+        # Парсимо JSON дані
+        data = json.loads(sys.argv[1])
+        logger.info(f"📥 Отримано: {data}")
         
         # Витягуємо основні параметри
-        event = webhook_data.get('event', '')
-        caller_id = webhook_data.get('caller_id', '')
-        called_did = webhook_data.get('called_did', '') 
-        disposition = webhook_data.get('disposition', '')
-        duration = int(webhook_data.get('duration', 0))
+        event = data.get('event', '')
+        caller_id = data.get('caller_id', '')
+        called_did = data.get('called_did', '') 
+        disposition = data.get('disposition', '')
+        duration = int(data.get('duration', 0))
         
-        logger.info(f"📞 Event: {event}, From: {caller_id}, To: {called_did}")
-        logger.info(f"📊 Status: {disposition}, Duration: {duration}s")
+        logger.info(f"📞 Event: {event}, From: {caller_id}, To: {called_did}, Status: {disposition}, Duration: {duration}")
         
         # Обробляємо тільки завершення дзвінків
         if event == 'NOTIFY_END':
@@ -149,28 +129,28 @@ def main():
             if is_from_clinic:
                 logger.info("🤖 Детектовано bot callback")
                 
-                # Визначаємо пристрій по caller_id
+                # Визначаємо пристрій
                 if '637442017' in caller_id:
                     target_number = '0637442017'
                     action_name = 'хвіртка'
-                    logger.info("🚪 Детектовано хвіртку")
                 elif '930063585' in caller_id:
                     target_number = '0930063585' 
                     action_name = 'ворота'
-                    logger.info("🚪 Детектовано ворота")
                 
                 if target_number and action_name:
+                    logger.info(f"🎯 Target: {target_number}, Action: {action_name}")
+                    
                     # Шукаємо дзвінок в базі
                     call_data = find_call_in_db(target_number)
                     
                     if call_data:
-                        logger.info(f"📋 Обробка call_id: {call_data['call_id']}")
+                        logger.info(f"📋 Знайдено call: {call_data['call_id']}")
                         
-                        # ПРАВИЛЬНА ЛОГІКА (виправлена з документації Zadarma)
+                        # ПРАВИЛЬНА ЛОГІКА УСПІХУ
                         if disposition == 'cancel' and duration == 0:
                             message = f"✅ {action_name.capitalize()} відчинено!"
                             status = 'success'
-                            logger.info("🎉 SUCCESS: Скинули відразу = відкрито!")
+                            logger.info("🎉 SUCCESS: Відкрито успішно!")
                         elif disposition == 'busy':
                             message = f"❌ {action_name.capitalize()} зайняті. Спробуйте ще раз через хвилину."
                             status = 'busy'
@@ -178,21 +158,24 @@ def main():
                         elif disposition == 'cancel' and duration > 0:
                             message = f"❌ Технічна проблема з {action_name}. Спробуйте ще раз."
                             status = 'technical_error'
-                            logger.warning(f"⚠️ TECH_ERROR: duration={duration}s, потім cancel")
+                            logger.warning("⚠️ TECH_ERROR: Були гудки, потім скинули")
                         elif disposition == 'answered':
-                            message = f"⚠️ Налаштування {action_name} потребують перевірки. Зверніться до підтримки."
+                            message = f"⚠️ Технічна проблема з налаштуванням {action_name}. Зверніться до підтримки."
                             status = 'config_error'
-                            logger.error("❌ CONFIG_ERROR: Дзвінок ПРИЙНЯЛИ замість скидання!")
+                            logger.error("❌ CONFIG_ERROR: Дзвінок прийняли замість скидання")
                         else:
-                            message = f"❌ Не вдалося відкрити {action_name}. Статус: {disposition}"
+                            message = f"❌ Не вдалося відкрити {action_name}. Спробуйте ще раз."
                             status = 'failed'
-                            logger.warning(f"❌ FAILED: невідомий статус {disposition}")
+                            logger.warning(f"❌ FAILED: {disposition}")
                         
                         # Відправляємо результат користувачу
                         chat_id = call_data['chat_id']
-                        logger.info(f"📤 Відправляємо результат в чат {chat_id}: {status}")
-                        
                         success = send_telegram(chat_id, message)
+                        
+                        if success:
+                            logger.info(f"✅ Повідомлення відправлено в чат {chat_id}")
+                        else:
+                            logger.error(f"❌ Не вдалося відправити в чат {chat_id}")
                         
                         # Оновлюємо статус в базі
                         try:
@@ -202,22 +185,24 @@ def main():
                                          (status, call_data['call_id']))
                             conn.commit()
                             conn.close()
-                            logger.info(f"📝 Статус в БД оновлено: {status}")
+                            logger.info(f"📝 Статус оновлено: {status}")
                         except Exception as e:
                             logger.error(f"❌ DB update error: {e}")
                     else:
-                        logger.warning(f"❌ Дзвінок для {target_number} не знайдено в БД")
+                        logger.warning(f"❌ Call not found for {target_number}")
                 else:
-                    logger.info(f"❓ Невідомий пристрій в caller_id: {caller_id}")
+                    logger.info(f"❓ Unknown device in caller_id: {caller_id}")
             else:
-                logger.info(f"ℹ️ Не bot callback - called_did: {called_did}")
+                logger.info(f"ℹ️ Not a bot callback - called_did: {called_did}")
         else:
-            logger.info(f"ℹ️ Ігноруємо event: {event}")
+            logger.info(f"ℹ️ Ignoring event type: {event}")
         
-        logger.info("✅ Webhook обробку завершено успішно")
+        logger.info("✅ Webhook обробку завершено")
         
+    except json.JSONDecodeError as e:
+        logger.error(f"❌ JSON ERROR: {e}")
     except Exception as e:
-        logger.error(f"❌ Критична помилка: {e}")
+        logger.error(f"❌ ERROR: {e}")
         import traceback
         logger.error(traceback.format_exc())
 

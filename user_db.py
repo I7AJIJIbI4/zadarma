@@ -222,9 +222,16 @@ def is_authorized_user_simple(telegram_id):
     """Спрощена версія авторизації без складних пошуків"""
     logger.info(f"🔍 Спрощена перевірка авторизації для користувача: {telegram_id}")
     
-    # КРИТИЧНО: Перевірка адміна в першу чергу!
-    from config import ADMIN_USER_ID
-    if telegram_id == ADMIN_USER_ID:
+    # КРИТИЧНО: Перевірка адмінів в першу чергу!
+    try:
+        from config import ADMIN_USER_IDS
+        admin_list = ADMIN_USER_IDS
+    except ImportError:
+        # Fallback для старої конфігурації
+        from config import ADMIN_USER_ID
+        admin_list = [ADMIN_USER_ID]
+    
+    if telegram_id in admin_list:
         logger.info(f"👑 Користувач {telegram_id} є АДМІНОМ - доступ дозволено")
         return True
     
