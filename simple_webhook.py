@@ -168,7 +168,12 @@ def main():
                         
                         # ПРАВИЛЬНА ЛОГІКА (виправлена з документації Zadarma)
                         if disposition == 'cancel' and duration == 0:
-                            message = f"✅ {action_name.capitalize()} відчинено!"
+                            if action_name == 'хвіртка':
+                                message = "✅ Хвіртка відчинена!"
+                            elif action_name == 'ворота':
+                                message = "✅ Ворота відчинено!"
+                            else:
+                                message = f"✅ {action_name.capitalize()} відчинено!"
                             status = 'success'
                             logger.info("🎉 SUCCESS: Скинули відразу = відкрито!")
                         elif disposition == 'busy':

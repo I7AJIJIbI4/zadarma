@@ -563,7 +563,12 @@ def process_webhook_call_status(webhook_data):
                 # Аналізуємо результат дзвінка
                 if disposition == 'cancel' and duration > 0:
                     # ✅ УСПІХ: Дзвінок скинуто після гудків
-                    message = f"✅ {action_name.capitalize()} відчинено"
+                    if action_name == 'хвіртку':
+                        message = "✅ Хвіртка відчинена!"
+                    elif action_name == 'ворота':
+                        message = "✅ Ворота відчинено!"
+                    else:
+                        message = f"✅ {action_name.capitalize()} відчинено"
                     status = 'success'
                     logger.info(f"✅ SUCCESS: {action_name} відкрито успішно")
                     
