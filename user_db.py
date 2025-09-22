@@ -43,25 +43,71 @@ def normalize_phone(phone):
     return normalized
 
 def add_or_update_client(client_id, first_name, last_name, phone):
-    logger.info(f"👤 Додавання/оновлення клієнта: {client_id} ({first_name} {last_name})")
+    """Покращена версія з правильною обробкою оновлень"""
+    logger.info(f"👤 Додавання/оновлення клієнта: {client_id} ({first_name} {last_name}), телефон: {phone}")
+    
     with _lock:
         try:
             conn = sqlite3.connect(DB_PATH)
             cursor = conn.cursor()
             phone_norm = normalize_phone(phone)
-            cursor.execute('''
-                INSERT INTO clients(id, first_name, last_name, phone)
-                VALUES (?, ?, ?, ?)
-                ON CONFLICT(id) DO UPDATE SET
-                first_name=excluded.first_name,
-                last_name=excluded.last_name,
-                phone=excluded.phone
-            ''', (client_id, first_name, last_name, phone_norm))
+            
+            # КРОК 1: Перевіряємо, чи існує клієнт з таким ID
+            cursor.execute('SELECT phone FROM clients WHERE id = ?', (client_id,))
+            existing_by_id = cursor.fetchone()
+            
+            # КРОК 2: Перевіряємо, чи існує клієнт з таким телефоном
+            cursor.execute('SELECT id, first_name, last_name FROM clients WHERE phone = ?', (phone_norm,))
+            existing_by_phone = cursor.fetchone()
+            
+            if existing_by_id and existing_by_phone:
+                # Випадок: є записи з тим же ID і з тим же телефоном
+                if existing_by_id[0] == phone_norm:
+                    # Це той же клієнт - просто оновлюємо
+                    cursor.execute('''
+                        UPDATE clients SET first_name=?, last_name=?, phone=? WHERE id=?
+                    ''', (first_name, last_name, phone_norm, client_id))
+                    logger.info(f"✅ Оновлено існуючого клієнта {client_id}")
+                else:
+                    # Клієнт змінив номер - видаляємо старий запис з таким телефоном
+                    cursor.execute('DELETE FROM clients WHERE phone = ? AND id != ?', (phone_norm, client_id))
+                    cursor.execute('''
+                        UPDATE clients SET first_name=?, last_name=?, phone=? WHERE id=?
+                    ''', (first_name, last_name, phone_norm, client_id))
+                    logger.info(f"🔄 Клієнт {client_id} змінив номер: {existing_by_id[0]} → {phone_norm}")
+                    
+            elif existing_by_id:
+                # Існує клієнт з таким ID, але телефон інший
+                old_phone = existing_by_id[0]
+                cursor.execute('''
+                    UPDATE clients SET first_name=?, last_name=?, phone=? WHERE id=?
+                ''', (first_name, last_name, phone_norm, client_id))
+                logger.info(f"📞 Клієнт {client_id} оновив телефон: {old_phone} → {phone_norm}")
+                
+            elif existing_by_phone:
+                # Існує клієнт з таким телефоном, але ID інший
+                old_id = existing_by_phone[0]
+                cursor.execute('DELETE FROM clients WHERE phone = ?', (phone_norm,))
+                cursor.execute('''
+                    INSERT INTO clients (id, first_name, last_name, phone)
+                    VALUES (?, ?, ?, ?)
+                ''', (client_id, first_name, last_name, phone_norm))
+                logger.info(f"🆔 Телефон {phone_norm} перейшов від клієнта {old_id} до {client_id}")
+                
+            else:
+                # Новий клієнт
+                cursor.execute('''
+                    INSERT INTO clients (id, first_name, last_name, phone)
+                    VALUES (?, ?, ?, ?)
+                ''', (client_id, first_name, last_name, phone_norm))
+                logger.info(f"🆕 Додано нового клієнта {client_id}")
+            
             conn.commit()
             conn.close()
-            logger.info(f"✅ Клієнт {client_id} успішно оновлений")
+            logger.info(f"✅ Клієнт {client_id} успішно оброблено")
+            
         except Exception as e:
-            logger.exception(f"❌ Помилка при оновленні клієнта {client_id}: {e}")
+            logger.exception(f"❌ Помилка при обробці клієнта {client_id}: {e}")
             raise
 
 def find_client_by_phone(phone):
@@ -354,3 +400,138 @@ def add_test_client(telegram_id, phone):
     except Exception as e:
         logger.exception(f"❌ Помилка додавання тестового клієнта: {e}")
         raise
+
+def force_full_sync():
+    """Примусова повна синхронізація з очищенням застарілих даних"""
+    logger.info("🔄 ПРИМУСОВА ПОВНА СИНХРОНІЗАЦІЯ")
+    
+    try:
+        # Крок 1: Створюємо резервну таблицю
+        with _lock:
+            conn = sqlite3.connect(DB_PATH)
+            cursor = conn.cursor()
+            
+            # Створюємо backup поточних клієнтів
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS clients_backup AS 
+                SELECT * FROM clients WHERE 1=0
+            ''')
+            cursor.execute('DELETE FROM clients_backup')
+            cursor.execute('INSERT INTO clients_backup SELECT * FROM clients')
+            
+            # Очищуємо поточну таблицю
+            cursor.execute('DELETE FROM clients')
+            conn.commit()
+            conn.close()
+            
+            logger.info("🗑️ Стара таблиця clients очищена, створено backup")
+        
+        # Крок 2: Завантажуємо свіжі дані
+        from wlaunch_api import fetch_all_clients
+        new_count = fetch_all_clients()
+        
+        # Крок 3: Перевіряємо результат
+        with _lock:
+            conn = sqlite3.connect(DB_PATH)
+            cursor = conn.cursor()
+            cursor.execute('SELECT COUNT(*) FROM clients')
+            current_count = cursor.fetchone()[0]
+            conn.close()
+        
+        if current_count > 0:
+            logger.info(f"✅ Повна синхронізація успішна: {current_count} клієнтів")
+            # Видаляємо backup
+            with _lock:
+                conn = sqlite3.connect(DB_PATH)
+                cursor = conn.cursor()
+                cursor.execute('DROP TABLE clients_backup')
+                conn.commit()
+                conn.close()
+            return True
+        else:
+            # Щось пішло не так - відновлюємо з backup
+            logger.error("❌ Синхронізація не вдалася, відновлюємо з backup")
+            with _lock:
+                conn = sqlite3.connect(DB_PATH)
+                cursor = conn.cursor()
+                cursor.execute('DELETE FROM clients')
+                cursor.execute('INSERT INTO clients SELECT * FROM clients_backup')
+                cursor.execute('DROP TABLE clients_backup')
+                conn.commit()
+                conn.close()
+            return False
+            
+    except Exception as e:
+        logger.exception(f"❌ Критична помилка повної синхронізації: {e}")
+        return False
+
+def cleanup_duplicate_phones():
+    """Очищення дублікатів номерів телефонів"""
+    logger.info("🧹 Очищення дублікатів номерів")
+    
+    with _lock:
+        try:
+            conn = sqlite3.connect(DB_PATH)
+            cursor = conn.cursor()
+            
+            # Знаходимо дублікати
+            cursor.execute('''
+                SELECT phone, COUNT(*) as count 
+                FROM clients 
+                GROUP BY phone 
+                HAVING count > 1
+            ''')
+            
+            duplicates = cursor.fetchall()
+            cleaned_count = 0
+            
+            for phone, count in duplicates:
+                logger.info(f"📞 Знайдено {count} дублікатів для номера {phone}")
+                
+                # Залишаємо запис з найменшим rowid (найстарший)
+                cursor.execute('''
+                    DELETE FROM clients 
+                    WHERE phone = ? AND rowid NOT IN (
+                        SELECT MIN(rowid) FROM clients WHERE phone = ?
+                    )
+                ''', (phone, phone))
+                
+                cleaned_count += cursor.rowcount
+            
+            conn.commit()
+            conn.close()
+            
+            logger.info(f"✅ Видалено {cleaned_count} дублікатів")
+            return cleaned_count
+            
+        except Exception as e:
+            logger.exception(f"❌ Помилка очищення дублікатів: {e}")
+            return 0
+
+def sync_specific_client(client_id, phone):
+    """Синхронізує конкретного клієнта з WLaunch API"""
+    logger.info(f"🎯 Синхронізація конкретного клієнта: {client_id}, телефон: {phone}")
+    
+    try:
+        from wlaunch_api import find_client_by_phone
+        
+        # Шукаємо в WLaunch
+        wlaunch_data = find_client_by_phone(phone)
+        
+        if wlaunch_data:
+            # Оновлюємо в локальній базі
+            add_or_update_client(
+                client_id=wlaunch_data.get('id', client_id),
+                first_name=wlaunch_data.get('first_name', ''),
+                last_name=wlaunch_data.get('last_name', ''),
+                phone=wlaunch_data.get('phone', phone)
+            )
+            logger.info(f"✅ Клієнт {client_id} синхронізовано з WLaunch")
+            return True
+        else:
+            logger.warning(f"⚠️ Клієнт з номером {phone} не знайдено в WLaunch")
+            return False
+            
+    except Exception as e:
+        logger.exception(f"❌ Помилка синхронізації клієнта {client_id}: {e}")
+        return False
