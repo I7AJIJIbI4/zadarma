@@ -9,7 +9,11 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram import ChatAction
 from user_db import init_db, is_authorized_user_simple, get_user_info
 from zadarma_call import handle_door_command, handle_gate_command, handle_admin_stats_command
-from config import TELEGRAM_TOKEN, ADMIN_USER_ID, MAP_URL, SCHEME_URL, validate_config
+from sync_management import (
+    handle_sync_status_command, handle_sync_clean_command, handle_sync_full_command,
+    handle_sync_test_command, handle_sync_user_command, handle_sync_help_command
+)
+from config import TELEGRAM_TOKEN, ADMIN_USER_ID, ADMIN_USER_IDS, MAP_URL, SCHEME_URL, validate_config
 
 is_authenticated = is_authorized_user_simple
 
@@ -318,7 +322,7 @@ def restart_command(bot, update):
     user_id = update.effective_user.id
     logger.info(f"🔄 /restart викликано користувачем: {user_id}")
     
-    if user_id != ADMIN_USER_ID:
+    if user_id not in ADMIN_USER_IDS:
         bot.send_message(
             chat_id=update.message.chat_id, 
             text="❌ Ця команда доступна тільки адміністратору",
@@ -339,7 +343,7 @@ def sync_command(bot, update):
     user_id = update.effective_user.id
     logger.info(f"🔄 /sync викликано користувачем: {user_id}")
     
-    if user_id != ADMIN_USER_ID:
+    if user_id not in ADMIN_USER_IDS:
         bot.send_message(
             chat_id=update.message.chat_id, 
             text="❌ Ця команда доступна тільки адміністратору",
@@ -380,7 +384,7 @@ def help_command(bot, update):
     logger.info(f"❓ /help викликано користувачем: {user_id}")
     
     try:
-        if user_id == ADMIN_USER_ID:
+        if user_id in ADMIN_USER_IDS:
             help_message = (
                 "🤖 ДОВІДКА ДЛЯ АДМІНІСТРАТОРА\n\n"
                 "👥 КОРИСТУВАЦЬКІ КОМАНДИ:\n"
@@ -397,6 +401,12 @@ def help_command(bot, update):
                 "🔧 /diagnostic - Системна діагностика\n"
                 "📋 /logs - Останні записи логів\n"
                 "🔄 /sync - Ручна синхронізація клієнтів\n"
+                "📊 /sync_status - Статус синхронізації\n"
+                "🧹 /sync_clean - Очистити дублікати\n"
+                "🔄 /sync_full - Повна синхронізація\n"
+                "🧪 /sync_test - Тест API підключень\n"
+                "👤 /sync_user - Синхронізувати користувача\n"
+                "❓ /sync_help - Довідка по синхронізації\n"
                 "🔄 /restart - Перезапуск бота\n"
                 "❓ /help - Ця довідка\n\n"
                 "📱 КОНТАКТИ ПІДТРИМКИ:\n"
@@ -463,7 +473,7 @@ def monitor_command(bot, update):
     user_id = update.effective_user.id
     logger.info(f"📊 /monitor викликано користувачем: {user_id}")
     
-    if user_id != ADMIN_USER_ID:
+    if user_id not in ADMIN_USER_IDS:
         bot.send_message(
             chat_id=update.message.chat_id,
             text="❌ Ця команда доступна тільки адміністратору"
@@ -509,7 +519,7 @@ def diagnostic_command(bot, update):
     user_id = update.effective_user.id
     logger.info(f"🔧 /diagnostic викликано користувачем: {user_id}")
     
-    if user_id != ADMIN_USER_ID:
+    if user_id not in ADMIN_USER_IDS:
         bot.send_message(
             chat_id=update.message.chat_id,
             text="❌ Ця команда доступна тільки адміністратору"
@@ -610,7 +620,7 @@ def logs_command(bot, update):
     user_id = update.effective_user.id
     logger.info(f"📋 /logs викликано користувачем: {user_id}")
     
-    if user_id != ADMIN_USER_ID:
+    if user_id not in ADMIN_USER_IDS:
         bot.send_message(
             chat_id=update.message.chat_id,
             text="❌ Ця команда доступна тільки адміністратору"
@@ -752,6 +762,14 @@ def main():
     dp.add_handler(CommandHandler("monitor", monitor_command))
     dp.add_handler(CommandHandler("diagnostic", diagnostic_command))
     dp.add_handler(CommandHandler("logs", logs_command))
+    
+    # Команди управління синхронізацією
+    dp.add_handler(CommandHandler("sync_status", handle_sync_status_command))
+    dp.add_handler(CommandHandler("sync_clean", handle_sync_clean_command))
+    dp.add_handler(CommandHandler("sync_full", handle_sync_full_command))
+    dp.add_handler(CommandHandler("sync_test", handle_sync_test_command))
+    dp.add_handler(CommandHandler("sync_user", handle_sync_user_command))
+    dp.add_handler(CommandHandler("sync_help", handle_sync_help_command))
     
     dp.add_error_handler(error_handler)
     
