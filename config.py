@@ -7,14 +7,7 @@ logger = logging.getLogger(__name__)
 
 # Telegram
 TELEGRAM_TOKEN = "8030228734:AAGYMKVWYfNT5h-UJlVWmmWmul8-KhdaOk4"
-# Список адмінів
-ADMIN_USER_IDS = [
-    573368771,    # Головний адмін
-    7930079513,   # Dr. Gomon Cosmetology (@DrGomonCosmetology)
-]
-
-# Для зворотної сумісності
-ADMIN_USER_ID = 573368771
+ADMIN_USER_ID = 573368771  # Твій Telegram user_id
 
 # Zadarma API
 ZADARMA_API_KEY = "322168f1b94be856f0de"

@@ -9,12 +9,11 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram import ChatAction
 from user_db import init_db, is_authorized_user_simple, get_user_info
 from zadarma_call import handle_door_command, handle_gate_command, handle_admin_stats_command
-#from sync_management import (
-#    handle_sync_status_command, handle_sync_clean_command, handle_sync_full_command,
-#    handle_sync_test_command, handle_sync_user_command, handle_sync_help_command
-#)
-from config import TELEGRAM_TOKEN, ADMIN_USER_ID, MAP_URL, SCHEME_URL, validate_config
-ADMIN_USER_IDS = [ADMIN_USER_ID, 7930079513]
+from sync_management import (
+    handle_sync_status_command, handle_sync_clean_command, handle_sync_full_command,
+    handle_sync_test_command, handle_sync_user_command, handle_sync_help_command
+)
+from config import TELEGRAM_TOKEN, ADMIN_USER_ID, ADMIN_USER_IDS, MAP_URL, SCHEME_URL, validate_config
 
 is_authenticated = is_authorized_user_simple
 
@@ -720,12 +719,6 @@ def error_handler(bot, update, error):
     
     send_error_to_admin(bot, f"❌ Критична помилка: {error}")
 
-# Import sync functions
-from sync_stubs import (
-    handle_sync_status_command, handle_sync_test_command, handle_sync_help_command,
-    handle_sync_clean_command, handle_sync_full_command, handle_sync_user_command
-)
-
 def main():
     logger.info("🚀 Бот запускається...")
     
@@ -791,39 +784,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# Python 3.6 compatible sync functions
-try:
-    from sync_stubs import (
-        handle_sync_status_command, handle_sync_test_command, handle_sync_help_command,
-        handle_sync_clean_command, handle_sync_full_command, handle_sync_user_command
-    )
-    print("✅ Завантажено sync_stubs для Python 3.6")
-except ImportError as e:
-    print("❌ Помилка завантаження sync_stubs: {}".format(e))
-    
-    # Мінімальні заглушки
-    def handle_sync_status_command(bot, update):
-        bot.send_message(chat_id=update.message.chat_id, text="❌ Модуль синхронізації недоступний")
-    
-    def handle_sync_clean_command(bot, update):
-        bot.send_message(chat_id=update.message.chat_id, text="❌ Модуль синхронізації недоступний")
-        
-    def handle_sync_full_command(bot, update):
-        bot.send_message(chat_id=update.message.chat_id, text="❌ Модуль синхронізації недоступний")
-        
-    def handle_sync_test_command(bot, update):
-        bot.send_message(chat_id=update.message.chat_id, text="❌ Модуль синхронізації недоступний")
-        
-    def handle_sync_user_command(bot, update):
-        bot.send_message(chat_id=update.message.chat_id, text="❌ Модуль синхронізації недоступний")
-        
-    def handle_sync_help_command(bot, update):
-        bot.send_message(chat_id=update.message.chat_id, text="❌ Модуль синхронізації недоступний")
-
-# Python 3.6 compatible sync functions
-from sync_stubs import handle_sync_status_command, handle_sync_test_command, handle_sync_help_command
-from sync_stubs import handle_sync_clean_command, handle_sync_full_command, handle_sync_user_command
-
-from sync_stubs import handle_sync_status_command, handle_sync_test_command, handle_sync_help_command
-from sync_stubs import handle_sync_clean_command, handle_sync_full_command, handle_sync_user_command
