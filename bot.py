@@ -98,16 +98,28 @@ def start_command(bot, update):
             
             try:
                 from telegram import KeyboardButton, ReplyKeyboardMarkup
+                
                 keyboard = [[KeyboardButton("📱 Поділитися номером", request_contact=True)]]
                 reply_markup = ReplyKeyboardMarkup(keyboard, one_time_keyboard=True, resize_keyboard=True)
-                button_message = "👇 Натисніть кнопку для авторизації:"
+                button_message = "Натисніть кнопку '📱 Поділитися номером' нижче для авторизації 👇:"
                 
-                bot.send_message(
-                    chat_id=update.message.chat_id,
-                    text=button_message,
-                    reply_markup=reply_markup,
-                    parse_mode=None
-                )
+                # Відправляємо зображення з текстом і кнопкою
+                try:
+                    with open('/home/gomoncli/zadarma/introscreen.png', 'rb') as photo:
+                        bot.send_photo(
+                            chat_id=update.message.chat_id, 
+                            photo=photo,
+                            caption=button_message,
+                            reply_markup=reply_markup
+                        )
+                except FileNotFoundError:
+                    # Якщо файл не знайдено, відправляємо просто текст з кнопкою
+                    bot.send_message(
+                        chat_id=update.message.chat_id,
+                        text=button_message,
+                        reply_markup=reply_markup,
+                        parse_mode=None
+                    )
             except Exception:
                 fallback_message = (
                     "📱 Відправте свій номер телефону текстом\n\n"
